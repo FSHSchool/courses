@@ -69,7 +69,8 @@ jobs:
           git config --global user.name "Auto-build"
           git worktree add gh-pages
           cd gh-pages
-
+          rm .gitattributes
+          
           # Handling builds for other branches (not currently used)
           # mkdir -p branches
           # mv branches ..
