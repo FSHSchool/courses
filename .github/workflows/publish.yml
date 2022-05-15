@@ -74,16 +74,16 @@ jobs:
           # mkdir -p branches
           # mv branches ..
           rm -rf *
+          mkdir fsh-seminar
           # mv ../branches .
 
           # Move fsh-seminar IG into place
-          mv -r $GITHUB_WORKSPACE/fsh-seminar/output/* ./fsh-seminar/
+          mv $GITHUB_WORKSPACE/fsh-seminar/output/* ./fsh-seminar/
 
           # Move deep dive content into place
           mv $GITHUB_WORKSPACE/fsh-deep-dive/index.html ./fsh-seminar/04-deep-dive-with-fsh.html
           mv $GITHUB_WORKSPACE/fsh-deep-dive/deep-dive.css ./fsh-seminar/
-          mv $GITHUB_WORKSPACE/fsh-deep-dive/slides ./fsh-seminar/slides
-          git lfs track "fsh-seminar/slides/*.png"
+          mv $GITHUB_WORKSPACE/fsh-deep-dive/slides ./fsh-seminar/
 
           # Move landing page into place
           mv $GITHUB_WORKSPACE/*.html .
