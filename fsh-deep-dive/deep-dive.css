@@ -115,6 +115,9 @@ h1 small {
   max-width: 100%;
   min-width: 600px;
 }
+.slide a {
+  cursor:  zoom-in;
+}
 .slide {
   vertical-align: top;
   width: 75%;
