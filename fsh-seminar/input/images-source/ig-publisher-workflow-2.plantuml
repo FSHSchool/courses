@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+
+rectangle "FHIR Implementation Guide Inputs" {
+    file other as "Other assets"
+    file md as "Markdown"
+    file fsh as "FHIR Shorthand (FSH)"
+    cloud sushi as "SUSHI"
+}
+cloud publisher as "publisher.jar"
+artifact built as "Built IG"
+
+fsh -right-> sushi
+sushi -down-> publisher
+md -down-> publisher
+other -down-> publisher
+publisher -down-> built
+@enduml

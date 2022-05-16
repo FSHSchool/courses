@@ -1,0 +1,95 @@
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+     
+    # Steps represent a sequence of tasks that will be executed as part of the job
+        # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Cache contents of ~/.fhir
+        id: fhir-cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.fhir
+          key: ${{ runner.os }}-fhir
+
+      # Makes Java available - see https://github.com/actions/setup-java
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '11'
+
+      # Makes Ruby available for Jekyll - see https://github.com/ruby/setup-ruby
+      - name: Create Gemfile to cache Jekyll + dependencies
+        run: |
+          printf "source 'https://rubygems.org'\ngem 'jekyll'" > $GITHUB_WORKSPACE/Gemfile
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' # Not needed with a .ruby-version file
+          bundler-cache: true
+      - name: Add Jekyll binary from Bundler to $PATH
+        run: |
+          bundle binstubs jekyll
+          echo "`pwd`/bin" >> $GITHUB_PATH
+
+      # Makes Node available for SUSHI - see https://github.com/actions/setup-node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install -g fsh-sushi
+
+      # Grab the latest version of the IG Publisher and stick in the right folder
+      - name: Download IG Publisher
+        run: mkdir -p $GITHUB_WORKSPACE/fsh-seminar/input-cache && curl -L https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar -o $GITHUB_WORKSPACE/fsh-seminar/input-cache/publisher.jar
+
+      # Run the IG publisher
+      - name: Run IG Publisher
+        run: java  -Xmx4g -jar $GITHUB_WORKSPACE/fsh-seminar/input-cache/publisher.jar publisher -ig $GITHUB_WORKSPACE/fsh-seminar
+
+      # Deploy the output
+      - name: Publish site to gh-pages branch
+        run: |
+          # git setup
+          git config --global user.email "noreply@mitre.org"
+          git config --global user.name "Auto-build"
+          git worktree add gh-pages
+          cd gh-pages
+
+          # Handling builds for other branches (not currently used)
+          # mkdir -p branches
+          # mv branches ..
+          rm -rf *
+          # mv ../branches .
+
+          # Move fsh-seminar IG into place
+          mv -r $GITHUB_WORKSPACE/fsh-seminar/output/* ./fsh-seminar/
+
+          # Move deep dive content into place
+          mv $GITHUB_WORKSPACE/fsh-deep-dive/index.html ./fsh-seminar/04-deep-dive-with-fsh.html
+          mv $GITHUB_WORKSPACE/fsh-deep-dive/deep-dive.css ./fsh-seminar/
+          mv $GITHUB_WORKSPACE/fsh-deep-dive/slides ./fsh-seminar/slides
+          git lfs track "fsh-seminar/slides/*.png"
+
+          # Move landing page into place
+          mv $GITHUB_WORKSPACE/*.html .
+          mv $GITHUB_WORKSPACE/*.png .
+
+          rm -rf .github
+          git add -A
+          git commit --amend -m "Update site"
+          GIT_SSH_COMMAND='ssh -i ' git push -u --force origin gh-pages

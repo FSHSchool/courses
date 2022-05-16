@@ -1,0 +1,52 @@
+@startuml
+<style>
+rectangle {
+  BackGroundColor #fff
+  LineThickness 1
+  LineColor black
+}
+</style>
+
+skinparam defaultFontName Arial
+
+left to right direction
+
+
+file patient as "OSA Patient"
+rectangle name
+rectangle birth_date as "birth date"
+rectangle birth_place as "birth place"
+
+file bmi as "OSA BMI"
+rectangle bmi_value as "BMI value"
+rectangle result_date as "result date"
+rectangle performer as "performer"
+
+file condition as "OSA Condition"
+rectangle dx as "diagnosis code"
+rectangle dx_date as "diagnosis date"
+rectangle dx_provider as "diagnosing provider"
+
+file practitioner as "OSA Practitioner"
+rectangle identifier as "identifier (NPI)"
+rectangle name2 as "name"
+
+patient --> name
+patient --> birth_date
+patient --> birth_place
+
+patient ==down=> bmi
+bmi -down-> bmi_value
+bmi -down-> result_date
+bmi -down-> performer
+
+patient ==down=> condition
+condition -down-> dx
+condition -down-> dx_date
+condition -down-> dx_provider
+
+patient ==down=> practitioner
+practitioner -down-> identifier
+practitioner -down-> name2
+
+@enduml

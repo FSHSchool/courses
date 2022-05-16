@@ -1,0 +1,185 @@
+/*------------------------------------*\
+    RESET
+\*------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+    v2.0b1 | 201101
+    NOTE:WORK IN PROGRESS
+    USE WITH CAUTION AND TEST WITH ABANDON */
+
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+b,u,i,center,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary,
+time,mark,audio,video{
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    font:inherit;
+    vertical-align:baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section{
+    display:block;
+}
+body{
+    line-height:1;
+}
+
+blockquote,q{
+    quotes:none;
+}
+blockquote:before,blockquote:after,
+q:before,q:after{
+    content:’’;
+    content:none;
+}
+/* remember to define visible focus styles!
+:focus{
+    outline:?????;
+} */
+
+/* remember to highlight inserts somehow! */
+ins{
+    text-decoration:none;
+}
+del{
+    text-decoration:line-through;
+}
+
+
+
+
+/*------------------------------------*\
+    $MAIN
+\*------------------------------------*/
+/* GO! */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 0.9em;
+}
+
+code, pre {
+  font-family: 'Courier New', Courier, monospace
+}
+
+#topline {
+  width: 100%;
+  border-bottom: 5px solid #453d83;
+}
+
+.content, h1, p.updated-at {
+  width: 90%;
+  margin: 0 auto;
+}
+
+p.updated-at {
+  font-size: 1em;
+  margin-top: 1em;
+  color: #aaa;
+  font-weight: 300;
+}
+
+.content {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 2em;
+}
+
+h1 small {
+  font-size: 0.7em;
+  color: #aaa;
+  font-weight: 300;
+}
+
+.slide img {
+  border: 1px solid #ddd;
+  float: left;
+  z-index: 1;
+  max-width: 100%;
+  min-width: 600px;
+}
+.slide {
+  vertical-align: top;
+  width: 75%;
+}
+.notes {
+  line-height: 1.4em;
+  vertical-align: top;
+  padding-left: 1em;
+  width: 25%;
+}
+
+.slide, .notes {
+  padding-bottom: 4em;
+}
+
+.slidenumber {
+  font-size: 0.75em;
+  background: #000;
+  float: right;
+  margin-top: -1.7em;
+  z-index: 1000000;
+  height: 1.4em;
+  color: #fff;
+  width: 2.5em;
+  text-align: center;
+  padding-top: 0.3em;
+  font-weight: 600;
+}
+
+.notes ul {
+  list-style: disc;
+}
+
+.notes ul li, .notes ol li {
+  margin-left: 1.5em;
+}
+
+.notes ul li ul li {
+  margin-left: 2em;
+  list-style: circle;
+}
+
+.notes p + p, .notes p + ul, .notes p + ol, .notes ol + p, .notes ul + p {
+  margin-top: 1em;
+}
+
+.notes strong {
+  font-weight: bold;
+}
+
+em, i {
+  font-style: italic;
+}
+
+
+.notes table {
+  border-collapse: collapse;
+}
+
+.notes th, .notes td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.notes thead {
+  background-color: #333;
+  color: white;
+}

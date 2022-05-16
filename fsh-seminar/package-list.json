@@ -1,0 +1,16 @@
+{
+    "package-id": "org.fshschool.courses.fsh-seminar",
+    "canonical": "https://fshschool.org/courses/fsh-seminar",
+    "title": "FSH Seminar",
+    "introduction": "Course materials for the FSH Seminar.",
+    "list": [
+        {
+            "version": "current",
+            "desc": "Continuous Integration Build (latest in version control)",
+            "path": "https://fshschool.org/courses/fsh-seminar",
+            "status": "ci-build",
+            "current": true
+        }
+    ],
+    "category": "n/a"
+}

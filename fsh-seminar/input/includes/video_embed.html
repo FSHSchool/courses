@@ -1,0 +1,24 @@
+{% assign id_tag = include.video | replace: '.', '-' %}
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-{{ id_tag }}').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-{{ id_tag }}" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/{{ include.video }}.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/{{ include.video }}.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>-->

@@ -1,0 +1,16 @@
+@startuml
+skinparam defaultFontName Arial
+
+rectangle "FHIR Implementation Guide Inputs" {
+    file other as "Other assets"
+    file md as "Markdown"
+    file fsh as "FHIR Artifacts"
+}
+cloud publisher as "publisher.jar"
+artifact built as "Built IG"
+
+fsh -down-> publisher
+md -down-> publisher
+other -down-> publisher
+publisher -down-> built
+@enduml

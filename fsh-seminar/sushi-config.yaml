@@ -1,0 +1,48 @@
+# ╭──────────────────────────────────────ImplementationGuide───────────────────────────────────────╮
+# │  The properties below are used to create the ImplementationGuide resource. For a list of       │
+# │  supported properties, see: https://fshschool.org/sushi/configuration/                         │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+id: org.fshschool.courses.fsh-seminar
+canonical: https://fshschool.org/courses/fsh-seminar
+name: FSHSeminar
+title: FSH Seminar
+status: draft
+version: 0.1.0
+fhirVersion: 4.0.1
+copyrightYear: 2022+
+releaseLabel: ci-build
+license: Apache-2.0
+dependencies:
+publisher:
+  name: fshschool.org
+  url: https://fshschool.org
+
+# ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
+# │  To use a provided input/includes/menu.xml file, delete the "menu" property below.             │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+menu:
+  Home: index.html
+  Course Content:
+    "0. Setup": setup.html
+    "1. Reading an IG": 01-reading-an-ig.html
+    "2. Creating an IG": 02-creating-an-ig.html
+    "3. Hands-On Exercise": 03-exercise.html
+    "4. Dive Deep with FSH": 04-deep-dive-with-fsh.html
+  "FHIR Background/Resources": fhir-resources.html
+  Artifacts: artifacts.html
+
+pages:
+  index.md:
+    title: FSH Seminar
+  setup.md:
+    title: Course Setup
+  fhir-resources.md:
+    title: FHIR Resources
+  01-reading-an-ig.md:
+    title: "Part 1: Reading an IG"
+  02-creating-an-ig.md:
+    title: "Part 2: Creating an IG"
+  03-exercise.md:
+    title: "Part 3: Hands-On Exercise"
+  04-deep-dive-with-fsh.md:
+    title: "Part 4: Deep Dive With FSH"
