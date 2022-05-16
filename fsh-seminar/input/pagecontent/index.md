@@ -139,3 +139,8 @@ We recommend completing the course materials over two days as described below.
 If you have questions or comments, please contact us on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a>.
 
 MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.
+
+<script>
+    // Get rid of "Computable Name:" at top of index.html
+    [...document.querySelectorAll("*")].filter(e => e.childNodes && [...e.childNodes].find(n => n.nodeValue?.match("Computable Name")))[0].parentNode.parentNode.parentNode.parentNode.remove();
+</script>
