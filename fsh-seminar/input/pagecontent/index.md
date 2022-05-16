@@ -62,7 +62,7 @@ We recommend completing the course materials over two days as described below.
                 <li>Complete the <a href="setup.html">setup instructions</a></li>
             </ol>
         </td>
-        <td>~1 hour; help available on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a> (live support May 24-25 9am-5pm Eastern)</td>
+        <td>~1 hour; help available on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a> (live support May 24-25 9am-4pm Eastern)</td>
     </tr>
 
     <tr style="background-color: #453d83; color: white;">
