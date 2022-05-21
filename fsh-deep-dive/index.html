@@ -4,12 +4,6 @@
   <meta charset="utf-8">
   <title></title>
   <link rel="stylesheet" href="deep-dive.css">
-  <style>
-
-      @media print {
-        td {border-top: 1px solid #000; padding-top: 1em; page-break-before: always;}
-      }
-  </style>
 </head>
 
 <body id="home">
@@ -22,23 +16,136 @@
   </div>
 
   <h1>Deep Dive with FSH <small>by Chris Moesel</small></h1>
-  <p class="updated-at">Last updated at 10:03am on May. 17, 2022</p>
+  <p class="updated-at">Last updated at 12:50pm on May. 21, 2022</p>
   <div class="content">
+
+    <h2>Video version</h2>
+
+    <div id="youtube-embed-container" class="inline-youtube">
+      <div id="youtube-player-hide-ui" onclick="closePlayer();">&times; Close player</div>
+      <div id="youtube-player"></div>
+    </div>
+    <div id="youtube-placeholder" style="background-color: #e7e6e6; margin-bottom: 4rem; color: #aaa; text-align: center; display: none;"><br><br><br><br><br>Scroll to top of page to pop video back in.</div>
+
+    <script>
+        // Load video player embed script
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Add video embed
+        var divToReplace = document.getElementById("youtube-player");
+        var playerWidth = divToReplace.offsetWidth;
+        var playerHeight = playerWidth * 0.5625;
+        function onYouTubeIframeAPIReady() {
+          window.youtubePlayer = new YT.Player('youtube-player', {
+            height: playerHeight,
+            width: playerWidth,
+            videoId: 'joHNtYmYFjI',
+             playerVars: {
+              'playsinline': 1,
+              'rel' : 0,
+              'showinfo' : 0,
+              'showsearch' : 0,
+              'modestbranding' : 1
+            }
+          });
+        }
+
+        // Resize player to fill available size
+        function playerSizer() {
+          var player = document.getElementById("youtube-player");
+          var width = player.offsetWidth;
+          player.style.height = (width * 0.5625) + "px";
+        }
+        window.addEventListener("resize", playerSizer);
+
+        function onPlayerReady(event) {
+          playerSizer();
+        }
+
+        function closePlayer() {
+          var scrollPosY = window.scrollY;
+          var scrollPosX = window.scrollX;
+          var playerEmbed = document.getElementById("youtube-embed-container");
+          playerEmbed.classList.add("inline-youtube");
+          playerEmbed.classList.remove("fix-youtube");
+          playerSizer();
+          var placeholder = document.getElementById("youtube-placeholder");
+          placeholder.style.display = "none";
+          window.scrollTo(scrollPosX, scrollPosY);
+          console.log("Player closed");
+          youtubePlayer.pauseVideo();
+        }
+
+        function popOutPlayerAndPlay(sec) {
+          var player = document.querySelector(".content");
+          var playerWidth = player.offsetWidth;
+          var playerHeight = playerWidth * 0.5625;
+          var placeholder = document.getElementById("youtube-placeholder");
+          placeholder.style.width = playerWidth + "px";
+          placeholder.style.height = playerHeight + "px";
+          placeholder.style.display = "inherit";
+
+          var playerEmbed = document.getElementById("youtube-embed-container");
+          playerEmbed.classList.add("fix-youtube");
+          playerEmbed.classList.remove("inline-youtube");
+          playerSizer();
+          console.log("Player popped out");
+
+          youtubePlayer.seekTo(sec);
+          youtubePlayer.playVideo();
+        }
+
+        // Automatically pop video in and out
+        window.addEventListener("scroll", (event) => {
+            if(youtubePlayer !== undefined && youtubePlayer.getPlayerState() == YT.PlayerState.PLAYING) {
+              if(document.getElementById("speaker-notes").getBoundingClientRect().top < -100) {
+                var player = document.querySelector(".content");
+                var playerWidth = player.offsetWidth;
+                var playerHeight = playerWidth * 0.5625;
+                var placeholder = document.getElementById("youtube-placeholder");
+                placeholder.style.width = playerWidth + "px";
+                placeholder.style.height = playerHeight + "px";
+                placeholder.style.display = "inherit";
+
+                var playerEmbed = document.getElementById("youtube-embed-container");
+                playerEmbed.classList.add("fix-youtube");
+                playerEmbed.classList.remove("inline-youtube");
+
+                playerSizer();
+              }
+              else if(this.scrollY == 0) {
+                var placeholder = document.getElementById("youtube-placeholder");
+                placeholder.style.display = "none";
+                var playerEmbed = document.getElementById("youtube-embed-container");
+                playerEmbed.classList.add("inline-youtube");
+                playerEmbed.classList.remove("fix-youtube");
+                playerSizer();
+             }
+           }
+        });
+    </script>
+
+    <h2 id="speaker-notes">Speaker notes version</h2>
+
     <table>
       
         <tr>
-          <td class="slide"><a href="slides/slide-0.png" target="_blank"><img src="slides/slide-0.png"></a><span class="slidenumber">1</span></td>
+          <td class="slide"><a href="slides/slide-0.png" target="_blank" name="1"><img src="slides/slide-0.png"></a><a class="slidenumber" href="#1">1</a></td>
           <td class="notes">
             <p>Welcome to FHIR for IG Authors! The notes on the side are here to explain things in more detail or provide additional information and tips not found on the slides.</p>
 
 <p><strong>Ready to dive in?</strong></p>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(0);">Play video at slide 1</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-1.png" target="_blank"><img src="slides/slide-1.png"></a><span class="slidenumber">2</span></td>
+          <td class="slide"><a href="slides/slide-1.png" target="_blank" name="2"><img src="slides/slide-1.png"></a><a class="slidenumber" href="#2">2</a></td>
           <td class="notes">
             <p><strong>Implementation Guides</strong> (IG) describe how to use FHIR for specific use cases around the exchange and use of health data.</p>
 
@@ -54,11 +161,12 @@
 </ul>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(56);">Play video at slide 2</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-2.png" target="_blank"><img src="slides/slide-2.png"></a><span class="slidenumber">3</span></td>
+          <td class="slide"><a href="slides/slide-2.png" target="_blank" name="3"><img src="slides/slide-2.png"></a><a class="slidenumber" href="#3">3</a></td>
           <td class="notes">
             <p>IGs can have a variety of different scopes and purposes.</p>
 
@@ -70,11 +178,12 @@
 </ul>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(187);">Play video at slide 3</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-3.png" target="_blank"><img src="slides/slide-3.png"></a><span class="slidenumber">4</span></td>
+          <td class="slide"><a href="slides/slide-3.png" target="_blank" name="4"><img src="slides/slide-3.png"></a><a class="slidenumber" href="#4">4</a></td>
           <td class="notes">
             <p>There are many different reasons to build a FHIR IG:</p>
 
@@ -100,11 +209,12 @@
 <p><em>Image credit: Tenor (<a href="https://tenor.com/view/under-construction90s-90s-under-construction-oldies-gif-20223524">https://tenor.com/view/under-construction90s-90s-under-construction-oldies-gif-20223524</a>)</em></p>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(330);">Play video at slide 4</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-4.png" target="_blank"><img src="slides/slide-4.png"></a><span class="slidenumber">5</span></td>
+          <td class="slide"><a href="slides/slide-4.png" target="_blank" name="5"><img src="slides/slide-4.png"></a><a class="slidenumber" href="#5">5</a></td>
           <td class="notes">
             <p>There are a few ways to build IGs:</p>
 
@@ -116,33 +226,36 @@
 </ul>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(578);">Play video at slide 5</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-5.png" target="_blank"><img src="slides/slide-5.png"></a><span class="slidenumber">6</span></td>
+          <td class="slide"><a href="slides/slide-5.png" target="_blank" name="6"><img src="slides/slide-5.png"></a><a class="slidenumber" href="#6">6</a></td>
           <td class="notes">
             <p>Creating an Implementation Guide requires a lot of knowledge, collaboration, and agility.</p>
 
 <p>FHIR IGs go through many iterations before publication.</p>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(739);">Play video at slide 6</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-6.png" target="_blank"><img src="slides/slide-6.png"></a><span class="slidenumber">7</span></td>
+          <td class="slide"><a href="slides/slide-6.png" target="_blank" name="7"><img src="slides/slide-6.png"></a><a class="slidenumber" href="#7">7</a></td>
           <td class="notes">
             <p>IG authors often have to respond quickly to an ever-changing (and challenging) landscape.</p>
 
 <p>Having the right skills and the right tools can make a big difference.</p>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(777);">Play video at slide 7</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-7.png" target="_blank"><img src="slides/slide-7.png"></a><span class="slidenumber">8</span></td>
+          <td class="slide"><a href="slides/slide-7.png" target="_blank" name="8"><img src="slides/slide-7.png"></a><a class="slidenumber" href="#8">8</a></td>
           <td class="notes">
             <p>FHIR Shorthand (FSH, pronounced &quot;fish&quot;) was created to support the authoring agility that most IG developers need.</p>
 
@@ -158,11 +271,12 @@
 </ul>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(822);">Play video at slide 8</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-8.png" target="_blank"><img src="slides/slide-8.png"></a><span class="slidenumber">9</span></td>
+          <td class="slide"><a href="slides/slide-8.png" target="_blank" name="9"><img src="slides/slide-8.png"></a><a class="slidenumber" href="#9">9</a></td>
           <td class="notes">
             <p>Fully building an IG with FSH requires two primary tools:</p>
 
@@ -184,11 +298,12 @@
               <li>FSH Doc: <a href="https://bit.ly/3pa0C8y" target="_blank">https://bit.ly/3pa0C8y</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1059);">Play video at slide 9</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-9.png" target="_blank"><img src="slides/slide-9.png"></a><span class="slidenumber">10</span></td>
+          <td class="slide"><a href="slides/slide-9.png" target="_blank" name="10"><img src="slides/slide-9.png"></a><a class="slidenumber" href="#10">10</a></td>
           <td class="notes">
             <p>Most FSH definitions have the same basic structure:</p>
 
@@ -209,11 +324,12 @@
               <li>FSH Doc: <a href="https://bit.ly/3vf48md" target="_blank">https://bit.ly/3vf48md</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1222);">Play video at slide 10</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-10.png" target="_blank"><img src="slides/slide-10.png"></a><span class="slidenumber">11</span></td>
+          <td class="slide"><a href="slides/slide-10.png" target="_blank" name="11"><img src="slides/slide-10.png"></a><a class="slidenumber" href="#11">11</a></td>
           <td class="notes">
             <p>These examples show how the declaration, keywords, and rules relate to actual FHIR Shorthand definitions. At this point, you&#39;re not expected to understand the definitions, but this gives you an idea of what real FHIR Shorthand looks like!</p>
 
@@ -224,11 +340,12 @@
               <li>FSH Doc: <a href="https://bit.ly/3vf48md" target="_blank">https://bit.ly/3vf48md</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1333);">Play video at slide 11</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-11.png" target="_blank"><img src="slides/slide-11.png"></a><span class="slidenumber">12</span></td>
+          <td class="slide"><a href="slides/slide-11.png" target="_blank" name="12"><img src="slides/slide-11.png"></a><a class="slidenumber" href="#12">12</a></td>
           <td class="notes">
             <p>Now that we&#39;ve briefly covered the high-level mechanics and structure of FSH, let&#39;s jump into the details!</p>
 
@@ -249,11 +366,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3o2EQnJ" target="_blank">https://bit.ly/3o2EQnJ</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1420);">Play video at slide 12</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-12.png" target="_blank"><img src="slides/slide-12.png"></a><span class="slidenumber">13</span></td>
+          <td class="slide"><a href="slides/slide-12.png" target="_blank" name="13"><img src="slides/slide-12.png"></a><a class="slidenumber" href="#13">13</a></td>
           <td class="notes">
             <p>Taking a closer look at the US Core Patient profile, we can see that it demonstrates a number of core profiling approaches:</p>
 
@@ -274,11 +392,12 @@
               <li>US Core Doc: <a href="https://bit.ly/3EXpnLI" target="_blank">https://bit.ly/3EXpnLI</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1686);">Play video at slide 13</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-13.png" target="_blank"><img src="slides/slide-13.png"></a><span class="slidenumber">14</span></td>
+          <td class="slide"><a href="slides/slide-13.png" target="_blank" name="14"><img src="slides/slide-13.png"></a><a class="slidenumber" href="#14">14</a></td>
           <td class="notes">
             <p>To define a profile in FSH, you <em>must</em> specify the <code>Profile</code> name and its <code>Parent</code>.  You <em>may</em> specify <code>Id</code>, <code>Title</code>, and <code>Description</code> (all of which are recommended).</p>
 
@@ -299,11 +418,12 @@
               <li>FSH Online: <a href="https://bit.ly/3AM3ahc" target="_blank">https://bit.ly/3AM3ahc</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1788);">Play video at slide 14</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-14.png" target="_blank"><img src="slides/slide-14.png"></a><span class="slidenumber">15</span></td>
+          <td class="slide"><a href="slides/slide-14.png" target="_blank" name="15"><img src="slides/slide-14.png"></a><a class="slidenumber" href="#15">15</a></td>
           <td class="notes">
             <p>The previous slide, and many of the following slides, includes a link to the example on <a href="https://fshschool.org/FSHOnline/">FSH Online</a>.</p>
 
@@ -325,11 +445,12 @@
               <li>FSH Online: <a href="https://bit.ly/3g0HmpQ" target="_blank">https://bit.ly/3g0HmpQ</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1922);">Play video at slide 15</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-15.png" target="_blank"><img src="slides/slide-15.png"></a><span class="slidenumber">16</span></td>
+          <td class="slide"><a href="slides/slide-15.png" target="_blank" name="16"><img src="slides/slide-15.png"></a><a class="slidenumber" href="#16">16</a></td>
           <td class="notes">
             <p><em>Back to the slide we just reviewed...</em></p>
 
@@ -346,11 +467,12 @@
               <li>FSH Online: <a href="https://bit.ly/3AM3ahc" target="_blank">https://bit.ly/3AM3ahc</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1978);">Play video at slide 16</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-16.png" target="_blank"><img src="slides/slide-16.png"></a><span class="slidenumber">17</span></td>
+          <td class="slide"><a href="slides/slide-16.png" target="_blank" name="17"><img src="slides/slide-16.png"></a><a class="slidenumber" href="#17">17</a></td>
           <td class="notes">
             <p>Profiles support many different kinds of rules for constraining the core resource definition to match your use case. In the following slides, we&#39;ll cover several of these types of rules.</p>
 
@@ -373,11 +495,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/2WaItMM" target="_blank">https://bit.ly/2WaItMM</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2019);">Play video at slide 17</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-17.png" target="_blank"><img src="slides/slide-17.png"></a><span class="slidenumber">18</span></td>
+          <td class="slide"><a href="slides/slide-17.png" target="_blank" name="18"><img src="slides/slide-17.png"></a><a class="slidenumber" href="#18">18</a></td>
           <td class="notes">
             <p>In FSH, authors use <strong>cardinality rules</strong> to narrow cardinality. Cardinality rules indicate the target element plus the <em>min</em> and/or <em>max</em> occurrences.</p>
 
@@ -410,11 +533,12 @@
               <li>FSH Online: <a href="https://bit.ly/3CLSjo1" target="_blank">https://bit.ly/3CLSjo1</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2116);">Play video at slide 18</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-18.png" target="_blank"><img src="slides/slide-18.png"></a><span class="slidenumber">19</span></td>
+          <td class="slide"><a href="slides/slide-18.png" target="_blank" name="19"><img src="slides/slide-18.png"></a><a class="slidenumber" href="#19">19</a></td>
           <td class="notes">
             <p>IG authors can apply special flags to elements to give them additional meaning.</p>
 
@@ -435,11 +559,12 @@
               <li>FSH Online: <a href="https://bit.ly/3zC8OB0" target="_blank">https://bit.ly/3zC8OB0</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2244);">Play video at slide 19</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-19.png" target="_blank"><img src="slides/slide-19.png"></a><span class="slidenumber">20</span></td>
+          <td class="slide"><a href="slides/slide-19.png" target="_blank" name="20"><img src="slides/slide-19.png"></a><a class="slidenumber" href="#20">20</a></td>
           <td class="notes">
             <p>Marking an element as <strong>Must Support (<code>MS</code>)</strong> is <em>different</em> than making it required (<code>1..1</code>).</p>
 
@@ -457,11 +582,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3zEqtrA" target="_blank">https://bit.ly/3zEqtrA</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2328);">Play video at slide 20</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-20.png" target="_blank"><img src="slides/slide-20.png"></a><span class="slidenumber">21</span></td>
+          <td class="slide"><a href="slides/slide-20.png" target="_blank" name="21"><img src="slides/slide-20.png"></a><a class="slidenumber" href="#21">21</a></td>
           <td class="notes">
             <p>For example, US Core documents how responders and requestors should support elements marked as Must Support.</p>
 
@@ -474,11 +600,12 @@
               <li>US Core Doc: <a href="https://bit.ly/39BCrYF" target="_blank">https://bit.ly/39BCrYF</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2449);">Play video at slide 21</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-21.png" target="_blank"><img src="slides/slide-21.png"></a><span class="slidenumber">22</span></td>
+          <td class="slide"><a href="slides/slide-21.png" target="_blank" name="22"><img src="slides/slide-21.png"></a><a class="slidenumber" href="#22">22</a></td>
           <td class="notes">
             <p>IG authors can constrain (or restrict) element types in several ways:</p>
 
@@ -503,11 +630,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3CHiLz0" target="_blank">https://bit.ly/3CHiLz0</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2531);">Play video at slide 22</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-22.png" target="_blank"><img src="slides/slide-22.png"></a><span class="slidenumber">23</span></td>
+          <td class="slide"><a href="slides/slide-22.png" target="_blank" name="23"><img src="slides/slide-22.png"></a><a class="slidenumber" href="#23">23</a></td>
           <td class="notes">
             <p>In FSH, authors use <strong>type rules</strong> to constrain an element&#39;s types. Type rules indicate the target element, the <code>only</code> keyword, and one or more allowed types separated by the <code>or</code> keyword.</p>
 
@@ -524,11 +652,12 @@
               <li>FSH Online: <a href="https://bit.ly/3AHL3sq" target="_blank">https://bit.ly/3AHL3sq</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2642);">Play video at slide 23</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-23.png" target="_blank"><img src="slides/slide-23.png"></a><span class="slidenumber">24</span></td>
+          <td class="slide"><a href="slides/slide-23.png" target="_blank" name="24"><img src="slides/slide-23.png"></a><a class="slidenumber" href="#24">24</a></td>
           <td class="notes">
             <p>Constraining <code>Reference</code> and <code>canonical</code> types in FSH is very similar to constraining other types. The primary difference is that the target types are inside the parentheses of <code>Reference()</code> or <code>Canonical()</code> keywords.</p>
 
@@ -545,11 +674,12 @@
               <li>FSH Online: <a href="https://bit.ly/3u9zzeY" target="_blank">https://bit.ly/3u9zzeY</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2713);">Play video at slide 24</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-24.png" target="_blank"><img src="slides/slide-24.png"></a><span class="slidenumber">25</span></td>
+          <td class="slide"><a href="slides/slide-24.png" target="_blank" name="25"><img src="slides/slide-24.png"></a><a class="slidenumber" href="#25">25</a></td>
           <td class="notes">
             <p>Sometime a profile requires that an element have a specific value.  For example, a profile for Body Weight might indicate that the Observation&#39;s <code>code</code> must be LOINC 29463-7.</p>
 
@@ -576,11 +706,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3u5anGq" target="_blank">https://bit.ly/3u5anGq</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2755);">Play video at slide 25</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-25.png" target="_blank"><img src="slides/slide-25.png"></a><span class="slidenumber">26</span></td>
+          <td class="slide"><a href="slides/slide-25.png" target="_blank" name="26"><img src="slides/slide-25.png"></a><a class="slidenumber" href="#26">26</a></td>
           <td class="notes">
             <p>In FSH, authors use <strong>assignment rules</strong> to require particular element values. Assignment rules indicate the target element, the <code>=</code> symbol (surrounded by spaces), the required value, and an optional <code>(exactly)</code> keyword.</p>
 
@@ -602,11 +733,12 @@
               <li>FSH Online: <a href="https://bit.ly/3kEFCFh" target="_blank">https://bit.ly/3kEFCFh</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2908);">Play video at slide 26</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-26.png" target="_blank"><img src="slides/slide-26.png"></a><span class="slidenumber">27</span></td>
+          <td class="slide"><a href="slides/slide-26.png" target="_blank" name="27"><img src="slides/slide-26.png"></a><a class="slidenumber" href="#27">27</a></td>
           <td class="notes">
             <p>The previous slide&#39;s example specified the code as <code>http://loinc.org#29463-7</code>. Many authors, however, will use an <em>alias</em> for common URLs.</p>
 
@@ -645,11 +777,12 @@
               <li>FSH Online: <a href="https://bit.ly/39SMWqN" target="_blank">https://bit.ly/39SMWqN</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3007);">Play video at slide 27</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-27.png" target="_blank"><img src="slides/slide-27.png"></a><span class="slidenumber">28</span></td>
+          <td class="slide"><a href="slides/slide-27.png" target="_blank" name="28"><img src="slides/slide-27.png"></a><a class="slidenumber" href="#28">28</a></td>
           <td class="notes">
             <p>Before moving on to the next type of constraint, it&#39;s important to have a basic understanding of <strong>terminology</strong> in FHIR.</p>
 
@@ -681,11 +814,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3o2ByRp" target="_blank">https://bit.ly/3o2ByRp</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3175);">Play video at slide 28</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-28.png" target="_blank"><img src="slides/slide-28.png"></a><span class="slidenumber">29</span></td>
+          <td class="slide"><a href="slides/slide-28.png" target="_blank" name="29"><img src="slides/slide-28.png"></a><a class="slidenumber" href="#29">29</a></td>
           <td class="notes">
             <p>Sometimes profiles require a specific value for a given element, but other times they may require a value from a <em>set of allowed codes</em> for a given element.</p>
 
@@ -698,11 +832,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3zC6H02" target="_blank">https://bit.ly/3zC6H02</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3334);">Play video at slide 29</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-29.png" target="_blank"><img src="slides/slide-29.png"></a><span class="slidenumber">30</span></td>
+          <td class="slide"><a href="slides/slide-29.png" target="_blank" name="30"><img src="slides/slide-29.png"></a><a class="slidenumber" href="#30">30</a></td>
           <td class="notes">
             <p>In FSH, authors use <strong>binding rules</strong> to bind elements to value sets. Binding rules indicate the target element, the <code>from</code> keyword, a value set URI/id/name, and an optional strength (in parentheses).</p>
 
@@ -722,11 +857,12 @@
               <li>FSH Online: <a href="https://bit.ly/3u7G7dU" target="_blank">https://bit.ly/3u7G7dU</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3497);">Play video at slide 30</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-30.png" target="_blank"><img src="slides/slide-30.png"></a><span class="slidenumber">31</span></td>
+          <td class="slide"><a href="slides/slide-30.png" target="_blank" name="31"><img src="slides/slide-30.png"></a><a class="slidenumber" href="#31">31</a></td>
           <td class="notes">
             <p>Profiles use <strong>extensions</strong> to support data that doesn&#39;t fit into any of the existing elements in the parent resource.</p>
 
@@ -762,11 +898,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3ACqjSR" target="_blank">https://bit.ly/3ACqjSR</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3653);">Play video at slide 31</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-31.png" target="_blank"><img src="slides/slide-31.png"></a><span class="slidenumber">32</span></td>
+          <td class="slide"><a href="slides/slide-31.png" target="_blank" name="32"><img src="slides/slide-31.png"></a><a class="slidenumber" href="#32">32</a></td>
           <td class="notes">
             <p>In FSH, authors use <strong>contains rules</strong> to add extensions to a profile.  Contains rules specify the target element, the <code>contains</code> keyword, an extension URL/id/name, the <code>named</code> keyword, a local name to refer to the extension, a cardinality (<code>min...max</code>), and optional flags.</p>
 
@@ -789,11 +926,12 @@
               <li>FSH Online: <a href="https://bit.ly/2XJEqas" target="_blank">https://bit.ly/2XJEqas</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3825);">Play video at slide 32</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-32.png" target="_blank"><img src="slides/slide-32.png"></a><span class="slidenumber">33</span></td>
+          <td class="slide"><a href="slides/slide-32.png" target="_blank" name="33"><img src="slides/slide-32.png"></a><a class="slidenumber" href="#33">33</a></td>
           <td class="notes">
             <p>Profiles and extensions are represented in FHIR using the <a href="http://hl7.org/fhir/R4/structuredefinition.html">StructureDefinition</a> resource.</p>
 
@@ -824,11 +962,12 @@
               <li>FSH Online: <a href="https://bit.ly/3AIHq5L" target="_blank">https://bit.ly/3AIHq5L</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3952);">Play video at slide 33</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-33.png" target="_blank"><img src="slides/slide-33.png"></a><span class="slidenumber">34</span></td>
+          <td class="slide"><a href="slides/slide-33.png" target="_blank" name="34"><img src="slides/slide-33.png"></a><a class="slidenumber" href="#34">34</a></td>
           <td class="notes">
             <p>Inside a <code>StructureDefinition</code>, every resource/profile element (e.g., <code>name</code>, <code>gender</code>) is represented by an <a href="http://hl7.org/fhir/R4/elementdefinition.html">ElementDefinition</a>.</p>
 
@@ -860,11 +999,12 @@
               <li>FSH Online: <a href="https://bit.ly/2XRhfLp" target="_blank">https://bit.ly/2XRhfLp</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4107);">Play video at slide 34</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-34.png" target="_blank"><img src="slides/slide-34.png"></a><span class="slidenumber">35</span></td>
+          <td class="slide"><a href="slides/slide-34.png" target="_blank" name="35"><img src="slides/slide-34.png"></a><a class="slidenumber" href="#35">35</a></td>
           <td class="notes">
             <p>Slicing is one of the most complicated aspects of profile development in FHIR, but... it is necessary.</p>
 
@@ -911,11 +1051,12 @@
               <li>3CG2TwDE: <a href="https://bit.ly/3CKhsiC" target="_blank">https://bit.ly/3CKhsiC</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4314);">Play video at slide 35</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-35.png" target="_blank"><img src="slides/slide-35.png"></a><span class="slidenumber">36</span></td>
+          <td class="slide"><a href="slides/slide-35.png" target="_blank" name="36"><img src="slides/slide-35.png"></a><a class="slidenumber" href="#36">36</a></td>
           <td class="notes">
             <p>Implementing slicing in FHIR can be done in three basic steps. The first step is to <strong>define the slicing logic</strong>.</p>
 
@@ -963,11 +1104,12 @@
               <li>FSH Online: <a href="https://bit.ly/3zGlerE" target="_blank">https://bit.ly/3zGlerE</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4662);">Play video at slide 36</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-36.png" target="_blank"><img src="slides/slide-36.png"></a><span class="slidenumber">37</span></td>
+          <td class="slide"><a href="slides/slide-36.png" target="_blank" name="37"><img src="slides/slide-36.png"></a><a class="slidenumber" href="#37">37</a></td>
           <td class="notes">
             <p>After establishing the slicing logic, the next step is to <strong>identify the slices</strong>.</p>
 
@@ -997,11 +1139,12 @@
               <li>FSH Online: <a href="https://bit.ly/3zGlerE" target="_blank">https://bit.ly/3zGlerE</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4962);">Play video at slide 37</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-37.png" target="_blank"><img src="slides/slide-37.png"></a><span class="slidenumber">38</span></td>
+          <td class="slide"><a href="slides/slide-37.png" target="_blank" name="38"><img src="slides/slide-37.png"></a><a class="slidenumber" href="#38">38</a></td>
           <td class="notes">
             <p>After establishing the slicing logic and identifying the slices, the last step is to <strong>define each slice</strong>.</p>
 
@@ -1042,11 +1185,12 @@
               <li>FSH Online: <a href="https://bit.ly/3zGlerE" target="_blank">https://bit.ly/3zGlerE</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5021);">Play video at slide 38</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-38.png" target="_blank"><img src="slides/slide-38.png"></a><span class="slidenumber">39</span></td>
+          <td class="slide"><a href="slides/slide-38.png" target="_blank" name="39"><img src="slides/slide-38.png"></a><a class="slidenumber" href="#39">39</a></td>
           <td class="notes">
             <p>Now that you&#39;re an expert in slicing, it&#39;s time to move on to the next tricky topic: <em>invariants</em>. But before we do, we must first gain a basic understanding of <strong>FHIRPath</strong>.</p>
 
@@ -1074,11 +1218,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3kBoNuL" target="_blank">https://bit.ly/3kBoNuL</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5215);">Play video at slide 39</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-39.png" target="_blank"><img src="slides/slide-39.png"></a><span class="slidenumber">40</span></td>
+          <td class="slide"><a href="slides/slide-39.png" target="_blank" name="40"><img src="slides/slide-39.png"></a><a class="slidenumber" href="#40">40</a></td>
           <td class="notes">
             <p>FHIRPath navigation is fairly simple:</p>
 
@@ -1107,11 +1252,12 @@
               <li>FHIRPath Doc: <a href="https://bit.ly/3kAvE7G" target="_blank">https://bit.ly/3kAvE7G</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5318);">Play video at slide 40</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-40.png" target="_blank"><img src="slides/slide-40.png"></a><span class="slidenumber">41</span></td>
+          <td class="slide"><a href="slides/slide-40.png" target="_blank" name="41"><img src="slides/slide-40.png"></a><a class="slidenumber" href="#41">41</a></td>
           <td class="notes">
             <p>The FHIRPath specification defines a number of keywords and functions. Here we call out a few of the most used ones:</p>
 
@@ -1170,11 +1316,12 @@
               <li>FHIRPath Doc: <a href="https://bit.ly/3kBqgBh" target="_blank">https://bit.ly/3kBqgBh</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5450);">Play video at slide 41</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-41.png" target="_blank"><img src="slides/slide-41.png"></a><span class="slidenumber">42</span></td>
+          <td class="slide"><a href="slides/slide-41.png" target="_blank" name="42"><img src="slides/slide-41.png"></a><a class="slidenumber" href="#42">42</a></td>
           <td class="notes">
             <p>The FHIR specification defines several additional functions not found in the core FHIRPath specification. This slide calls out a few of the more useful functions:</p>
 
@@ -1206,11 +1353,12 @@
               <li>FHIRPath Doc: <a href="https://bit.ly/3ARnrlz" target="_blank">https://bit.ly/3ARnrlz</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5662);">Play video at slide 42</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-42.png" target="_blank"><img src="slides/slide-42.png"></a><span class="slidenumber">43</span></td>
+          <td class="slide"><a href="slides/slide-42.png" target="_blank" name="43"><img src="slides/slide-42.png"></a><a class="slidenumber" href="#43">43</a></td>
           <td class="notes">
             <p>Since FHIRPath can be complex, it&#39;s important to <em>test</em> any FHIRPath you use in an IG.</p>
 
@@ -1228,11 +1376,12 @@
               <li>FHIRPath.jsTestApp: <a href="https://bit.ly/39yOEgA" target="_blank">https://bit.ly/39yOEgA</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5788);">Play video at slide 43</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-43.png" target="_blank"><img src="slides/slide-43.png"></a><span class="slidenumber">44</span></td>
+          <td class="slide"><a href="slides/slide-43.png" target="_blank" name="44"><img src="slides/slide-43.png"></a><a class="slidenumber" href="#44">44</a></td>
           <td class="notes">
             <p>FHIRPath is the primary mechanism for defining logical constraints in FHIR <strong>invariants</strong>.</p>
 
@@ -1263,11 +1412,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3i2aEFu" target="_blank">https://bit.ly/3i2aEFu</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5948);">Play video at slide 44</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-44.png" target="_blank"><img src="slides/slide-44.png"></a><span class="slidenumber">45</span></td>
+          <td class="slide"><a href="slides/slide-44.png" target="_blank" name="45"><img src="slides/slide-44.png"></a><a class="slidenumber" href="#45">45</a></td>
           <td class="notes">
             <p>To <em>define</em> an <strong>invariant</strong> in FSH, you <em>must</em> specify the <code>Invariant</code> identifier, its <code>Severity</code>, and its human-readable <code>Description</code>.  You <em>should</em> also specify a FHIRPath <code>Expression</code>.  You <em>may</em> also specify an <code>XPath</code> expression, but the FHIRPath <code>Expression</code> is preferred.</p>
 
@@ -1290,11 +1440,12 @@
               <li>FSH Online: <a href="https://bit.ly/3o6C2pq" target="_blank">https://bit.ly/3o6C2pq</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6060);">Play video at slide 45</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-45.png" target="_blank"><img src="slides/slide-45.png"></a><span class="slidenumber">46</span></td>
+          <td class="slide"><a href="slides/slide-45.png" target="_blank" name="46"><img src="slides/slide-45.png"></a><a class="slidenumber" href="#46">46</a></td>
           <td class="notes">
             <p>The FHIR core spec aims to cover 80% of interoperability needs (see <a href="http://hl7.org/fhir/R4/overview-arch.html#principles">80/20 rule</a>). Authors define and use extensions to cover the remaining 20%.</p>
 
@@ -1325,11 +1476,12 @@
               <li>FHIR Extension Registry: <a href="https://bit.ly/3ESev1z" target="_blank">https://bit.ly/3ESev1z</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6173);">Play video at slide 46</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-46.png" target="_blank"><img src="slides/slide-46.png"></a><span class="slidenumber">47</span></td>
+          <td class="slide"><a href="slides/slide-46.png" target="_blank" name="47"><img src="slides/slide-46.png"></a><a class="slidenumber" href="#47">47</a></td>
           <td class="notes">
             <p>Defining extensions in FSH is very similar to defining profiles, except:</p>
 
@@ -1366,11 +1518,12 @@
               <li>FSH Online: <a href="https://bit.ly/3ELJyfg" target="_blank">https://bit.ly/3ELJyfg</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6284);">Play video at slide 47</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-47.png" target="_blank"><img src="slides/slide-47.png"></a><span class="slidenumber">48</span></td>
+          <td class="slide"><a href="slides/slide-47.png" target="_blank" name="48"><img src="slides/slide-47.png"></a><a class="slidenumber" href="#48">48</a></td>
           <td class="notes">
             <p>To define a <em>complex</em> extension:</p>
 
@@ -1414,11 +1567,12 @@
               <li>FSH Online: <a href="https://bit.ly/3zDbcqY" target="_blank">https://bit.ly/3zDbcqY</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6428);">Play video at slide 48</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-48.png" target="_blank"><img src="slides/slide-48.png"></a><span class="slidenumber">49</span></td>
+          <td class="slide"><a href="slides/slide-48.png" target="_blank" name="49"><img src="slides/slide-48.png"></a><a class="slidenumber" href="#49">49</a></td>
           <td class="notes">
             <p><em>Recap from slide 27:</em> A <strong>value set</strong> is a set of codes (from the same or different code systems) grouped together for a particular purpose. For example, a value set might specify:</p>
 
@@ -1461,11 +1615,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3AIfrD4" target="_blank">https://bit.ly/3AIfrD4</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6566);">Play video at slide 49</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-49.png" target="_blank"><img src="slides/slide-49.png"></a><span class="slidenumber">50</span></td>
+          <td class="slide"><a href="slides/slide-49.png" target="_blank" name="50"><img src="slides/slide-49.png"></a><a class="slidenumber" href="#50">50</a></td>
           <td class="notes">
             <p>To define a value set in FSH, you <em>must</em> specify the <code>ValueSet</code> name.  You <em>may</em> specify its <code>Id</code>, <code>Title</code>, and <code>Description</code> (all of which are recommended).</p>
 
@@ -1482,11 +1637,12 @@
               <li>FSH Online: <a href="https://bit.ly/39GhrzK" target="_blank">https://bit.ly/39GhrzK</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6760);">Play video at slide 50</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-50.png" target="_blank"><img src="slides/slide-50.png"></a><span class="slidenumber">51</span></td>
+          <td class="slide"><a href="slides/slide-50.png" target="_blank" name="51"><img src="slides/slide-50.png"></a><a class="slidenumber" href="#51">51</a></td>
           <td class="notes">
             <p>FHIR Shorthand supports several types of rules in value sets:</p>
 
@@ -1527,11 +1683,12 @@
               <li>FSH Online: <a href="https://bit.ly/3i63cJv" target="_blank">https://bit.ly/3i63cJv</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6807);">Play video at slide 51</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-51.png" target="_blank"><img src="slides/slide-51.png"></a><span class="slidenumber">52</span></td>
+          <td class="slide"><a href="slides/slide-51.png" target="_blank" name="52"><img src="slides/slide-51.png"></a><a class="slidenumber" href="#52">52</a></td>
           <td class="notes">
             <p><em>Recap from slide 27:</em> A <strong>code system</strong> is like a dictionary of codes, defining what codes exist and what their meanings are.</p>
 
@@ -1573,11 +1730,12 @@
               <li>FHIR Code System Registry: <a href="https://bit.ly/3EN45QK" target="_blank">https://bit.ly/3EN45QK</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7041);">Play video at slide 52</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-52.png" target="_blank"><img src="slides/slide-52.png"></a><span class="slidenumber">53</span></td>
+          <td class="slide"><a href="slides/slide-52.png" target="_blank" name="53"><img src="slides/slide-52.png"></a><a class="slidenumber" href="#53">53</a></td>
           <td class="notes">
             <p>To define a code system in FSH, you <em>must</em> specify the <code>CodeSystem</code> name.  You <em>may</em> specify its <code>Id</code>, <code>Title</code>, and <code>Description</code> (all of which are recommended).</p>
 
@@ -1592,11 +1750,12 @@
               <li>FSH Online: <a href="https://bit.ly/3i59J7g" target="_blank">https://bit.ly/3i59J7g</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7171);">Play video at slide 53</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-53.png" target="_blank"><img src="slides/slide-53.png"></a><span class="slidenumber">54</span></td>
+          <td class="slide"><a href="slides/slide-53.png" target="_blank" name="54"><img src="slides/slide-53.png"></a><a class="slidenumber" href="#54">54</a></td>
           <td class="notes">
             <p>FHIR Shorthand supports several types of rules in code systems:</p>
 
@@ -1638,11 +1797,12 @@
               <li>FSH Online: <a href="https://bit.ly/3ubmemf" target="_blank">https://bit.ly/3ubmemf</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7204);">Play video at slide 54</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-54.png" target="_blank"><img src="slides/slide-54.png"></a><span class="slidenumber">55</span></td>
+          <td class="slide"><a href="slides/slide-54.png" target="_blank" name="55"><img src="slides/slide-54.png"></a><a class="slidenumber" href="#55">55</a></td>
           <td class="notes">
             <p>Writing nested code rules with full code paths can get tedious and redundant.</p>
 
@@ -1670,11 +1830,12 @@
               <li>FSH Online: <a href="https://bit.ly/3kFhqT3" target="_blank">https://bit.ly/3kFhqT3</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7389);">Play video at slide 55</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-55.png" target="_blank"><img src="slides/slide-55.png"></a><span class="slidenumber">56</span></td>
+          <td class="slide"><a href="slides/slide-55.png" target="_blank" name="56"><img src="slides/slide-55.png"></a><a class="slidenumber" href="#56">56</a></td>
           <td class="notes">
             <p>FHIR Shorthand has type-specific syntax for the constructs most often defined in FHIR IGs: profiles, extensions, value sets, code systems, and logical models (not covered here, sorry).</p>
 
@@ -1695,11 +1856,12 @@
               <li>FSH Doc: <a href="https://bit.ly/33HYDRB" target="_blank">https://bit.ly/33HYDRB</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7481);">Play video at slide 56</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-56.png" target="_blank"><img src="slides/slide-56.png"></a><span class="slidenumber">57</span></td>
+          <td class="slide"><a href="slides/slide-56.png" target="_blank" name="57"><img src="slides/slide-56.png"></a><a class="slidenumber" href="#57">57</a></td>
           <td class="notes">
             <p>To define an instance in FSH, you <em>must</em> specify the <code>Instance</code> id and <code>InstanceOf</code>.  You <em>should</em> specify its <code>Usage</code> if it is not intended to be an example.  You <em>may</em> specify its <code>Title</code>, and <code>Description</code> (both of which are recommended).</p>
 
@@ -1759,11 +1921,12 @@
               <li>FSH Doc: <a href="https://bit.ly/33HYDRB" target="_blank">https://bit.ly/33HYDRB</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7637);">Play video at slide 57</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-57.png" target="_blank"><img src="slides/slide-57.png"></a><span class="slidenumber">58</span></td>
+          <td class="slide"><a href="slides/slide-57.png" target="_blank" name="58"><img src="slides/slide-57.png"></a><a class="slidenumber" href="#58">58</a></td>
           <td class="notes">
             <p>IGs define <strong><code>SearchParameter</code>s</strong> to support searching by specific criteria not defined in a FHIR core search parameter.</p>
 
@@ -1797,11 +1960,12 @@
               <li>Search Parameter Registry: <a href="https://bit.ly/3ESpdF5" target="_blank">https://bit.ly/3ESpdF5</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7902);">Play video at slide 58</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-58.png" target="_blank"><img src="slides/slide-58.png"></a><span class="slidenumber">59</span></td>
+          <td class="slide"><a href="slides/slide-58.png" target="_blank" name="59"><img src="slides/slide-58.png"></a><a class="slidenumber" href="#59">59</a></td>
           <td class="notes">
             <p>Defining a <strong><code>SearchParameter</code></strong> in FHIR Shorthand uses the standard <code>Instance</code> syntax.</p>
 
@@ -1818,11 +1982,12 @@
               <li>FSH Online: <a href="https://bit.ly/2WcFKCp" target="_blank">https://bit.ly/2WcFKCp</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7980);">Play video at slide 59</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-59.png" target="_blank"><img src="slides/slide-59.png"></a><span class="slidenumber">60</span></td>
+          <td class="slide"><a href="slides/slide-59.png" target="_blank" name="60"><img src="slides/slide-59.png"></a><a class="slidenumber" href="#60">60</a></td>
           <td class="notes">
             <p>IGs define FHIR <strong><code>OperationDefinition</code>s</strong> to support custom server-side functionality beyond what is defined by core FHIR.</p>
 
@@ -1853,11 +2018,12 @@
               <li>Operations Registry: <a href="https://bit.ly/3ES0hxG" target="_blank">https://bit.ly/3ES0hxG</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8146);">Play video at slide 60</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-60.png" target="_blank"><img src="slides/slide-60.png"></a><span class="slidenumber">61</span></td>
+          <td class="slide"><a href="slides/slide-60.png" target="_blank" name="61"><img src="slides/slide-60.png"></a><a class="slidenumber" href="#61">61</a></td>
           <td class="notes">
             <p>Defining an <strong><code>OperationDefinition</code></strong> in FHIR Shorthand uses the standard <code>Instance</code> syntax.</p>
 
@@ -1895,11 +2061,12 @@
               <li>FSH Online: <a href="https://bit.ly/2XZHbVJ" target="_blank">https://bit.ly/2XZHbVJ</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8270);">Play video at slide 61</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-61.png" target="_blank"><img src="slides/slide-61.png"></a><span class="slidenumber">62</span></td>
+          <td class="slide"><a href="slides/slide-61.png" target="_blank" name="62"><img src="slides/slide-61.png"></a><a class="slidenumber" href="#62">62</a></td>
           <td class="notes">
             <p>FHIR Shorthand supports the use of <strong><code>RuleSet</code>s</strong> to reduce &quot;boilerplate&quot; or repetitiveness in FSH rules.</p>
 
@@ -1944,11 +2111,12 @@
               <li>FSH Online: <a href="https://bit.ly/3ucTs4H" target="_blank">https://bit.ly/3ucTs4H</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8508);">Play video at slide 62</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-62.png" target="_blank"><img src="slides/slide-62.png"></a><span class="slidenumber">63</span></td>
+          <td class="slide"><a href="slides/slide-62.png" target="_blank" name="63"><img src="slides/slide-62.png"></a><a class="slidenumber" href="#63">63</a></td>
           <td class="notes">
             <p>On the left-hand side of the slide, an <strong><code>OperationDefinition</code></strong> leverages a <strong><code>RuleSet</code></strong> for specifying each parameter.</p>
 
@@ -1978,11 +2146,12 @@
               <li>FSH Online: <a href="https://bit.ly/2XZHbVJ" target="_blank">https://bit.ly/2XZHbVJ</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8690);">Play video at slide 63</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-63.png" target="_blank"><img src="slides/slide-63.png"></a><span class="slidenumber">64</span></td>
+          <td class="slide"><a href="slides/slide-63.png" target="_blank" name="64"><img src="slides/slide-63.png"></a><a class="slidenumber" href="#64">64</a></td>
           <td class="notes">
             <p>IGs define <strong><code>CapabilityStatement</code>s</strong> to describe requirements for clients and servers.</p>
 
@@ -2004,11 +2173,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3m0Vykt" target="_blank">https://bit.ly/3m0Vykt</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8772);">Play video at slide 64</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-64.png" target="_blank"><img src="slides/slide-64.png"></a><span class="slidenumber">65</span></td>
+          <td class="slide"><a href="slides/slide-64.png" target="_blank" name="65"><img src="slides/slide-64.png"></a><a class="slidenumber" href="#65">65</a></td>
           <td class="notes">
             <p>Defining a <strong><code>CapabilityStatement</code></strong> in FHIR Shorthand uses the standard <code>Instance</code> syntax.</p>
 
@@ -2036,11 +2206,12 @@
               <li>FSH Online: <a href="https://bit.ly/2XLeFXq" target="_blank">https://bit.ly/2XLeFXq</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8883);">Play video at slide 65</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-65.png" target="_blank"><img src="slides/slide-65.png"></a><span class="slidenumber">66</span></td>
+          <td class="slide"><a href="slides/slide-65.png" target="_blank" name="66"><img src="slides/slide-65.png"></a><a class="slidenumber" href="#66">66</a></td>
           <td class="notes">
             <p>In addition to formal FHIR definitions and examples, implementation guides contain additional content to guide implementers.</p>
 
@@ -2096,11 +2267,12 @@
               <li>SUSHI Doc: <a href="https://bit.ly/3kMLTyx" target="_blank">https://bit.ly/3kMLTyx</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9011);">Play video at slide 66</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-66.png" target="_blank"><img src="slides/slide-66.png"></a><span class="slidenumber">67</span></td>
+          <td class="slide"><a href="slides/slide-66.png" target="_blank" name="67"><img src="slides/slide-66.png"></a><a class="slidenumber" href="#67">67</a></td>
           <td class="notes">
             <p>The <strong><code>sushi-config.yaml</code></strong> file provides additional control over the IG content.</p>
 
@@ -2127,11 +2299,12 @@
               <li>SUSHI Doc: <a href="https://bit.ly/3CY0DBg" target="_blank">https://bit.ly/3CY0DBg</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9341);">Play video at slide 67</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-67.png" target="_blank"><img src="slides/slide-67.png"></a><span class="slidenumber">68</span></td>
+          <td class="slide"><a href="slides/slide-67.png" target="_blank" name="68"><img src="slides/slide-67.png"></a><a class="slidenumber" href="#68">68</a></td>
           <td class="notes">
             <p>The main configuration of an implementation guide is formally defined by its <strong><code>ImplementationGuide</code> resource</strong>:</p>
 
@@ -2155,11 +2328,12 @@
               <li>FHIR Doc: <a href="https://bit.ly/3me3uiK" target="_blank">https://bit.ly/3me3uiK</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9534);">Play video at slide 68</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-68.png" target="_blank"><img src="slides/slide-68.png"></a><span class="slidenumber">69</span></td>
+          <td class="slide"><a href="slides/slide-68.png" target="_blank" name="69"><img src="slides/slide-68.png"></a><a class="slidenumber" href="#69">69</a></td>
           <td class="notes">
             <p>FSH authors control the <code>ImplementationGuide</code> resource via the <strong><code>sushi-config.yaml</code></strong> file.</p>
 
@@ -2179,20 +2353,22 @@
               <li>IG ParameterTable: <a href="https://bit.ly/2Y1c64b" target="_blank">https://bit.ly/2Y1c64b</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9701);">Play video at slide 69</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-69.png" target="_blank"><img src="slides/slide-69.png"></a><span class="slidenumber">70</span></td>
+          <td class="slide"><a href="slides/slide-69.png" target="_blank" name="70"><img src="slides/slide-69.png"></a><a class="slidenumber" href="#70">70</a></td>
           <td class="notes">
             <p>FHIR Shorthand makes it easier to author IGs, but <strong>creating a <em>good</em> IG is still hard!</strong></p>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9780);">Play video at slide 70</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-70.png" target="_blank"><img src="slides/slide-70.png"></a><span class="slidenumber">71</span></td>
+          <td class="slide"><a href="slides/slide-70.png" target="_blank" name="71"><img src="slides/slide-70.png"></a><a class="slidenumber" href="#71">71</a></td>
           <td class="notes">
             <p>If you maintain an existing IG and want to switch to FHIR Shorthand, <strong>GoFSH</strong> makes it easy! <em>(Well, easier).</em></p>
 
@@ -2220,11 +2396,12 @@
               <li>GitHub: <a href="https://bit.ly/3zRUsg3" target="_blank">https://bit.ly/3zRUsg3</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9940);">Play video at slide 71</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-71.png" target="_blank"><img src="slides/slide-71.png"></a><span class="slidenumber">72</span></td>
+          <td class="slide"><a href="slides/slide-71.png" target="_blank" name="72"><img src="slides/slide-71.png"></a><a class="slidenumber" href="#72">72</a></td>
           <td class="notes">
             <p>FHIR Shorthand has many tools and resources to help you!  Check them out!</p>
 
@@ -2245,15 +2422,17 @@
               <li>FSH School: <a href="https://bit.ly/3CWpmWw" target="_blank">https://bit.ly/3CWpmWw</a></li>
             
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(10117);">Play video at slide 72</a></p>
         </td>
         </tr>
       
         <tr>
-          <td class="slide"><a href="slides/slide-72.png" target="_blank"><img src="slides/slide-72.png"></a><span class="slidenumber">73</span></td>
+          <td class="slide"><a href="slides/slide-72.png" target="_blank" name="73"><img src="slides/slide-72.png"></a><a class="slidenumber" href="#73">73</a></td>
           <td class="notes">
             <p><em>With apologies to Douglas Adams...</em></p>
 
             
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(10190);">Play video at slide 73</a></p>
         </td>
         </tr>
       
