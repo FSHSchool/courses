@@ -13,21 +13,6 @@ This course is a comprehensive overview of IG authoring for those interested in 
 5. Learn about key FHIR profiling concepts including value set binding, cardinality, MustSupport, slicing, and extensions
 6. Awareness of common clinical code systems including LOINC, SNOMED, ICD10, and code systems in the HL7 terminology list
 
-### Course format
-
-This course is provided in both written narrative and video form. The video version is split up to match the sections in the written version.
-
-_Video version will be available soon. Watch [Zulip](https://chat.fhir.org/#narrow/stream/322131-fsh-courses) for the announcement of when it's available._
-
-<!--
-To access the video version, look for buttons like the one below at the top of a section. The same content is covered in both the written narrative and video versions.
-
-You can try clicking this button to see a test video (🔊 speakers on):
--->
-
-{% include video_embed.html video="test" %}
-
-
 
 ### Prerequisites
 
@@ -62,7 +47,7 @@ We recommend completing the course materials over two days as described below.
                 <li>Complete the <a href="setup.html">setup instructions</a></li>
             </ol>
         </td>
-        <td>~1 hour; help available on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a> (live support May 24-25 9am-4pm Eastern)</td>
+        <td>~1 hour; help available on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a></td>
     </tr>
 
     <tr style="background-color: #453d83; color: white;">
