@@ -1,0 +1,34 @@
+﻿FSHSeminar : Validation Results
+=========================================
+
+err = 0, warn = 2, info = 0
+IG Publisher Version: 1.1.122
+Generated Fri Jul 01 14:16:00 UTC 2022. FHIR version 4.0.1 for org.fshschool.courses.fsh-seminar#0.1.0 (canonical = https://fshschool.org/courses/fsh-seminar)
+ Build Errors : 17 / 1 / 0
+ /home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar : 0 / 0 / 1
+ /home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/StructureDefinition-MyPatient : 0 / 1 / 1
+</table>
+== n/a ==
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource StructureDefinition/MyPatient.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.history.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 339 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/index.html: Invalid literal declaration following text: 
+    // Get rid of "Computable Name:" at top of index.html
+    [...document.querySelectorAll("*")].filter(e => e.childNodes 
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 897 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/02-creating-an-ig.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1128 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/01-reading-an-ig.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 721 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/toc.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 240 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-mappings.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 462 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/03-exercise.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 467 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/setup.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 295 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.json.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2599 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/04-deep-dive-with-fsh.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 257 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-definitions.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 836 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/artifacts.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 274 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.ttl.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2307 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-examples.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 350 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/fhir-resources.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 275 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.xml.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2393 column 103
+== fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar.json ==
+== fsh-generated/resources/StructureDefinition-MyPatient.json ==
+WARNING: StructureDefinition.where(url = 'https://fshschool.org/courses/fsh-seminar/StructureDefinition/MyPatient'): The Implementation Guide contains no examples for this profile
