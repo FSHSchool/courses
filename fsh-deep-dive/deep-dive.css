@@ -75,11 +75,6 @@ code, pre {
   font-family: 'Courier New', Courier, monospace
 }
 
-#topline {
-  width: 100%;
-  border-bottom: 5px solid #453d83;
-}
-
 .content, h1, p.updated-at {
   width: 90%;
   margin: 0 auto;
@@ -206,7 +201,7 @@ em, i {
 }
 
 .fix-youtube #youtube-player-hide-ui {
-  background-color: #453d83;
+  background-color: #30638e;
   color: white;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
@@ -225,7 +220,7 @@ em, i {
 h2 {
   font-size: 1.5em;
   font-weight: 600;
-  color: #453d83;
-  border-bottom: 1px solid #453d83;
+  color: #30638e;
+  border-bottom: 1px solid #30638e;
   margin-bottom: 1rem;
 }
