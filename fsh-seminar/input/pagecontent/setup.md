@@ -6,7 +6,7 @@
 
 As part of this course, you will edit and build a FHIR Implementation Guide on your computer. To do this, you will need the following:
 
-1. Install [Visual Studio Code](https://code.visualstudio.com) and the [FSH language extension](https://marketplace.visualstudio.com/items?itemName=kmahalingam.vscode-language-fsh)
+1. Install [Visual Studio Code](https://code.visualstudio.com) and the [FSH language extension](https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh)
 2. Install a Java runtime
 3. Install Ruby and Jekyll using [these OS-specific instructions](https://jekyllrb.com/docs/installation/#guides)
 4. Install SUSHI using [these directions](https://fshschool.org/docs/sushi/installation/)

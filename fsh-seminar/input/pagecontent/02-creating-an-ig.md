@@ -121,7 +121,7 @@ By default, SUSHI generates a placeholder `input/pagecontent/index.md` file that
 
 #### Recommended tools for IG authoring
 
-The [prerequisites](prerequisites.html) for this course include installing [Visual Studio Code (VSCode)](https://code.visualstudio.com) and the [FSH language extension](https://marketplace.visualstudio.com/items?itemName=kmahalingam.vscode-language-fsh). While you can use any text editor to edit FSH (`.fsh`) files, currently only VSCode has syntax highlighting and other language-specific features via the custom language extension.
+The [prerequisites](prerequisites.html) for this course include installing [Visual Studio Code (VSCode)](https://code.visualstudio.com) and the [FSH language extension](https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh). While you can use any text editor to edit FSH (`.fsh`) files, currently only VSCode has syntax highlighting and other language-specific features via the custom language extension.
 
 VSCode also [supports editing Markdown out of the box](https://code.visualstudio.com/docs/languages/markdown) (Markdown is used very widely outside of the FHIR/HL7 world), and if you follow that link you will see some additional Markdown extensions that are available if you want additional functionality (like "linting", which will warn you of syntax errors as you type). One of the most useful VSCode features is [built-in Markdown previewing](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview).
 
