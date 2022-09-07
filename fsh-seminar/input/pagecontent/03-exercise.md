@@ -68,7 +68,7 @@ The use case for this work is as follows:
 - If you just want to quickly test how to represent and validate a contained construct in FSH without having to run the IG publisher, try it using [FSHOnline](https://fshschool.org/FSHOnline/#/)
 - Want to see more FSH examples? Go to [FSHOnline](https://fshschool.org/FSHOnline/#/) and click on the "FSH Examples".
 - Want to see how another IG's StructureDefinitions in JSON could be represented in FSH? Also try it using [FSHOnline](https://fshschool.org/FSHOnline/#/). Cut and paste your JSON into the right column and click on _Convert to FSH_ to see the syntax.
-- Try using some of the nice perks in the [vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=kmahalingam.vscode-language-fsh) extension to help navigate references between your authored FHIR constructs (profiles, value sets, extensions, etc.)
+- Try using some of the nice perks in the [vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh) extension to help navigate references between your authored FHIR constructs (profiles, value sets, extensions, etc.)
 - Other neat VSCode extensions to help create a more authoring-friendly VSCode environment:
     - [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) - provides a basic dynamic rendering of your markdown page while you type (but note that embedded images won't be rendered in the preview due to the directory structure).
     - [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) - integrates Draw.io/diagrams.net into VSCode so that you can create nice diagrams directly inside your IG authoring environment
