@@ -129,7 +129,7 @@ IGs also often include diagrams. There is native support in the IG Publisher for
 
 #### Starting a new IG
 
-The simplest way to create a new IG is to run `sushi --init` at the command line. Here's what this process looks like on Mac/Linux:
+The simplest way to create a new IG is to run `sushi init` at the command line. Here's what this process looks like on Mac/Linux:
 
 <img src="sushi_init.gif" alt="Screen recording of running the `sushi --init` command" style="float: inherit;">
 
