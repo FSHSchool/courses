@@ -1,0 +1,32 @@
+FSHSeminar
+=========================================
+
+Generic: line 0, col 0, Warning - Unable to find ImplementationGuide.definition.resource.description for the resource StructureDefinition/MyPatient.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list. (INVARIANT)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1073 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 286 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1088 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 268 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 281 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 478 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2576 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 363 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 251 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 732 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 662 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 306 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Invalid literal declaration following text: 
+    // Get rid of "Computable Name:" at top of index.html
+    [...document.querySelectorAll("*")].filter(e => e.childNodes  (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 370 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1954 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2424 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 352 column 103 (STRUCTURE)
+Generic: line 0, col 0, Error - Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 475 column 103 (STRUCTURE)
+Generic: line 0, col 0, Warning - The HTML fragment 'ip-statements.xhtml' is not included anywhere in the produced implementation guide (NOTFOUND)
+Generic: line 0, col 0, Warning - An HTML fragment from the set [cross-version-analysis.xhtml, cross-version-analysis-inline.xhtml] is not included anywhere in the produced implementation guide (NOTFOUND)
+Generic: line 0, col 0, Warning - An HTML fragment from the set [dependency-table.xhtml, dependency-table-short.xhtml] is not included anywhere in the produced implementation guide (NOTFOUND)
+Generic: line 0, col 0, Warning - The HTML fragment 'globals-table.xhtml' is not included anywhere in the produced implementation guide (NOTFOUND)
+/home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/StructureDefinition-MyPatient.json: line 0, col 0, Warning - The Implementation Guide contains no examples for this profile (BUSINESSRULE)
+
+err = 0, warn = 6, info = 0
+IG Publisher Version: 1.5.16

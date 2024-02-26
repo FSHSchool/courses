@@ -1,0 +1,16 @@
+[
+  {
+    "id" : "org.fshschool.courses.fsh-seminar",
+    "type" : "ImplementationGuide",
+    "url" : "https://fshschool.org/courses/fsh-seminar/ImplementationGuide/org.fshschool.courses.fsh-seminar",
+    "version" : "0.1.0",
+    "name" : "FSHSeminar"
+  },
+  {
+    "id" : "MyPatient",
+    "type" : "StructureDefinition",
+    "url" : "https://fshschool.org/courses/fsh-seminar/StructureDefinition/MyPatient",
+    "version" : "0.1.0",
+    "name" : "MyPatient"
+  }
+]

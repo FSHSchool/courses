@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="deep-dive.css">
+</head>
+
+<body id="home">
+  <div style="background-color: #30638e;margin-bottom: 2rem;padding-top: 0.5rem;padding-left: 2rem;padding-bottom: 0.5rem;display: flex;align-items: center;">
+    <a href="https://fshschool.org">
+      <svg id="Layer_1" viewBox="9.182 12.932 266.818 60.399" style="width: 100px; padding-right: 10px; enable-background:new 0 0 240 92" xmlns="http://www.w3.org/2000/svg"><style>.st0{fill:#0b2338}.st1{fill:#0b5b94}</style><g transform="matrix(1, 0, 0, 0.948419, 0, 0.742756)"><g><polygon class="st1" points="62.1,14.5 47.6,51.9 32.9,14.5 21.2,14.5 10,74.4 22,74.4 29.1,36.9 43,74.4 52,74.4 65.9,36.9 
+                    73,74.4 85.4,74.4 73.8,14.5" style="fill:#fff"></polygon><rect x="88.4" y="14.5" class="st1" width="11.2" height="60" style="fill:#fff"></rect><polygon class="st1" points="103.3,14.5 103.3,24.2 116.5,24.2 116.5,74.4 127.7,74.4 127.7,24.2 140.9,24.2 140.9,14.5" style="fill:#fff"></polygon><g><path class="st1" d="M155.8 74.4h-11.2v-60h26.7c1.1.0 2.9.4 5.4 1.1 2.5.7 5 2.4 7.5 4.9 2.5 2.6 3.7 6.3 3.7 11.2.0 5.1-1.3 9-4 11.6-2.7 2.7-5.4 4.3-8.2 5-2.7.8-4.8 1.1-6.1 1.1l20 25H176l-18.3-24.8V38.9l11.2-.1h.6c1.5.0 3.1-.6 4.6-1.7 1.7-1.3 2.5-3.1 2.5-5.4.0-2.1-.7-3.8-2.1-5.2-1.4-1.3-3.3-2-5.7-2h-13.1V74.4z" style="fill:#fff"></path><polygon class="st1" points="189.5,14.5 224.3,14.5 224.3,24.2 200.8,24.2 200.8,39.6 224,39.6 224,49.3 200.8,49.3 200.8,64.7 
+                      224.3,64.7 224.3,74.4 189.5,74.4" style="fill:#fff"></polygon></g></g></g><text style="fill:#fff;font-family:Arial,sans-serif;font-size:76px;white-space:pre" transform="matrix(1, 0, 0, 0.838825, -6, 5.963185)" x="191.004" y="6.55" dx="71.937" dy="57.477">|</text></svg>
+    </a> <span style="text-transform: uppercase;color: white;font-weight: 400;"><span class="" style="font-weight: bold;"><a href="/" style="color: white; text-decoration: none;">FSH School</a></span>&nbsp;/&nbsp;<a href="/courses/" style="color: white; text-decoration: none;">Courses</a>  &nbsp;/&nbsp;<a href="/courses/fsh-seminar/" style="color: white; text-decoration: none;">FSH Seminar</a></span>
+  </div>
+
+  <h1>Deep Dive with FSH <small>by Chris Moesel</small></h1>
+  <p class="updated-at">Last updated at 12:50pm on May. 21, 2022</p>
+  <div class="content">
+
+    <h2>Video version</h2>
+
+    <div id="youtube-embed-container" class="inline-youtube">
+      <div id="youtube-player-hide-ui" onclick="closePlayer();">&times; Close player</div>
+      <div id="youtube-player"></div>
+    </div>
+    <div id="youtube-placeholder" style="background-color: #e7e6e6; margin-bottom: 4rem; color: #aaa; text-align: center; display: none;"><br><br><br><br><br>Scroll to top of page to pop video back in.</div>
+
+    <script>
+        // Load video player embed script
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Add video embed
+        var divToReplace = document.getElementById("youtube-player");
+        var playerWidth = divToReplace.offsetWidth;
+        var playerHeight = playerWidth * 0.5625;
+        function onYouTubeIframeAPIReady() {
+          window.youtubePlayer = new YT.Player('youtube-player', {
+            height: playerHeight,
+            width: playerWidth,
+            videoId: 'joHNtYmYFjI',
+             playerVars: {
+              'playsinline': 1,
+              'rel' : 0,
+              'showinfo' : 0,
+              'showsearch' : 0,
+              'modestbranding' : 1
+            }
+          });
+        }
+
+        // Resize player to fill available size
+        function playerSizer() {
+          var player = document.getElementById("youtube-player");
+          var width = player.offsetWidth;
+          player.style.height = (width * 0.5625) + "px";
+        }
+        window.addEventListener("resize", playerSizer);
+
+        function onPlayerReady(event) {
+          playerSizer();
+        }
+
+        function closePlayer() {
+          var scrollPosY = window.scrollY;
+          var scrollPosX = window.scrollX;
+          var playerEmbed = document.getElementById("youtube-embed-container");
+          playerEmbed.classList.add("inline-youtube");
+          playerEmbed.classList.remove("fix-youtube");
+          playerSizer();
+          var placeholder = document.getElementById("youtube-placeholder");
+          placeholder.style.display = "none";
+          window.scrollTo(scrollPosX, scrollPosY);
+          console.log("Player closed");
+          youtubePlayer.pauseVideo();
+        }
+
+        function popOutPlayerAndPlay(sec) {
+          var player = document.querySelector(".content");
+          var playerWidth = player.offsetWidth;
+          var playerHeight = playerWidth * 0.5625;
+          var placeholder = document.getElementById("youtube-placeholder");
+          placeholder.style.width = playerWidth + "px";
+          placeholder.style.height = playerHeight + "px";
+          placeholder.style.display = "inherit";
+
+          var playerEmbed = document.getElementById("youtube-embed-container");
+          playerEmbed.classList.add("fix-youtube");
+          playerEmbed.classList.remove("inline-youtube");
+          playerSizer();
+          console.log("Player popped out");
+
+          youtubePlayer.seekTo(sec);
+          youtubePlayer.playVideo();
+        }
+
+        // Automatically pop video in and out
+        window.addEventListener("scroll", (event) => {
+            if(youtubePlayer !== undefined && youtubePlayer.getPlayerState() == YT.PlayerState.PLAYING) {
+              if(document.getElementById("speaker-notes").getBoundingClientRect().top < -100) {
+                var player = document.querySelector(".content");
+                var playerWidth = player.offsetWidth;
+                var playerHeight = playerWidth * 0.5625;
+                var placeholder = document.getElementById("youtube-placeholder");
+                placeholder.style.width = playerWidth + "px";
+                placeholder.style.height = playerHeight + "px";
+                placeholder.style.display = "inherit";
+
+                var playerEmbed = document.getElementById("youtube-embed-container");
+                playerEmbed.classList.add("fix-youtube");
+                playerEmbed.classList.remove("inline-youtube");
+
+                playerSizer();
+              }
+              else if(this.scrollY == 0) {
+                var placeholder = document.getElementById("youtube-placeholder");
+                placeholder.style.display = "none";
+                var playerEmbed = document.getElementById("youtube-embed-container");
+                playerEmbed.classList.add("inline-youtube");
+                playerEmbed.classList.remove("fix-youtube");
+                playerSizer();
+             }
+           }
+        });
+    </script>
+
+    <h2 id="speaker-notes">Speaker notes version</h2>
+
+    <table>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-0.png" target="_blank" name="1"><img src="slides/slide-0.png"></a><a class="slidenumber" href="#1">1</a></td>
+          <td class="notes">
+            <p>Welcome to FHIR for IG Authors! The notes on the side are here to explain things in more detail or provide additional information and tips not found on the slides.</p>
+
+<p><strong>Ready to dive in?</strong></p>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(0);">Play video at slide 1</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-1.png" target="_blank" name="2"><img src="slides/slide-1.png"></a><a class="slidenumber" href="#2">2</a></td>
+          <td class="notes">
+            <p><strong>Implementation Guides</strong> (IG) describe how to use FHIR for specific use cases around the exchange and use of health data.</p>
+
+<p>IGs might specify:</p>
+
+<ul>
+<li>How to formally represent specific data</li>
+<li>How to safely (and meaningfully) exchange that data</li>
+<li>How to search, update, or use that data</li>
+<li>Actors and roles in the domain the IG addresses</li>
+<li>Relationships to other IGs and health standards</li>
+<li>and more...</li>
+</ul>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(56);">Play video at slide 2</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-2.png" target="_blank" name="3"><img src="slides/slide-2.png"></a><a class="slidenumber" href="#3">3</a></td>
+          <td class="notes">
+            <p>IGs can have a variety of different scopes and purposes.</p>
+
+<ul>
+<li>The <a href="http://hl7.org/fhir/us/mcode/">mCODE IG</a> is an example of a use case-specific IG.</li>
+<li><a href="http://www.hl7.org/fhir/us/core/">US Core</a> is an example of a national/regional IG.</li>
+<li><a href="https://confluence.hl7.org/display/AP/Argonaut+Project+Home">Argonaut</a> is an example of a community of implementers coming together to define how to exchange data.</li>
+<li>An EHR vendor might also publish an IG showing what their software supports (but so far this is rare).</li>
+</ul>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(187);">Play video at slide 3</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-3.png" target="_blank" name="4"><img src="slides/slide-3.png"></a><a class="slidenumber" href="#4">4</a></td>
+          <td class="notes">
+            <p>There are many different reasons to build a FHIR IG:</p>
+
+<ul>
+<li>When you need to define details regarding data exchange for a specific use case or domain</li>
+<li>When you want to leverage the ecosystem of tooling built around FHIR
+
+<ul>
+<li><strong>IG Authoring</strong>: <a href="https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation">IG Publisher</a>, <a href="https://fshschool.org/docs/sushi/">SUSHI</a>, <a href="https://fire.ly/products/forge/">Forge</a>, <a href="https://trifolia-fhir.lantanagroup.com/">Trifolia-on-FHIR</a>, ...</li>
+<li><strong>Validators</strong>: <a href="https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator">FHIR Validator</a>, <a href="https://validator.fhir.org/">Online FHIR Validator</a>, <a href="https://inferno.healthit.gov/validator/">Inferno Validator</a>, ...</li>
+<li><strong>Testing</strong>: <a href="https://inferno.healthit.gov/">Inferno</a>, <a href="https://touchstone.aegis.net/touchstone/">Touchstone</a>, ...</li>
+<li><strong>Servers and Open-Source Implementations</strong>: <a href="https://confluence.hl7.org/display/FHIR/Public+Test+Servers">Servers WIKI</a>, <a href="https://confluence.hl7.org/display/FHIR/Open+Source+Implementations">Open-Source Implementations WIKI</a></li>
+</ul></li>
+<li>When you want to develop in the open and receive ongoing feedback
+
+<ul>
+<li>HL7 ballot cycles allow for formal review and HL7 publication</li>
+<li>Community involvement and feedback results in a better IG</li>
+<li>Community investment and improvement increases changes of adoption</li>
+</ul></li>
+</ul>
+
+<p><em>Image credit: Tenor (<a href="https://tenor.com/view/under-construction90s-90s-under-construction-oldies-gif-20223524">https://tenor.com/view/under-construction90s-90s-under-construction-oldies-gif-20223524</a>)</em></p>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(330);">Play video at slide 4</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-4.png" target="_blank" name="5"><img src="slides/slide-4.png"></a><a class="slidenumber" href="#5">5</a></td>
+          <td class="notes">
+            <p>There are a few ways to build IGs:</p>
+
+<ul>
+<li><strong>Hand-editing the XML</strong> (<a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-patient.profile.xml.html">example</a>) or JSON (<a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-patient.profile.json.html">example</a>): tedious and error-prone (not recommended)</li>
+<li><strong>Editing spreadsheets</strong> (<a href="https://confluence.hl7.org/display/FHIR/FHIR+Spreadsheet+Authoring">documentation</a>): currently being phased out (not recommended)</li>
+<li><strong>Using a graphical interface / wizard</strong> (<a href="https://fire.ly/products/forge/">Forge</a>, <a href="https://trifolia-fhir.lantanagroup.com/">Trifolia-on-FHIR</a>): appeals to authors who want to be guided through the process</li>
+<li><strong>Command-driven</strong> (<a href="https://hl7.org/fhir/uv/shorthand/index.html">FHIR Shorthand</a>): appeals to authors who prefer a more direct approach</li>
+</ul>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(578);">Play video at slide 5</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-5.png" target="_blank" name="6"><img src="slides/slide-5.png"></a><a class="slidenumber" href="#6">6</a></td>
+          <td class="notes">
+            <p>Creating an Implementation Guide requires a lot of knowledge, collaboration, and agility.</p>
+
+<p>FHIR IGs go through many iterations before publication.</p>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(739);">Play video at slide 6</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-6.png" target="_blank" name="7"><img src="slides/slide-6.png"></a><a class="slidenumber" href="#7">7</a></td>
+          <td class="notes">
+            <p>IG authors often have to respond quickly to an ever-changing (and challenging) landscape.</p>
+
+<p>Having the right skills and the right tools can make a big difference.</p>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(777);">Play video at slide 7</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-7.png" target="_blank" name="8"><img src="slides/slide-7.png"></a><a class="slidenumber" href="#8">8</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand (FSH, pronounced &quot;fish&quot;) was created to support the authoring agility that most IG developers need.</p>
+
+<ul>
+<li>FSH is a text-driven approach to IG authoring.</li>
+<li>FSH definitions can be easily searched and manipulated (e.g., refactored) using modern text editors.</li>
+<li>FSH files work well with version control, branch management, and collaborative workflows (e.g., GitHub pull requests).</li>
+<li>FSH tooling follows best practices for defining conformance resources and improves consistency across projects.</li>
+<li>FSH allows authors to focus on the use case rather than the specific details of authoring FHIR JSON/XML.</li>
+<li>FSH is an official HL7 Mixed Normative / Trial Use specification.</li>
+<li>FSH has a vibrant community and FSH tooling is available for free via a friendly open source license.</li>
+<li>FSH supports and encourages heavy punning along aquatic themes. Just try it and you&#39;ll be hooked.</li>
+</ul>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(822);">Play video at slide 8</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-8.png" target="_blank" name="9"><img src="slides/slide-8.png"></a><a class="slidenumber" href="#9">9</a></td>
+          <td class="notes">
+            <p>Fully building an IG with FSH requires two primary tools:</p>
+
+<ul>
+<li><strong><a href="https://fshschool.org/docs/sushi/">SUSHI</a></strong>: Compiles FSH into formal FHIR definitions and assembles IG sources for the IG Publisher</li>
+<li><strong><a href="https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation">IG Publisher</a></strong>: Uses the provided sources to build a human-readable IG and machine-processable package</li>
+</ul>
+
+<p>Authors can invoke SUSHI directly to get fast feedback and compilation for their FSH files without needing to run the heavy-weight IG Publisher.</p>
+
+<p>When authors run the IG Publisher, it will automatically invoke SUSHI as part of its process if it detects an <code>input/fsh</code> folder.</p>
+
+<p><em>NOTE: See that link at the bottom? These slides contain many links to relevant documentation and examples. In the interest of preserving space, all links use the <a href="https://bitly.com">bit.ly</a> link shortening service. For your convenience, each link is also repeated in the notes.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3pa0C8y" target="_blank">https://bit.ly/3pa0C8y</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1059);">Play video at slide 9</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-9.png" target="_blank" name="10"><img src="slides/slide-9.png"></a><a class="slidenumber" href="#10">10</a></td>
+          <td class="notes">
+            <p>Most FSH definitions have the same basic structure:</p>
+
+<ul>
+<li>First you <strong>declare what your item is</strong> (e.g., Profile) and give it a name (e.g., CancerPatient)</li>
+<li>Then you <strong>provide additional metadata information</strong> via common keywords (e.g., Id, Title, Description)</li>
+<li>Finally, you <strong>specify a set of rules</strong> that defines meaningful content for the item</li>
+</ul>
+
+<p>Keywords and rule types vary depending on the type of item you are defining, but where possible, FSH tries to maintain as much consistency as possible between item types.</p>
+
+<p>The <code>*</code> prefix for each rule is inspired by bulleted <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> lists.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3vf48md" target="_blank">https://bit.ly/3vf48md</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1222);">Play video at slide 10</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-10.png" target="_blank" name="11"><img src="slides/slide-10.png"></a><a class="slidenumber" href="#11">11</a></td>
+          <td class="notes">
+            <p>These examples show how the declaration, keywords, and rules relate to actual FHIR Shorthand definitions. At this point, you&#39;re not expected to understand the definitions, but this gives you an idea of what real FHIR Shorthand looks like!</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3vf48md" target="_blank">https://bit.ly/3vf48md</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1333);">Play video at slide 11</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-11.png" target="_blank" name="12"><img src="slides/slide-11.png"></a><a class="slidenumber" href="#12">12</a></td>
+          <td class="notes">
+            <p>Now that we&#39;ve briefly covered the high-level mechanics and structure of FSH, let&#39;s jump into the details!</p>
+
+<p>FHIR profiles specify how a resource can be used for a specific use case. Authors typically define:</p>
+
+<ul>
+<li><strong>Metadata</strong> (including narrative text and meaningful flags) to <em>explain</em> aspects of the profile</li>
+<li><strong>Constraints</strong> that narrow broad requirements into more specific requirements</li>
+<li><strong>Extensions</strong> that allow for additional information that doesn&#39;t fit into any of the core resource elements</li>
+</ul>
+
+<p>On the right-hand side, we have an example of the US Core Patient profile. This example demonstrates how a profile is represented as human-readable documentation in an IG.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3o2EQnJ" target="_blank">https://bit.ly/3o2EQnJ</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1420);">Play video at slide 12</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-12.png" target="_blank" name="13"><img src="slides/slide-12.png"></a><a class="slidenumber" href="#13">13</a></td>
+          <td class="notes">
+            <p>Taking a closer look at the US Core Patient profile, we can see that it demonstrates a number of core profiling approaches:</p>
+
+<ul>
+<li>A base resource, in this case, <code>Patient</code></li>
+<li>Extensions for race, ethnicity, and birthsex (since these are not part of the core Patient resource)</li>
+<li>Complex rules, called <em>invariants</em>, that describe non-trivial rule logic (see <code>us-core-8</code>)</li>
+<li>Indications of what fields must be supported (note the red <code>S</code> flags)</li>
+<li>Requirements that <code>identifier</code>, <code>name</code>, and <code>gender</code> must be provided (e.g., cardinality constraints)</li>
+<li>A <em>binding</em> on <code>address.state</code> indicating that values must come from a set of two-letter USPS state codes</li>
+<li>Short human-readable element descriptions, such as the hint that <code>postalCode</code> should be a US zip code</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>US Core Doc: <a href="https://bit.ly/3EXpnLI" target="_blank">https://bit.ly/3EXpnLI</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1686);">Play video at slide 13</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-13.png" target="_blank" name="14"><img src="slides/slide-13.png"></a><a class="slidenumber" href="#14">14</a></td>
+          <td class="notes">
+            <p>To define a profile in FSH, you <em>must</em> specify the <code>Profile</code> name and its <code>Parent</code>.  You <em>may</em> specify <code>Id</code>, <code>Title</code>, and <code>Description</code> (all of which are recommended).</p>
+
+<p>The example demonstrates a profile for representing body weight as an <code>Observation</code>. The FSH definition is on the left and the resulting IG documentation is on the right. Note the following rules that Observations must follow to <em>conform to</em> this profile:</p>
+
+<ul>
+<li>The <code>code</code> must be LOINC 29463-7 (Body weight)</li>
+<li>The multi-type value (<code>value[x]</code>) may only be a <code>Quantity</code></li>
+<li>The quantity value (<code>valueQuantity</code>) may only use units from the <code>BodyWeightUnits</code> value set</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3LUKe5C" target="_blank">https://bit.ly/3LUKe5C</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3AM3ahc" target="_blank">https://bit.ly/3AM3ahc</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1788);">Play video at slide 14</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-14.png" target="_blank" name="15"><img src="slides/slide-14.png"></a><a class="slidenumber" href="#15">15</a></td>
+          <td class="notes">
+            <p>The previous slide, and many of the following slides, includes a link to the example on <a href="https://fshschool.org/FSHOnline/">FSH Online</a>.</p>
+
+<p>FSH Online is an online &quot;playground&quot; (or aquarium?) that allows you to play with FSH. FSH Online has several important features:</p>
+
+<ul>
+<li>Convert FSH to FHIR JSON</li>
+<li>Convert FHIR JSON to FSH</li>
+<li>Browse a curated set of examples</li>
+<li>Easily create shareable links to your own FSH code</li>
+</ul>
+
+<p>FSH Online is a great tool for learning, sharing, experimenting, and debugging FSH!</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Online: <a href="https://bit.ly/3g0HmpQ" target="_blank">https://bit.ly/3g0HmpQ</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1922);">Play video at slide 15</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-15.png" target="_blank" name="16"><img src="slides/slide-15.png"></a><a class="slidenumber" href="#16">16</a></td>
+          <td class="notes">
+            <p><em>Back to the slide we just reviewed...</em></p>
+
+<p>Note the FSH Online link on the bottom right (and below this paragraph). This link will load the example in FSH Online so that you can try converting it to FHIR JSON.</p>
+
+<p>Go ahead and try it out. If you&#39;re feeling brave, make a few edits to the FSH and see how it affects the FHIR JSON.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3LUKe5C" target="_blank">https://bit.ly/3LUKe5C</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3AM3ahc" target="_blank">https://bit.ly/3AM3ahc</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(1978);">Play video at slide 16</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-16.png" target="_blank" name="17"><img src="slides/slide-16.png"></a><a class="slidenumber" href="#17">17</a></td>
+          <td class="notes">
+            <p>Profiles support many different kinds of rules for constraining the core resource definition to match your use case. In the following slides, we&#39;ll cover several of these types of rules.</p>
+
+<p><strong>Cardinality rules</strong> specify how many times a certain element can occur. Authors do this by specifying a <em>min</em> and a <em>max</em>:</p>
+
+<ul>
+<li><strong>Optional</strong> elements have a <em>min</em> of <code>0</code></li>
+<li><strong>Required</strong> elements have a <em>min</em> of <code>1</code> or greater</li>
+<li><strong>Singular</strong> elements have a <em>max</em> of <code>1</code></li>
+<li><strong>Repeatable</strong> elements have a <em>max</em> of <code>2</code> or greater (but usually <code>*</code> to allow infinite repetitions)</li>
+<li><strong>Prohibited</strong> elements have a <em>min</em> of <code>0</code> and a <em>max</em> of <code>0</code></li>
+</ul>
+
+<p>Note that you can only <em>tighten</em> cardinality (to a smaller range); it cannot be loosened. For example, if an element is <code>0..1</code> in a base FHIR resource, you can&#39;t make it a list (<code>0..*</code>) in a profile, because that would be loosening (or widening) the constraint.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/2WaItMM" target="_blank">https://bit.ly/2WaItMM</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2019);">Play video at slide 17</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-17.png" target="_blank" name="18"><img src="slides/slide-17.png"></a><a class="slidenumber" href="#18">18</a></td>
+          <td class="notes">
+            <p>In FSH, authors use <strong>cardinality rules</strong> to narrow cardinality. Cardinality rules indicate the target element plus the <em>min</em> and/or <em>max</em> occurrences.</p>
+
+<p>Authors can specify:</p>
+
+<ul>
+<li>both <em>min</em> and <em>max</em> (e.g., <code>1..1</code>)</li>
+<li>or <em>min</em> only (e.g., <code>1..</code>)</li>
+<li>or <em>max</em> only (<code>..1</code>)</li>
+</ul>
+
+<p>It is considered best practice to specify both <em>min</em> and <em>max</em> so that the full cardinality is in view when reviewing the FSH.</p>
+
+<p>In the example, the <code>Patient</code> resource has been profiled to <em>require</em> a value for <code>gender</code>.</p>
+
+<p>Since this is the first slide describing rule syntax, note the following:</p>
+
+<ul>
+<li>Most rules start with an element, represented by <code>&lt;element&gt;</code> in the syntax description</li>
+<li>The <code>&lt;element&gt;</code> can be a top-level or nested element path (see <a href="https://bit.ly/3sXLDRr">FSH Paths</a>)</li>
+<li>Many syntax examples use &quot;FSH math&quot;, where an element from the parent + some FSH code = the resulting element in the profile</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3s9Jjq8" target="_blank">https://bit.ly/3s9Jjq8</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3CLSjo1" target="_blank">https://bit.ly/3CLSjo1</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2116);">Play video at slide 18</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-18.png" target="_blank" name="19"><img src="slides/slide-18.png"></a><a class="slidenumber" href="#19">19</a></td>
+          <td class="notes">
+            <p>IG authors can apply special flags to elements to give them additional meaning.</p>
+
+<p>In FSH, authors use <strong>flag rules</strong> to apply these flags.  Flag rules indicate the target element and one or more flags (<code>MS</code>, <code>SU</code>, <code>?!</code>, <code>N</code>, <code>TU</code>, <code>D</code>).</p>
+
+<p>In the example, the <code>Patient</code> resource has been profiled to indicate that <code>gender</code> must be supported (<code>MS</code>) and should be included in resource summaries (<code>SU</code>).</p>
+
+<p><em>Note that <code>gender</code> is already flagged with <code>SU</code>, so marking it <code>SU</code> in FSH is redundant (but harmless). Normally you would not do this, but we wanted to demonstrate applying multiple flags at once.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3nZtYXC" target="_blank">https://bit.ly/3nZtYXC</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3p6YdM4" target="_blank">https://bit.ly/3p6YdM4</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3zC8OB0" target="_blank">https://bit.ly/3zC8OB0</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2244);">Play video at slide 19</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-19.png" target="_blank" name="20"><img src="slides/slide-19.png"></a><a class="slidenumber" href="#20">20</a></td>
+          <td class="notes">
+            <p>Marking an element as <strong>Must Support (<code>MS</code>)</strong> is <em>different</em> than making it required (<code>1..1</code>).</p>
+
+<ul>
+<li>Required (<code>1..1</code>) elements <em>must</em> be present in the data</li>
+<li>Must Support (<code>MS</code>) elements <em>may</em> be absent (unless also <code>1..1</code>), but systems must be able to process these elements in a meaningful way</li>
+</ul>
+
+<p>The core FHIR spec does not define <em>Must Support</em> in much detail. <em>Each IG is expected to provide the meaning of Must Support for its own use case.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3zEqtrA" target="_blank">https://bit.ly/3zEqtrA</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2328);">Play video at slide 20</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-20.png" target="_blank" name="21"><img src="slides/slide-20.png"></a><a class="slidenumber" href="#21">21</a></td>
+          <td class="notes">
+            <p>For example, US Core documents how responders and requestors should support elements marked as Must Support.</p>
+
+<p>IGs that extend or use US Core profiles inherit Must Support elements <em>and their meanings</em> from those US Core profiles. A profile cannot <em>remove</em> the Must Support flag from any element in a parent profile.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>US Core Doc: <a href="https://bit.ly/39BCrYF" target="_blank">https://bit.ly/39BCrYF</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2449);">Play video at slide 21</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-21.png" target="_blank" name="22"><img src="slides/slide-21.png"></a><a class="slidenumber" href="#22">22</a></td>
+          <td class="notes">
+            <p>IG authors can constrain (or restrict) element types in several ways:</p>
+
+<ul>
+<li>For an element supporting multiple types, a profile can constrain the element to a subset of those types or a single type
+
+<ul>
+<li>These elements are called &quot;choice types&quot; and their name always ends in <code>[x]</code></li>
+</ul></li>
+<li>Any element type can always be constrained to a more specific profile (or set of profiles) of the type</li>
+<li><code>Reference</code> and <code>canonical</code> types are <em>not</em> considered choice types, but can refer to multiple target types
+
+<ul>
+<li><code>Reference</code>/<code>canonical</code> types can constrain their target types to a subset, single target type, and/or profile(s) of target types</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3CHiLz0" target="_blank">https://bit.ly/3CHiLz0</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2531);">Play video at slide 22</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-22.png" target="_blank" name="23"><img src="slides/slide-22.png"></a><a class="slidenumber" href="#23">23</a></td>
+          <td class="notes">
+            <p>In FSH, authors use <strong>type rules</strong> to constrain an element&#39;s types. Type rules indicate the target element, the <code>only</code> keyword, and one or more allowed types separated by the <code>or</code> keyword.</p>
+
+<p>In the example on the left, an Observation&#39;s <code>effective[x]</code> element is constrained to only allow the <code>dateTime</code> or <code>Period</code> types.</p>
+
+<p>In the example on the right, a Patient&#39;s <code>address</code> element is constrained to only allow a specific profile of <code>Address</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3Ic7iL9" target="_blank">https://bit.ly/3Ic7iL9</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3AHL3sq" target="_blank">https://bit.ly/3AHL3sq</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2642);">Play video at slide 23</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-23.png" target="_blank" name="24"><img src="slides/slide-23.png"></a><a class="slidenumber" href="#24">24</a></td>
+          <td class="notes">
+            <p>Constraining <code>Reference</code> and <code>canonical</code> types in FSH is very similar to constraining other types. The primary difference is that the target types are inside the parentheses of <code>Reference()</code> or <code>Canonical()</code> keywords.</p>
+
+<p>In the example on the left, an Observation&#39;s <code>performer</code> element is constrained to only allow a reference to a <code>Patient</code>.</p>
+
+<p>In the example on the right, a PlanDefinition&#39;s <code>activity.definitionCanonical</code> element is constrained to only allow a canonical for an <code>ActivityDefinition</code> or <code>PlanDefinition</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3Ic7iL9" target="_blank">https://bit.ly/3Ic7iL9</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3u9zzeY" target="_blank">https://bit.ly/3u9zzeY</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2713);">Play video at slide 24</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-24.png" target="_blank" name="25"><img src="slides/slide-24.png"></a><a class="slidenumber" href="#25">25</a></td>
+          <td class="notes">
+            <p>Sometime a profile requires that an element have a specific value.  For example, a profile for Body Weight might indicate that the Observation&#39;s <code>code</code> must be LOINC 29463-7.</p>
+
+<p>There are two different flavors of matching available to IG authors:</p>
+
+<ul>
+<li><strong>pattern[x]</strong> defines a basic pattern to be matched, but allows for additional data as well</li>
+<li><strong>fixed[x]</strong> requires an exact match, allowing for no variation at all</li>
+</ul>
+
+<p>In many cases, especially with complex data types, a <code>pattern[x]</code> match is preferred, as <code>fixed[x]</code> can be overly prescriptive.</p>
+
+<p>Best practice for requiring a match on <code>Coding</code> or <code>CodeableConcept</code> is to:</p>
+
+<ul>
+<li>use <code>pattern[x]</code> matching to allow for additional codes and/or text</li>
+<li>do <em>not</em> specify <code>display</code> or <code>text</code> in the required pattern</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3u5anGq" target="_blank">https://bit.ly/3u5anGq</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2755);">Play video at slide 25</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-25.png" target="_blank" name="26"><img src="slides/slide-25.png"></a><a class="slidenumber" href="#26">26</a></td>
+          <td class="notes">
+            <p>In FSH, authors use <strong>assignment rules</strong> to require particular element values. Assignment rules indicate the target element, the <code>=</code> symbol (surrounded by spaces), the required value, and an optional <code>(exactly)</code> keyword.</p>
+
+<ul>
+<li>FSH defaults all matches to use <code>pattern[x]</code> matching</li>
+<li>Add <code>(exactly)</code> to the end of an assignment rule to specify <code>fixed[x]</code> matching</li>
+</ul>
+
+<p>In the example, the Observation&#39;s <code>code</code> must be LOINC 29463-7 (matching by pattern).</p>
+
+<p><em>Note the syntax for a code: <code>system#code</code>. This syntax is used throughout FSH. In cases where a display should be specified, the syntax is <code>system#code &quot;display&quot;</code>.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3sdfu8l" target="_blank">https://bit.ly/3sdfu8l</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3kEFCFh" target="_blank">https://bit.ly/3kEFCFh</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(2908);">Play video at slide 26</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-26.png" target="_blank" name="27"><img src="slides/slide-26.png"></a><a class="slidenumber" href="#27">27</a></td>
+          <td class="notes">
+            <p>The previous slide&#39;s example specified the code as <code>http://loinc.org#29463-7</code>. Many authors, however, will use an <em>alias</em> for common URLs.</p>
+
+<p>An <strong>alias</strong> allows authors to define a short <em>global</em> name that can be used as a shortcut for a URL. This has several advantages:</p>
+
+<ul>
+<li>Aliases are easier for authors to write</li>
+<li>Aliases are easier for reviewers to read</li>
+<li>Aliases reduce errors since authors aren&#39;t retyping long URLS again and again</li>
+<li>Consistent use of aliases makes it easier to see what systems (or other external resources) an IG uses</li>
+</ul>
+
+<p>In FSH, authors specify aliases using the <code>Alias:</code> keyword, followed by the alias name, an <code>=</code> symbol (surrounded by spaces), and a URL or URN.</p>
+
+<ul>
+<li>Aliases can only be used to refer to URLs; they cannot be used as shortcuts for arbitrary words or phrases</li>
+<li>Aliases are global within a FSH project, so you can put them anywhere you want
+
+<ul>
+<li>Many authors prefer to put all of their aliases in a single file (or a few intentionally organized files)</li>
+</ul></li>
+<li>If an alias name starts with <code>$</code>, SUSHI will do additional error checking to guard against typos when referencing aliases
+
+<ul>
+<li>Nothing else in FSH is allowed to have a <code>$</code> at the beginning, so this is a clear signal something is an alias</li>
+<li><em>But...</em> you are not required to start alias names with <code>$</code> (although it is <em>recommended</em>)</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3BKa8nT" target="_blank">https://bit.ly/3BKa8nT</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/39SMWqN" target="_blank">https://bit.ly/39SMWqN</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3007);">Play video at slide 27</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-27.png" target="_blank" name="28"><img src="slides/slide-27.png"></a><a class="slidenumber" href="#28">28</a></td>
+          <td class="notes">
+            <p>Before moving on to the next type of constraint, it&#39;s important to have a basic understanding of <strong>terminology</strong> in FHIR.</p>
+
+<p>FHIR defines several data types for representing coded values:</p>
+
+<ul>
+<li><strong>code</strong> is a simple string and doesn&#39;t allow for the system, version, or display. It is usually used when the system can be <em>implied</em>.</li>
+<li><strong>Coding</strong> represents a single code with a system, code, optional version, and optional display.</li>
+<li><strong>CodeableConcept</strong> supports a grouping of <code>Coding</code>s, allowing for multiple translations of the same concept, or representations of the same concept from multiple code systems.  CodeableConcept also supports an overall <code>text</code> property.</li>
+</ul>
+
+<p>FHIR defines several resources related to terminology, but two of the most important are Code System and Value Set:</p>
+
+<ul>
+<li>A <strong>CodeSystem</strong> is like a dictionary of codes, defining what codes exist and what their meanings are.</li>
+<li><p>A <strong>ValueSet</strong> is a set of codes (from the same or different code systems) grouped together for a particular purpose. For example, a value set might specify:</p>
+
+<ul>
+<li>a listing of supported status codes</li>
+<li>a set of allowed answers to a question</li>
+<li>a set of codes representing cancer diagnoses</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3o2ByRp" target="_blank">https://bit.ly/3o2ByRp</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3175);">Play video at slide 28</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-28.png" target="_blank" name="29"><img src="slides/slide-28.png"></a><a class="slidenumber" href="#29">29</a></td>
+          <td class="notes">
+            <p>Sometimes profiles require a specific value for a given element, but other times they may require a value from a <em>set of allowed codes</em> for a given element.</p>
+
+<p>Profiles indicate a set of potential coded values for an element by <em>binding</em> that element to a value set. The <em>strength</em> of the binding indicates how strict the requirement is (from &quot;you must use one of these codes&quot; to &quot;these codes are just examples; use whatever you want&quot;).</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3zC6H02" target="_blank">https://bit.ly/3zC6H02</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3334);">Play video at slide 29</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-29.png" target="_blank" name="30"><img src="slides/slide-29.png"></a><a class="slidenumber" href="#30">30</a></td>
+          <td class="notes">
+            <p>In FSH, authors use <strong>binding rules</strong> to bind elements to value sets. Binding rules indicate the target element, the <code>from</code> keyword, a value set URI/id/name, and an optional strength (in parentheses).</p>
+
+<ul>
+<li>If no strength is provided, the binding defaults to <code>required</code> strength</li>
+<li>Supported strength qualifiers are <code>(required)</code>, <code>(extensible)</code>, <code>(preferred)</code>, and <code>(example)</code></li>
+</ul>
+
+<p><em>NOTE: This example, as well as future examples, uses full URLS for value sets and code systems in order to be as descriptive as possible. In actual practice, however, the use of aliases (or local names, when applicable) is preferred.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3v3Y6EO" target="_blank">https://bit.ly/3v3Y6EO</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3u7G7dU" target="_blank">https://bit.ly/3u7G7dU</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3497);">Play video at slide 30</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-30.png" target="_blank" name="31"><img src="slides/slide-30.png"></a><a class="slidenumber" href="#31">31</a></td>
+          <td class="notes">
+            <p>Profiles use <strong>extensions</strong> to support data that doesn&#39;t fit into any of the existing elements in the parent resource.</p>
+
+<p>Authors can:</p>
+
+<ul>
+<li>use an extension defined as part of FHIR core (e.g., <a href="http://hl7.org/fhir/R4/extension-patient-birthplace.html">patient-birthPlace</a>)</li>
+<li>use an extension defined in another IG (e.g., <a href="http://www.hl7.org/fhir/us/core/StructureDefinition-us-core-race.html">us-core-race</a>)</li>
+<li>create their own extension definition (covered later)</li>
+</ul>
+
+<p>Extensions can be specified:</p>
+
+<ul>
+<li>at the top-level of the resource, to be interpreted in the context of the whole resource</li>
+<li>on an element, to be interpreted in the context of that element</li>
+</ul>
+
+<p>If an extension changes the meaning of the resource (or element it is attached to), then it is called a <strong>modifier extension</strong>.</p>
+
+<ul>
+<li>For example, a <code>just-kidding</code> extension (which, if <code>true</code>, means you should ignore the resource) is a (silly) <em>modifier extension</em></li>
+<li>Modifier extensions can only be carried in the <code>modifierExtension</code> array</li>
+<li>If a receiver does not understand an extension in the <code>modifierExtension</code> array, it is <em>not</em> safe to process it</li>
+</ul>
+
+<p>Adding extensions is still <em>constraining</em> the resource, because it specifies that an <code>extension</code> (or <code>modifierExtension</code>) element contains a more specific instance of <code>Extension</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3ACqjSR" target="_blank">https://bit.ly/3ACqjSR</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3653);">Play video at slide 31</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-31.png" target="_blank" name="32"><img src="slides/slide-31.png"></a><a class="slidenumber" href="#32">32</a></td>
+          <td class="notes">
+            <p>In FSH, authors use <strong>contains rules</strong> to add extensions to a profile.  Contains rules specify the target element, the <code>contains</code> keyword, an extension URL/id/name, the <code>named</code> keyword, a local name to refer to the extension, a cardinality (<code>min...max</code>), and optional flags.</p>
+
+<p>In the example, the <code>Patient</code> resource has been extended to support the <a href="http://hl7.org/fhir/R4/extension-patient-birthplace.html">patient-birthPlace</a> extension.</p>
+
+<ul>
+<li>The extension is <em>optional</em> since it is specified with cardinality <code>0..1</code></li>
+<li>Implementations must be able to support this extension since it is marked <code>MS</code></li>
+<li>Further rules can refer to the extension as <code>extension[birthPlace]</code> since it is <code>named birthPlace</code></li>
+</ul>
+
+<p>Behind the scenes, SUSHI adds extensions by &quot;slicing&quot; an extension array. We&#39;ll get to slicing soon, but first, we need to cover a few more basics.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3sY51ww" target="_blank">https://bit.ly/3sY51ww</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2XJEqas" target="_blank">https://bit.ly/2XJEqas</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3825);">Play video at slide 32</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-32.png" target="_blank" name="33"><img src="slides/slide-32.png"></a><a class="slidenumber" href="#33">33</a></td>
+          <td class="notes">
+            <p>Profiles and extensions are represented in FHIR using the <a href="http://hl7.org/fhir/R4/structuredefinition.html">StructureDefinition</a> resource.</p>
+
+<ul>
+<li>FSH does not define keywords for every single element in a <code>StructureDefinition</code>.</li>
+<li>Sometimes authors need to modify an element in <code>StructureDefinition</code> that is not accessible via a FSH keyword.</li>
+</ul>
+
+<p>In FSH, authors use <strong>caret rules</strong> to <em>directly</em> modify the contents of the <code>StructureDefinition</code>. You can recognize caret rules by a path that starts with <code>^</code>, indicating you are popping into the <code>StructureDefinition</code> context.</p>
+
+<p>In the example:</p>
+
+<ul>
+<li>The image on the left shows a subset of elements defined in the <code>StructureDefinition</code> resource.</li>
+<li>The FSH snippet in the middle shows several caret rules that assign values to these elements.</li>
+<li>The FHIR JSON on the top-right shows how these caret rules affect the profile&#39;s <code>StructureDefinition</code>.</li>
+<li>The image on the bottom-right shows how the IG documentation displays these values to the user.</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3ueWwxy" target="_blank">https://bit.ly/3ueWwxy</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/35l5QYg" target="_blank">https://bit.ly/35l5QYg</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3AIHq5L" target="_blank">https://bit.ly/3AIHq5L</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(3952);">Play video at slide 33</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-33.png" target="_blank" name="34"><img src="slides/slide-33.png"></a><a class="slidenumber" href="#34">34</a></td>
+          <td class="notes">
+            <p>Inside a <code>StructureDefinition</code>, every resource/profile element (e.g., <code>name</code>, <code>gender</code>) is represented by an <a href="http://hl7.org/fhir/R4/elementdefinition.html">ElementDefinition</a>.</p>
+
+<ul>
+<li>FSH does not define keywords for every single element in a <code>ElementDefinition</code>.</li>
+<li>Sometimes authors need to modify an element in <code>ElementDefinition</code> that is not accessible via a FSH keyword.</li>
+</ul>
+
+<p>In FSH, authors also use <strong>caret rules</strong> to <em>directly</em> modify the contents of an <code>ElementDefinition</code>. In this case, the caret rule starts by indicating the target profile element, and <em>then</em> uses a caret path to indicate the <code>ElementDefinition</code> element to modify.</p>
+
+<p><em>NOTE: The first element definition in profiles and extensions is always the self (or root) element. It does not pertain to an element of the profile, but rather to the profile itself. In FSH, you refer to the self element by using the dot (<code>.</code>) character alone.</em></p>
+
+<p>In the example:</p>
+
+<ul>
+<li>The image on the left shows a subset of elements defined in the <code>ElementDefinition</code> resource.</li>
+<li>The top set of images shows how to set the <code>name</code> element&#39;s <code>short</code> and <code>definition</code> values, to provide additional human-readable documentation about the <code>name</code> element.</li>
+<li>The bottom set of images shows how to set a profile&#39;s <em>self</em> element&#39;s <code>short</code> and <code>definition</code> values. These values are used as documentation of the profile when the profile is referred to by another profile.</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/39C0iaz" target="_blank">https://bit.ly/39C0iaz</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/35l5QYg" target="_blank">https://bit.ly/35l5QYg</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2XRhfLp" target="_blank">https://bit.ly/2XRhfLp</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4107);">Play video at slide 34</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-34.png" target="_blank" name="35"><img src="slides/slide-34.png"></a><a class="slidenumber" href="#35">35</a></td>
+          <td class="notes">
+            <p>Slicing is one of the most complicated aspects of profile development in FHIR, but... it is necessary.</p>
+
+<p>Slicing allows you to split a list of items into smaller sub-lists of those items. This is helpful because it allows you to apply different constraints to each sub-list (i.e., each slice).</p>
+
+<ul>
+<li>Real-world example: Splitting a master grocery list into produce, meat, and dairy sub-lists.</li>
+<li>The sub-lists may be a single item or could be multiple items.</li>
+</ul>
+
+<p>In FHIR, slices (or sub-lists) must be <em>mutually exclusive</em>. An item cannot fit into more than one sub-list.</p>
+
+<ul>
+<li>Real-world example: Your grocery list can&#39;t define both &quot;pork&quot; and &quot;breakfast&quot; sub-lists, because where would bacon go?</li>
+<li>If the slicing is &quot;open&quot;, then it is OK to have items that don&#39;t fit into <em>any</em> slices.</li>
+</ul>
+
+<p>In the example:</p>
+
+<ul>
+<li>US Core Blood Pressure slices <code>Observation.component</code> to define the <em>systolic</em> and <em>diastolic</em> components
+
+<ul>
+<li>Note that additional elements are allowed, because the slicing is <em>open</em></li>
+</ul></li>
+<li>US Core Practitioner slices <code>Practitioner.identifier</code> to specify an <em>NPI</em> identifier
+
+<ul>
+<li>Note that NPI can be anywhere in the identifier array, because the slicing is <em>unordered</em></li>
+</ul></li>
+<li>mCODE TNM Clinical Stage Group slices <code>Observation.hasMember</code> to indicate the <em>primary tumor</em>, <em>regional nodes</em>, and <em>distant metastases</em> categories.</li>
+</ul>
+
+<p><em>NOTE: We&#39;ve described slicing as splitting up a list, but slicing is also used to split a choice type into separate elements for each choice. For example, this would allow you to put different constraints on <code>valueQuantity</code> than <code>valueCodeableConcept</code>.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3lQMoHr" target="_blank">https://bit.ly/3lQMoHr</a></li>
+            
+              <li>US Core: <a href="https://bit.ly/3EPPvb0" target="_blank">https://bit.ly/3EPPvb0</a></li>
+            
+              <li>3CG2TwDE: <a href="https://bit.ly/3CKhsiC" target="_blank">https://bit.ly/3CKhsiC</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4314);">Play video at slide 35</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-35.png" target="_blank" name="36"><img src="slides/slide-35.png"></a><a class="slidenumber" href="#36">36</a></td>
+          <td class="notes">
+            <p>Implementing slicing in FHIR can be done in three basic steps. The first step is to <strong>define the slicing logic</strong>.</p>
+
+<p>The <code>slicing.discriminator</code> is used to determine what slice an item belongs to.</p>
+
+<ul>
+<li>The <code>slicing.discriminator.path</code> indicates the element that is used to determining the slice membership</li>
+<li>The <code>slicing.discriminator.type</code> indicates how to use that element to determine slice membership
+
+<ul>
+<li><strong><code>value</code></strong>: match if the value is exactly the same as the value in the slice</li>
+<li><strong><code>pattern</code></strong>: match if the value fits the pattern in the slice</li>
+<li><strong><code>exists</code></strong>: match based on the presence or absence of the element</li>
+<li><strong><code>type</code></strong>: match if the element has the same type as the element in the slice</li>
+<li><strong><code>profile</code></strong>: match if the element has the same profile as the element in the slice</li>
+</ul></li>
+</ul>
+
+<p>In FSH, authors specify the slicing logic using <strong>caret rules</strong> to set values on an element&#39;s <code>ElementDefinition.slicing</code> object.</p>
+
+<p>In the example, a blood pressure profile slices the component array. It specifies that, for each item in the array:</p>
+
+<ul>
+<li>Look at the item&#39;s <code>code</code> element</li>
+<li>Look at each slice definition&#39;s <code>code</code> element</li>
+<li>If the item&#39;s code value matches a slice&#39;s code pattern, the item belongs in the slice</li>
+</ul>
+
+<p>Note the additional slicing logic that is defined:</p>
+
+<ul>
+<li><strong><code>slicing.rules</code></strong> indicates if non-match values are allowed anywhere (<code>open</code>), allowed only at the end (<code>openAtEnd</code>), or prohibited (<code>closed</code>)</li>
+<li><strong><code>slicing.ordered</code></strong> indicates if the items in the array must match the order that the slices are defined in the profile</li>
+<li><strong><code>slicing.description</code></strong> provides a human-readable description of how slice membership is determined</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3lVsdrS" target="_blank">https://bit.ly/3lVsdrS</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3sbysMA" target="_blank">https://bit.ly/3sbysMA</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3zGlerE" target="_blank">https://bit.ly/3zGlerE</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4662);">Play video at slide 36</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-36.png" target="_blank" name="37"><img src="slides/slide-36.png"></a><a class="slidenumber" href="#37">37</a></td>
+          <td class="notes">
+            <p>After establishing the slicing logic, the next step is to <strong>identify the slices</strong>.</p>
+
+<ul>
+<li>What slices do you want to define?</li>
+<li>How do you want to name them?</li>
+<li>How many occurrences should each slice allow (or require)?</li>
+</ul>
+
+<p>In FSH, authors identify slices (and their cardinalities) using <strong>contains rules</strong>. When using <em>contains rules</em> for slicing, authors specify the element to be sliced, the <code>contains</code> keyword, and then one or more slice name / cardinality pairs (separated by the <code>and</code> keyword).</p>
+
+<p>Continuing with the example from the previous slide, the <code>component</code> element is sliced into two slices:</p>
+
+<ul>
+<li>a required <code>systolic</code> slice, and</li>
+<li>a required <code>diastolic</code> slice</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3lQMoHrFSH" target="_blank">https://bit.ly/3lQMoHrFSH</a></li>
+            
+              <li>Doc: <a href="https://bit.ly/3p4zIPG" target="_blank">https://bit.ly/3p4zIPG</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3zGlerE" target="_blank">https://bit.ly/3zGlerE</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(4962);">Play video at slide 37</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-37.png" target="_blank" name="38"><img src="slides/slide-37.png"></a><a class="slidenumber" href="#38">38</a></td>
+          <td class="notes">
+            <p>After establishing the slicing logic and identifying the slices, the last step is to <strong>define each slice</strong>.</p>
+
+<p>The most important aspect of defining slices is to ensure that they are constrained in a way that allows the discriminator to work. The type of constraint that is needed depends on the discriminator <code>type</code>:</p>
+
+<ul>
+<li><strong><code>value</code></strong>: assign a <em>fixed value</em> or <em>binding</em> at the discriminator path</li>
+<li><strong><code>pattern</code></strong>: assign a <em>pattern value</em> or <em>binding</em> at the discriminator path</li>
+<li><strong><code>exists</code></strong>: <em>require</em> (<code>min</code> &gt;= <code>1</code>) or <em>prohibit</em> (<code>0..0</code>) the element at the discriminator path</li>
+<li><strong><code>type</code></strong>: constrain the <em>element type</em> at the discriminator path</li>
+<li><strong><code>profile</code></strong>: constrain the element type&#39;s <em>profile</em> at the discriminator path</li>
+</ul>
+
+<p>In addition to defining constraints to satisfy the discriminator, you may apply other constraints as well.</p>
+
+<p>In FSH, authors refer to a specific slice by adding the slice name, surrounded by square brackets (<code>[</code> <code>]</code>), after the element name. The actual constraints are applied the same way as would be done on any element.</p>
+
+<p>Continuing with the blood pressure profile example, the <code>component</code>&#39;s <code>systolic</code> slice has been constrained so that:</p>
+
+<ul>
+<li>its <code>code</code> must match (by pattern) LOINC 8480-6 (satisfying the <code>code</code>-based discriminator)</li>
+<li>its value can only be a <code>Quantity</code></li>
+<li>its value must use UCUM units <code>mm[Hg]</code></li>
+</ul>
+
+<p>A similar constraint should be added for the <code>diastolic</code> slice (with a different <code>code</code>), but that is not shown on the slide.</p>
+
+<p>And that... is how you slice in FHIR!</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3lQMoHrFSH" target="_blank">https://bit.ly/3lQMoHrFSH</a></li>
+            
+              <li>Doc: <a href="https://bit.ly/3BHHgwI" target="_blank">https://bit.ly/3BHHgwI</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3zGlerE" target="_blank">https://bit.ly/3zGlerE</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5021);">Play video at slide 38</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-38.png" target="_blank" name="39"><img src="slides/slide-38.png"></a><a class="slidenumber" href="#39">39</a></td>
+          <td class="notes">
+            <p>Now that you&#39;re an expert in slicing, it&#39;s time to move on to the next tricky topic: <em>invariants</em>. But before we do, we must first gain a basic understanding of <strong>FHIRPath</strong>.</p>
+
+<p>FHIRPath provides a way to navigate paths in FHIR data and extract information from them. It pops up in a few places:</p>
+
+<ul>
+<li>Defining <strong>slice discriminators</strong> (via a simple subset of FHIRPath)</li>
+<li>Defining <strong>invariants</strong> (a special type of constraint, to be discussed next)</li>
+<li>Defining <strong>search parameters</strong> (more specifically, what data should be matched on)</li>
+</ul>
+
+<p>Learning about FHIRPath can be confusing, because it is actually covered in <em>two</em> specifications:</p>
+
+<ul>
+<li>Refer to the <a href="http://hl7.org/fhirpath/N1/">FHIRPath specification</a> for the core features and functionality of FHIRPath</li>
+<li>Refer to the <a href="http://hl7.org/fhir/fhirpath.html">FHIR specifications&#39; FHIRPath page</a> for FHIR-specific FHIRPath behavior and extensions</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIRPath Doc: <a href="https://bit.ly/3CEQRUi" target="_blank">https://bit.ly/3CEQRUi</a></li>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3kBoNuL" target="_blank">https://bit.ly/3kBoNuL</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5215);">Play video at slide 39</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-39.png" target="_blank" name="40"><img src="slides/slide-39.png"></a><a class="slidenumber" href="#40">40</a></td>
+          <td class="notes">
+            <p>FHIRPath navigation is fairly simple:</p>
+
+<ul>
+<li>Refer to an element by its name</li>
+<li>Refer to nested elements by using a dot-separated path (e.g., <code>parent.child.grandchild</code>)</li>
+<li>Use a few special keywords and methods for advanced navigation (see next slide)</li>
+</ul>
+
+<p>The result of a FHIRPath navigation is always a <em>list</em> of values:</p>
+
+<ul>
+<li>a single-item list when navigating an element path with a singular value</li>
+<li>a multi-item list when navigating an element path with multiple values</li>
+<li>a multi-item list when navigating an element path that branches to multiple values</li>
+</ul>
+
+<p>The example shows how FHIRPath extracts values when paths refer to multi-item and or nested arrays.</p>
+
+<p>In the third example, FHIRPath iterates through the <code>name</code> objects, collecting the <code>given</code> values in each one and concatenating them into a single flat list.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIRPath Doc: <a href="https://bit.ly/3kAvE7G" target="_blank">https://bit.ly/3kAvE7G</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5318);">Play video at slide 40</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-40.png" target="_blank" name="41"><img src="slides/slide-40.png"></a><a class="slidenumber" href="#41">41</a></td>
+          <td class="notes">
+            <p>The FHIRPath specification defines a number of keywords and functions. Here we call out a few of the most used ones:</p>
+
+<ul>
+<li>FHIRPath does <em>not</em> refer to choice elements the same way as FHIR JSON/XML serialization or FHIR Shorthand. This is a very common mistake for authors using FHIRPath.
+
+<ul>
+<li><code>Observation.value[x]</code> is <em>NOT</em> valid FHIRPath</li>
+<li><code>Observation.valueQuantity</code> is <em>NOT</em> valid FHIRPath</li>
+<li>Instead, use <code>Observation.value</code> or <code>Observation.value as Quantity</code></li>
+</ul></li>
+<li>The <code>.exists()</code> function determines if a path has any values or not.</li>
+<li>The <code>.where(...)</code> function allows for querying during navigation. Use <code>and</code>/<code>or</code> to combine criteria.</li>
+<li>The <code>implies</code> operator allows authors to say &quot;if <em>X</em> is true, then check that <em>Y</em> is also true&quot; (i.e., <code>X implies Y</code>).</li>
+</ul>
+
+<p><br></p>
+
+<table><thead>
+<tr>
+<th>X</th>
+<th>Y</th>
+<th>X implies Y</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+
+<p><em>NOTE: If the path before <code>implies</code> is <code>false</code>, then the overall statement is <code>true</code>, since it has nothing to say about it.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIRPath Doc: <a href="https://bit.ly/3kBqgBh" target="_blank">https://bit.ly/3kBqgBh</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5450);">Play video at slide 41</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-41.png" target="_blank" name="42"><img src="slides/slide-41.png"></a><a class="slidenumber" href="#42">42</a></td>
+          <td class="notes">
+            <p>The FHIR specification defines several additional functions not found in the core FHIRPath specification. This slide calls out a few of the more useful functions:</p>
+
+<ul>
+<li>The <code>extension(...)</code> function is a shortcut for navigating extension paths.
+
+<ul>
+<li>The same can be accomplished via <code>extension.where(url = &#39;http://example.org/my/extension/url&#39;)</code>.</li>
+</ul></li>
+<li>The <code>resolve()</code> function follows references, allowing the path to continue into the referenced object.</li>
+<li>The <code>conformsTo(...)</code> function checks if the element at the path conforms to a specific profile.
+
+<ul>
+<li>Asserting profile conformance is a difficult task; some servers may not support it.</li>
+</ul></li>
+<li>The <code>memberOf(...)</code> function checks if the concept at the path is in the specified value set.
+
+<ul>
+<li>When defining constraints, using a value set <code>binding</code> is preferred over using the <code>memberOf</code> FHIRPath function.</li>
+</ul></li>
+</ul>
+
+<p><em>NOTE: Not all FHIRPath implementations support every function (whether core or FHIR-specific).</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIRPath Doc: <a href="https://bit.ly/3ARnrlz" target="_blank">https://bit.ly/3ARnrlz</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5662);">Play video at slide 42</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-42.png" target="_blank" name="43"><img src="slides/slide-42.png"></a><a class="slidenumber" href="#43">43</a></td>
+          <td class="notes">
+            <p>Since FHIRPath can be complex, it&#39;s important to <em>test</em> any FHIRPath you use in an IG.</p>
+
+<ul>
+<li>Try the <a href="https://hl7.github.io/fhirpath.js/">FHIRPath.js Test App</a> for testing raw FHIRPath against a JSON (or YAML) structure.</li>
+<li>Use the <a href="https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation">IG Publisher</a> and/or <a href="https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator">FHIR Validator</a> for testing FHIRPath invariants against examples.</li>
+</ul>
+
+<p>Neither the FHIRPath.js Test App nor the IG Publisher / Validator provide complete implementations of FHIRPath. In addition, they&#39;ve both been found to have bugs in their implementations. If you think your FHIRPath is correct, but it behaves unexpectedly under test, it may be an issue w/ the test applications!</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIRPath.jsTestApp: <a href="https://bit.ly/39yOEgA" target="_blank">https://bit.ly/39yOEgA</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5788);">Play video at slide 43</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-43.png" target="_blank" name="44"><img src="slides/slide-43.png"></a><a class="slidenumber" href="#44">44</a></td>
+          <td class="notes">
+            <p>FHIRPath is the primary mechanism for defining logical constraints in FHIR <strong>invariants</strong>.</p>
+
+<p>Invariants are typically considered a <em>last resort</em> when a constraint can&#39;t be expressed via other approaches.</p>
+
+<ul>
+<li>For example, invariants are the only way to define constraints that involve <em>multiple elements</em>.</li>
+</ul>
+
+<p>Invariants can also be used to express a &quot;soft&quot; constraint, resulting in a <em>warning</em> rather than an <em>error</em>.</p>
+
+<p>In the first example, an invariant has been defined on <code>Observation</code>:</p>
+
+<ul>
+<li>If <code>component</code> and <code>hasMember</code> are <em>both</em> empty, then a <code>dataAbsentReason</code> or <code>value</code> <em>must</em> be present.</li>
+</ul>
+
+<p>In the second example, an invariant has been defined on <code>Patient.contact</code>:</p>
+
+<ul>
+<li>At least one of <code>name</code>, <code>telecom</code>, <code>address</code>, or <code>organization</code> must be present.</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3i2aEFu" target="_blank">https://bit.ly/3i2aEFu</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(5948);">Play video at slide 44</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-44.png" target="_blank" name="45"><img src="slides/slide-44.png"></a><a class="slidenumber" href="#45">45</a></td>
+          <td class="notes">
+            <p>To <em>define</em> an <strong>invariant</strong> in FSH, you <em>must</em> specify the <code>Invariant</code> identifier, its <code>Severity</code>, and its human-readable <code>Description</code>.  You <em>should</em> also specify a FHIRPath <code>Expression</code>.  You <em>may</em> also specify an <code>XPath</code> expression, but the FHIRPath <code>Expression</code> is preferred.</p>
+
+<p>To <em>apply</em> an invariant in FSH, specify an <strong>obeys rule</strong>.</p>
+
+<ul>
+<li>Top-level invariants have no element path. The rule starts with the keyword <code>obeys</code>, followed by one or more invariants.</li>
+<li>Element-level invariants first specify the element path, then the keyword <code>obeys</code>, followed by one or more invariants.</li>
+<li>To apply multiple invariants, separate each invariant name using the <code>and</code> keyword.</li>
+</ul>
+
+<p>In the example, which is inspired by US Core, the <code>Patient.contact</code> must have a <code>name</code>, <code>telecom</code>, <code>address</code>, and/or <code>organization</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3BH4Kls" target="_blank">https://bit.ly/3BH4Kls</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3o6C2pq" target="_blank">https://bit.ly/3o6C2pq</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6060);">Play video at slide 45</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-45.png" target="_blank" name="46"><img src="slides/slide-45.png"></a><a class="slidenumber" href="#46">46</a></td>
+          <td class="notes">
+            <p>The FHIR core spec aims to cover 80% of interoperability needs (see <a href="http://hl7.org/fhir/R4/overview-arch.html#principles">80/20 rule</a>). Authors define and use extensions to cover the remaining 20%.</p>
+
+<p>Extensions can be simple or complex:</p>
+
+<ul>
+<li><strong>Simple extensions</strong> have <em>only</em> a value</li>
+<li><strong>Complex extensions</strong> have multiple sub-extensions (each of which can be simple or complex)</li>
+<li><em>An extension cannot have both a top-level value AND sub-extensions</em></li>
+</ul>
+
+<p>Extensions should define the context in which they can be used. For example:</p>
+
+<ul>
+<li>US Core Race Extension can only be used on <code>Patient</code>, <code>Person</code>, <code>Practitioner</code>, and <code>RelatedPerson</code></li>
+<li>US Core Direct Email Extension can only be used on <code>ContactPoint</code></li>
+<li>AllergyIntolerance Certainty Extension can only be used on <code>AllergyIntolerance.reaction</code></li>
+</ul>
+
+<p>Reduce, Reuse, Recycle: Check FHIR Core and related IGs for existing extensions before creating your own!</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3ACqjSR" target="_blank">https://bit.ly/3ACqjSR</a></li>
+            
+              <li>FHIR Extension Registry: <a href="https://bit.ly/3ESev1z" target="_blank">https://bit.ly/3ESev1z</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6173);">Play video at slide 46</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-46.png" target="_blank" name="47"><img src="slides/slide-46.png"></a><a class="slidenumber" href="#47">47</a></td>
+          <td class="notes">
+            <p>Defining extensions in FSH is very similar to defining profiles, except:</p>
+
+<ul>
+<li>Use the <code>Extension</code> keyword instead of <code>Profile</code></li>
+<li>The <code>Parent</code> keyword is <em>optional</em>, defaulting to <code>Extension</code></li>
+<li>There are only two elements that can be constrained: <code>value[x]</code> and <code>extension</code></li>
+</ul>
+
+<p>To define a <em>simple</em> extension:</p>
+
+<ul>
+<li>Specify the <code>Extension</code> name and optionally specify its <code>Parent</code> (if other than <code>Extension</code>)</li>
+<li>Specify the <code>Id</code>, <code>Title</code>, and <code>Description</code> (all are optional, but recommended)</li>
+<li>Set the <code>^context</code> to specify where your profile can be used (optional, but recommended)</li>
+<li>Constrain <code>value[x]</code> using all the same types of constraints you already learned for profiles</li>
+</ul>
+
+<p>Then SUSHI will do the following for you:</p>
+
+<ul>
+<li>Fix the <code>url</code> element to the extension&#39;s canonical URL</li>
+<li>Constrain <code>extension</code> to <code>0..0</code> (since you cannot have both <code>value[x]</code> and <code>extension</code>)</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3ACqjSR" target="_blank">https://bit.ly/3ACqjSR</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3skcbfH" target="_blank">https://bit.ly/3skcbfH</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3ELJyfg" target="_blank">https://bit.ly/3ELJyfg</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6284);">Play video at slide 47</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-47.png" target="_blank" name="48"><img src="slides/slide-47.png"></a><a class="slidenumber" href="#48">48</a></td>
+          <td class="notes">
+            <p>To define a <em>complex</em> extension:</p>
+
+<ul>
+<li>Specify the <code>Extension</code> name and optionally specify its <code>Parent</code> (if other than <code>Extension</code>)</li>
+<li>Specify the <code>Id</code>, <code>Title</code>, and <code>Description</code> (all are optional, but recommended)</li>
+<li>Set the <code>^context</code> to specify where your profile can be used (optional, but recommended)</li>
+<li>Use a <strong>contains rule</strong> on <code>extension</code> to name the sub-extensions, their cardinalities, and their flags</li>
+<li>Constrain each sub-extension using all the same types of constraints you already learned for profiles</li>
+<li>Once you constrain <code>extension</code>, SUSHI will automatically apply <code>0..0</code> to the <code>value[x]</code> element for you</li>
+</ul>
+
+<p>Then SUSHI will do the following for you:</p>
+
+<ul>
+<li>Fix the <code>url</code> element to the extension&#39;s canonical URL</li>
+<li>Fix each sub-extension&#39;s <code>url</code> element to the appropriate (usually relative) URL</li>
+<li>Constrain <code>value[x]</code> to <code>0..0</code> (since you cannot have both <code>extension</code> and <code>value[x]</code>)</li>
+</ul>
+
+<p>Each complex extension&#39;s sub-extensions may be specified as an</p>
+
+<ul>
+<li>existing <em>standalone</em> extension (similar to how extensions are specified in profiles), OR</li>
+<li><em>inline</em> extension, defined only in the context of the complex extension
+
+<ul>
+<li>This uses an abbreviated <strong>contains rule</strong> syntax, as shown in the example on the slide</li>
+<li>This is the most common practice and recommended for most use cases</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3ACqjSR" target="_blank">https://bit.ly/3ACqjSR</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3skcbfH" target="_blank">https://bit.ly/3skcbfH</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3zDbcqY" target="_blank">https://bit.ly/3zDbcqY</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6428);">Play video at slide 48</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-48.png" target="_blank" name="49"><img src="slides/slide-48.png"></a><a class="slidenumber" href="#49">49</a></td>
+          <td class="notes">
+            <p><em>Recap from slide 27:</em> A <strong>value set</strong> is a set of codes (from the same or different code systems) grouped together for a particular purpose. For example, a value set might specify:</p>
+
+<ul>
+<li>a listing of supported status codes</li>
+<li>a set of allowed answers to a question</li>
+<li>a set of codes representing cancer diagnoses</li>
+</ul>
+
+<p>There are two approaches to defining value sets:</p>
+
+<ul>
+<li>Intensional: defined by algorithms and relationships
+
+<ul>
+<li>E.g., SNOMED CT 73211009 (Diabetes Mellitus) and its descendants</li>
+<li>Does not need to be updated when relevant codes are added to the code system</li>
+</ul></li>
+<li>Extensional: defined by explicitly enumerating each code
+
+<ul>
+<li>E.g., SNOMED CT 73211009, SNOMED CT 46635009, SNOMED CT 44054006, etc.</li>
+<li>Needs to be manually updated when relevant codes are added to the code system</li>
+</ul></li>
+</ul>
+
+<p>You can also mix intentional and extensional approaches. For example:</p>
+
+<ul>
+<li>Intensionally define codes that should be <em>included</em> in the value set, but</li>
+<li>Extensionally call out a few codes you want to <em>exclude</em> from the value set</li>
+</ul>
+
+<p><em>Best practice: Use intensional value sets when possible, especially for large value sets, as they rely on the code system for maintenance rather than the IG authors.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3AIfrD4" target="_blank">https://bit.ly/3AIfrD4</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6566);">Play video at slide 49</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-49.png" target="_blank" name="50"><img src="slides/slide-49.png"></a><a class="slidenumber" href="#50">50</a></td>
+          <td class="notes">
+            <p>To define a value set in FSH, you <em>must</em> specify the <code>ValueSet</code> name.  You <em>may</em> specify its <code>Id</code>, <code>Title</code>, and <code>Description</code> (all of which are recommended).</p>
+
+<p>The example demonstrates an <em>extensional</em> value set for ethnicity that includes two codes.</p>
+
+<p><em>NOTE: Value sets do not define codes; they merely reference codes that have already been defined in code systems.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3sYmOUf" target="_blank">https://bit.ly/3sYmOUf</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/39GhrzK" target="_blank">https://bit.ly/39GhrzK</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6760);">Play video at slide 50</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-50.png" target="_blank" name="51"><img src="slides/slide-50.png"></a><a class="slidenumber" href="#51">51</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand supports several types of rules in value sets:</p>
+
+<ul>
+<li><strong>Caret rules</strong> are used to directly assign values to the underlying elements in the <code>ValueSet</code> resource.
+
+<ul>
+<li>The first example uses a <em>caret rule</em> to set the status to draft.</li>
+</ul></li>
+<li><strong>Single-code rules</strong> allow you to explicitly include or exclude a code (i.e., extensional definition).
+
+<ul>
+<li>To include a code, specify the code directly. If preferred, you may precede it with the keyword <code>include</code>.</li>
+<li>To exclude a code, use the keyword <code>exclude</code>, followed by the code.</li>
+<li>The second and third examples demonstrate use of a single-code rule.</li>
+</ul></li>
+<li><strong>Intentional rules</strong> allow you to define sources and filters to specify the codes in the value set.
+
+<ul>
+<li>Start the rule w/ <code>include</code> or <code>exclude</code> to signal codes that <em>should</em> or <em>shouldn&#39;t</em> be in the value set.</li>
+<li>Use <code>codes from valueset</code> followed by a value set name, id, or URL to refer to <em>all codes</em> in that value set.</li>
+<li>For an <em>intersection</em> of value sets, specify multiple value sets separated by keyword <code>and</code>.</li>
+<li>For a <em>union</em> of value sets, specify multiple <code>include from valueset</code> rules.</li>
+<li>Use <code>codes from system</code> followed by a code system name, id, or URL to refer to <em>all codes</em> in that system.</li>
+<li>To refer to a subset of codes in a code system, additionally specify the keyword <code>where</code> followed by a valid system property, a filter operator, and a value.</li>
+<li>Specify multiple filters using the keyword <code>and</code>.</li>
+<li><em>NOTE: Available properties and operators are specific to each code system. See the code system&#39;s documentation for more details.</em></li>
+<li>The last three examples demonstrate how to use intentional rules.</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3sYmOUf" target="_blank">https://bit.ly/3sYmOUf</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3i63cJv" target="_blank">https://bit.ly/3i63cJv</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(6807);">Play video at slide 51</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-51.png" target="_blank" name="52"><img src="slides/slide-51.png"></a><a class="slidenumber" href="#52">52</a></td>
+          <td class="notes">
+            <p><em>Recap from slide 27:</em> A <strong>code system</strong> is like a dictionary of codes, defining what codes exist and what their meanings are.</p>
+
+<p>FHIR <code>CodeSystem</code> resources may represent:</p>
+
+<ul>
+<li><strong>External code systems</strong> that are defined and maintained outside of FHIR
+
+<ul>
+<li>These may be defined in full or in part by the FHIR <code>CodeSystem</code></li>
+<li>E.g., LOINC (<a href="http://loinc.org/">external</a> / <a href="http://hl7.org/fhir/R4/loinc.html">FHIR</a>), SNOMED CT (<a href="http://snomed.org/">external</a> / <a href="http://hl7.org/fhir/R4/snomedct.html">FHIR</a>), RxNorm (<a href="https://www.nlm.nih.gov/research/umls/rxnorm/overview.html">external</a> / <a href="http://hl7.org/fhir/R4/rxnorm.html">FHIR</a>), etc.</li>
+</ul></li>
+<li><strong>FHIR internal code systems</strong> that are defined by HL7 specifically for use in FHIR
+
+<ul>
+<li>E.g., <a href="http://hl7.org/fhir/R4/codesystem-binding-strength.html">BindingStrength</a>, <a href="http://hl7.org/fhir/R4/codesystem-observation-status.html">ObservationStatus</a>, <a href="http://hl7.org/fhir/R4/codesystem-quantity-comparator.html">QuantityComparator</a>, etc.</li>
+</ul></li>
+<li><strong>IG internal code systems</strong> that are defined by an IG for use by that IG
+
+<ul>
+<li>E.g., <a href="http://www.hl7.org/fhir/us/core/CodeSystem-us-core-documentreference-category.html">US Core Document References Category Codes</a>, <a href="https://hl7.org/fhir/us/mcode/CodeSystem-loinc-requested-cs.html">mCODE Requested LOINC Codes</a>, etc.</li>
+</ul></li>
+</ul>
+
+<p>Code systems may define code hierarchies and properties, the meaning of which are defined by the system.</p>
+
+<ul>
+<li>I.e., the semantic meaning of a parent/child relationship may differ from code system to code system.</li>
+</ul>
+
+<p>IG-specific code systems put additional burden on implementers, so IGs should define code systems sparingly.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3uckqJV" target="_blank">https://bit.ly/3uckqJV</a></li>
+            
+              <li>FHIR Code System Registry: <a href="https://bit.ly/3EN45QK" target="_blank">https://bit.ly/3EN45QK</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7041);">Play video at slide 52</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-52.png" target="_blank" name="53"><img src="slides/slide-52.png"></a><a class="slidenumber" href="#53">53</a></td>
+          <td class="notes">
+            <p>To define a code system in FSH, you <em>must</em> specify the <code>CodeSystem</code> name.  You <em>may</em> specify its <code>Id</code>, <code>Title</code>, and <code>Description</code> (all of which are recommended).</p>
+
+<p>The example demonstrates a code system that defines four codes related to yoga.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3Ic7l9N" target="_blank">https://bit.ly/3Ic7l9N</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3i59J7g" target="_blank">https://bit.ly/3i59J7g</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7171);">Play video at slide 53</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-53.png" target="_blank" name="54"><img src="slides/slide-53.png"></a><a class="slidenumber" href="#54">54</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand supports several types of rules in code systems:</p>
+
+<ul>
+<li><strong>Top-level caret rules</strong> are used to directly assign values to the underlying elements in the <code>CodeSystem</code> resource.
+
+<ul>
+<li>The first example uses a <em>caret rule</em> to set the code system&#39;s <code>hierarchyMeaning</code>.</li>
+</ul></li>
+<li><strong>Top-level code rules</strong> allow you to define top-level codes in the code system.
+
+<ul>
+<li>To define a code, specify the term (prefixed by <code>#</code>), the display value (in <code>&quot;&quot;</code>), and the definition (in <code>&quot;&quot;</code>).</li>
+<li>The second example demonstrates the definition of a top-level &quot;Race&quot; code.</li>
+</ul></li>
+<li><strong>Nested code rules</strong> allow you to define codes in a hierarchy.
+
+<ul>
+<li>To define a nested code, list the term hierarchy top-down until you reach the new nested term. Then specify the term (prefixed by <code>#</code>), the display value (in <code>&quot;&quot;</code>), and the definition (in <code>&quot;&quot;</code>).</li>
+<li>You must define higher-level codes first before defining the lower-level codes.</li>
+<li>The third example demonstrates the definition of a nested &quot;American Indian or Alaska Native&quot; code <em>under</em> the &quot;Race&quot; code.</li>
+</ul></li>
+<li><strong>Code caret rules</strong> allow you to directly assign values to the underlying elements in the <code>CodeSystem.concept</code> representing a specific code.
+
+<ul>
+<li>To define a code caret rule, specify the term (prefixed by <code>#</code>), followed by <code>^</code> with the underlying element name, the <code>=</code> symbol, and the value.</li>
+<li>You must define the code first before you can specify code caret rules for it.</li>
+<li>The most common elements to assign are <code>^designation</code> and <code>property</code> (and their sub-elements).</li>
+<li>The last example demonstrates the definition of a top-level &quot;Ethnicity&quot; code, indicating that it is abstract.</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3Ic7l9N" target="_blank">https://bit.ly/3Ic7l9N</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3ubmemf" target="_blank">https://bit.ly/3ubmemf</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7204);">Play video at slide 54</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-54.png" target="_blank" name="55"><img src="slides/slide-54.png"></a><a class="slidenumber" href="#55">55</a></td>
+          <td class="notes">
+            <p>Writing nested code rules with full code paths can get tedious and redundant.</p>
+
+<p>FHIR Shorthand 2.0 introduced the &quot;indented rules&quot; feature, which treats leading whitespace as <em>significant</em>:</p>
+
+<ul>
+<li>Indent a rule to indicate that it should be applied in the context of the previous <em>less-indented</em> rule</li>
+<li>Indent by <em>two spaces</em> for each level of indentation</li>
+<li>This can be used to define child codes or assign concept element values without specifying long code paths</li>
+<li>For example:
+
+<ul>
+<li>Indent two spaces to define a child of the previous top-level code</li>
+<li>Indent four spaces to define a child of the previous child (at two spaces)</li>
+<li>Indent two spaces and use a caret rule to assign a concept element for the previous top-level code</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3Ic7l9N" target="_blank">https://bit.ly/3Ic7l9N</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3kFhqT3" target="_blank">https://bit.ly/3kFhqT3</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7389);">Play video at slide 55</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-55.png" target="_blank" name="56"><img src="slides/slide-55.png"></a><a class="slidenumber" href="#56">56</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand has type-specific syntax for the constructs most often defined in FHIR IGs: profiles, extensions, value sets, code systems, and logical models (not covered here, sorry).</p>
+
+<p>FHIR Shorthand defines a single syntax for everything else: the <strong><code>Instance</code></strong> syntax. IG Authors write FSH Instances for:</p>
+
+<ul>
+<li>Examples (e.g., an example of a Patient conforming to US Core)</li>
+<li>Conformance Resources (e.g., CapabilityStatement, OperationDefinition, SearchParameter)</li>
+<li>Inline Resource Instances (e.g., a Patient instance that should be in a Bundle&#39;s <code>entry.resource</code>)</li>
+</ul>
+
+<p><em>NOTE: You could use <code>Instance</code> to define those other things too (e.g., profiles and extensions), but it would be very tedious and error-prone.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/33HYDRB" target="_blank">https://bit.ly/33HYDRB</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7481);">Play video at slide 56</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-56.png" target="_blank" name="57"><img src="slides/slide-56.png"></a><a class="slidenumber" href="#57">57</a></td>
+          <td class="notes">
+            <p>To define an instance in FSH, you <em>must</em> specify the <code>Instance</code> id and <code>InstanceOf</code>.  You <em>should</em> specify its <code>Usage</code> if it is not intended to be an example.  You <em>may</em> specify its <code>Title</code>, and <code>Description</code> (both of which are recommended).</p>
+
+<ul>
+<li>Note that the value of <code>Instance</code> is the instance&#39;s <code>id</code>, <em>not</em> its <code>name</code>.
+
+<ul>
+<li>This is because all resources have an <code>id</code> element, but most do <em>not</em> have a <code>name</code> element.</li>
+</ul></li>
+<li>If you don&#39;t specify a <code>Usage</code>, it will default to <code>#example</code>.</li>
+<li>If <code>Usage</code> is <code>#definition</code>, then it will be listed in the artifact index.</li>
+<li>If <code>Usage</code> is <code>#inline</code>, then it will not get its own page in the IG.</li>
+<li>The IG Publisher will produce a warning for any instances that don&#39;t have a <code>Description</code>.</li>
+</ul>
+
+<p>Instances only support one rule type: the <strong>assignment rule</strong>. To write an assignment rule, specify the path to an element, followed by the <code>=</code> symbol, and then the value that should be assigned.</p>
+
+<p>Tips and tricks:</p>
+
+<ul>
+<li>Any profile elements that are <em>required</em> and have a <em>fixed</em>/<em>pattern</em> value defined will be <em>automatically</em> set in instances of that profile.</li>
+<li>Specify items in a list by their 0-based index number.
+
+<ul>
+<li>e.g., <code>item[0]</code>, <code>item[1]</code>, <code>item[2]</code></li>
+<li><em>If you don&#39;t specify an index (e.g. <code>item</code>), it references the first item in the list.</em></li>
+</ul></li>
+<li>OR Specify items in a list by using <code>[+]</code> to increment the index and <code>=</code> to use the same index.
+
+<ul>
+<li>e.g., <code>item[+].linkId</code>, <code>item[=].type</code></li>
+<li><em>This is called &quot;soft indexing&quot;.</em></li>
+</ul></li>
+<li>Specify choice element paths by replacing <code>[x]</code> with the capitalized type name.
+
+<ul>
+<li>e.g., <code>valueQuantity</code> or <code>valueCodeableConcept</code></li>
+</ul></li>
+<li>Specify extensions by their slice name or URL.
+
+<ul>
+<li>e.g., in an instance of US Core Patient: <code>extension[birthsex].valueCode</code> or <code>extension[http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex].valueCode</code></li>
+</ul></li>
+<li>Specify slices by their slice name.
+
+<ul>
+<li>e.g., in an instance of US Core Blood Pressure: <code>component[systolic].valueQuantity</code></li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Online: <a href="https://bit.ly/39zgA46" target="_blank">https://bit.ly/39zgA46</a></li>
+            
+              <li>FSH Doc: <a href="https://bit.ly/33HYDRB" target="_blank">https://bit.ly/33HYDRB</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7637);">Play video at slide 57</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-57.png" target="_blank" name="58"><img src="slides/slide-57.png"></a><a class="slidenumber" href="#58">58</a></td>
+          <td class="notes">
+            <p>IGs define <strong><code>SearchParameter</code>s</strong> to support searching by specific criteria not defined in a FHIR core search parameter.</p>
+
+<ul>
+<li>This may be used to support searching by the value of an extension (see example).</li>
+</ul>
+
+<p>Sometimes IGs define <code>SearchParameter</code>s to <em>extend</em> an existing search parameter&#39;s definition.</p>
+
+<ul>
+<li>For example, an IG can define if a parameter supports logical AND or OR of search values.</li>
+</ul>
+
+<p>Before creating a <code>SearchParameter</code>, check to see if FHIR core has already defined one that is sufficient for your needs.</p>
+
+<ul>
+<li>Each resource page in the FHIR specification lists available search parameters.</li>
+<li>The FHIR <a href="http://hl7.org/fhir/R4/searchparameter-registry.html">SearchParameter Registry</a> lists every search parameter in the core specification.</li>
+</ul>
+
+<p>Read up on the <a href="http://hl7.org/fhir/R4/search.html">Search API</a> before creating a <code>SearchParameter</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3zHNiusFHIR" target="_blank">https://bit.ly/3zHNiusFHIR</a></li>
+            
+              <li>SearchAPI: <a href="https://bit.ly/3zKXaDUFHIR" target="_blank">https://bit.ly/3zKXaDUFHIR</a></li>
+            
+              <li>Search Parameter Registry: <a href="https://bit.ly/3ESpdF5" target="_blank">https://bit.ly/3ESpdF5</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7902);">Play video at slide 58</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-58.png" target="_blank" name="59"><img src="slides/slide-58.png"></a><a class="slidenumber" href="#59">59</a></td>
+          <td class="notes">
+            <p>Defining a <strong><code>SearchParameter</code></strong> in FHIR Shorthand uses the standard <code>Instance</code> syntax.</p>
+
+<p>Since <code>SearchParameter</code>s are definitional, the usage should be <code>#definition</code> (unless it is literally an <em>example</em> of how to define a <code>SearchParameter</code>).</p>
+
+<p>In a <code>SearchParameter</code> definition, the <code>code</code> element represents the query parameter that will go into the search URL. In the example on the slide, the <code>code</code> is <code>race</code>, so a corresponding query might look like this: <code>https://example.org/fhir/Patient?race=2106-3</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3v9JUdj" target="_blank">https://bit.ly/3v9JUdj</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2WcFKCp" target="_blank">https://bit.ly/2WcFKCp</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(7980);">Play video at slide 59</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-59.png" target="_blank" name="60"><img src="slides/slide-59.png"></a><a class="slidenumber" href="#60">60</a></td>
+          <td class="notes">
+            <p>IGs define FHIR <strong><code>OperationDefinition</code>s</strong> to support custom server-side functionality beyond what is defined by core FHIR.</p>
+
+<p>An Operation can be performed on:</p>
+
+<ul>
+<li>a <strong>specific resource</strong> (e.g. <code>[base]/ValueSet/[id]/$expand</code> to expand a specific value set)</li>
+<li>a <strong>resource type</strong> (e.g., <code>[base]/Claim/$submit</code> to submit a claim and execute related business logic)</li>
+<li>the <strong>whole system</strong> (e.g., <code>[base]/$medlist</code> to gather a list of medications from <code>MedicationRequest</code> and <code>MedicationStatement</code>)</li>
+</ul>
+
+<p>Before creating an <code>OperationDefinition</code>, check to see if FHIR core has already defined one that is sufficient for your needs.</p>
+
+<ul>
+<li>The FHIR <a href="http://hl7.org/fhir/R4/operationslist.html">Operation Registry</a> lists every operation defined in the core specification.</li>
+</ul>
+
+<p>Read up on the <a href="http://hl7.org/fhir/R4/operations.html">Extended Operations API</a> before creating an <code>OperationDefinition</code>.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3o3KFHIR" target="_blank">https://bit.ly/3o3KFHIR</a></li>
+            
+              <li>OperationsAPI: <a href="https://bit.ly/2XRlwPD" target="_blank">https://bit.ly/2XRlwPD</a></li>
+            
+              <li>Operations Registry: <a href="https://bit.ly/3ES0hxG" target="_blank">https://bit.ly/3ES0hxG</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8146);">Play video at slide 60</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-60.png" target="_blank" name="61"><img src="slides/slide-60.png"></a><a class="slidenumber" href="#61">61</a></td>
+          <td class="notes">
+            <p>Defining an <strong><code>OperationDefinition</code></strong> in FHIR Shorthand uses the standard <code>Instance</code> syntax.</p>
+
+<p>Since <code>OperationDefinition</code>s are definitional, the usage should be <code>#definition</code> (unless it is literally an <em>example</em> of how to define an <code>OperationDefinition</code>).</p>
+
+<p>Instances of <code>OperationDefinition</code> will usually define multiple parameters. Use &quot;soft indexing&quot; to make it more maintainable.</p>
+
+<ul>
+<li>Recap from notes on slide 56:
+
+<ul>
+<li>Use <code>[+]</code> to <em>increment</em> the index from the last used index value (if none, then the first <code>[+]</code> is <code>[0]</code>).</li>
+<li>Use <code>[=]</code> to use the <em>same</em> index as the last used index value.</li>
+<li>This makes it easier to add/remove items without having to renumber the whole list.</li>
+</ul></li>
+</ul>
+
+<p>Notice that there is a lot of repetition in definitions like this:</p>
+
+<ul>
+<li>For each parameter, we&#39;re assigning the same list of sub-elements
+
+<ul>
+<li><code>use</code>, <code>name</code>, <code>min</code>, <code>max</code>, <code>type</code>, and <code>documentation</code></li>
+</ul></li>
+<li>The only difference is the values we assign to each of them</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3v9JUdj" target="_blank">https://bit.ly/3v9JUdj</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2XZHbVJ" target="_blank">https://bit.ly/2XZHbVJ</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8270);">Play video at slide 61</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-61.png" target="_blank" name="62"><img src="slides/slide-61.png"></a><a class="slidenumber" href="#62">62</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand supports the use of <strong><code>RuleSet</code>s</strong> to reduce &quot;boilerplate&quot; or repetitiveness in FSH rules.</p>
+
+<p><code>RuleSet</code>s can be simple:</p>
+
+<ul>
+<li>Specify a <code>RuleSet</code>&#39;s name and a set of FSH rules.</li>
+<li>Insert it anywhere you want those rules applied.</li>
+<li><em>Think of it like a copy/paste operation.</em></li>
+</ul>
+
+<p><code>RuleSet</code>s can also be parameterized for more flexibility:</p>
+
+<ul>
+<li>Specify a <code>RuleSet</code>&#39;s name, one or more input parameters, and a set of FSH rules.
+
+<ul>
+<li>Refer to parameter values in the rules like this: <code>{someParamName}</code></li>
+</ul></li>
+<li>Insert it anywhere you want those rules applied, passing in the parameter values to use.
+
+<ul>
+<li>Parameters in the rules will be replaces with the specified parameter values <em>as-is</em>.</li>
+<li>Precede literal <code>,</code> and <code>)</code> with <code>\</code> to &quot;escape&quot; them, since they are a part of the <code>insert</code> syntax.</li>
+</ul></li>
+<li><em>Think of it like an advanced macro.</em></li>
+</ul>
+
+<p>The example demonstrates how to create a <code>RuleSet</code> to use in instances of <code>OperationDefinition</code>.</p>
+
+<ul>
+<li>All of the repetitive parts of the definition can be specified just once and then applied multiple times.</li>
+<li>Because the first rule in the <code>RuleSet</code> uses <code>[+]</code>, inserting the <code>RuleSet</code> always increments to the next parameter.</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3vhd4XU" target="_blank">https://bit.ly/3vhd4XU</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/3ucTs4H" target="_blank">https://bit.ly/3ucTs4H</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8508);">Play video at slide 62</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-62.png" target="_blank" name="63"><img src="slides/slide-62.png"></a><a class="slidenumber" href="#63">63</a></td>
+          <td class="notes">
+            <p>On the left-hand side of the slide, an <strong><code>OperationDefinition</code></strong> leverages a <strong><code>RuleSet</code></strong> for specifying each parameter.</p>
+
+<ul>
+<li><em>NOTE: This example is loosely based on US Core&#39;s <a href="http://www.hl7.org/fhir/us/core/OperationDefinition-docref.html">Fetch DocumentReference</a> operation.</em></li>
+</ul>
+
+<p>On the right-hand side of the slide, the same <code>OperationDefinition</code> is defined without using <code>RuleSet</code>s.</p>
+
+<p>This example demonstrate several advantages to using <code>RuleSet</code>s:</p>
+
+<ul>
+<li>It is <strong>compact</strong> (22 lines versus 52 lines).</li>
+<li>It is <strong>consistent</strong> since each parameter is guaranteed to follow the same format.</li>
+<li>It is <strong>easier to read</strong> since each parameter can be easier scanned.</li>
+<li>It is <strong>easier to write</strong> since let typing and less though are involved.</li>
+<li>It leads to <strong>fewer mistakes</strong> since authors have few opportunities to <em>make</em> mistakes.</li>
+<li>It <strong>feels good</strong>!</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3vhd4XU" target="_blank">https://bit.ly/3vhd4XU</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2XZHbVJ" target="_blank">https://bit.ly/2XZHbVJ</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8690);">Play video at slide 63</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-63.png" target="_blank" name="64"><img src="slides/slide-63.png"></a><a class="slidenumber" href="#64">64</a></td>
+          <td class="notes">
+            <p>IGs define <strong><code>CapabilityStatement</code>s</strong> to describe requirements for clients and servers.</p>
+
+<ul>
+<li>Supported profiles</li>
+<li>Supported operations</li>
+<li>Supported search parameters</li>
+<li>Etc.</li>
+</ul>
+
+<p>Expectations (e.g., <code>SHALL</code>, <code>SHOULD</code>, etc.) must be defined using special extensions.</p>
+
+<p><em>NOTE: <code>CapabilityStatement</code>s are also used to advertise the capabilities of a given system, but that&#39;s not something you would typically find in an IG.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3m0Vykt" target="_blank">https://bit.ly/3m0Vykt</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8772);">Play video at slide 64</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-64.png" target="_blank" name="65"><img src="slides/slide-64.png"></a><a class="slidenumber" href="#65">65</a></td>
+          <td class="notes">
+            <p>Defining a <strong><code>CapabilityStatement</code></strong> in FHIR Shorthand uses the standard <code>Instance</code> syntax.</p>
+
+<p>Since <code>CapabilityStatement</code>s are definitional, the usage should be <code>#definition</code> (unless it is literally an <em>example</em> of how to define a <code>CapabilityStatement</code>).</p>
+
+<p><code>CapabilityStatement</code>s typically contain many repetitive rules that all follow the same pattern. This makes them great candidates for <code>RuleSet</code>s.</p>
+
+<p>In the example on the slide, the following <code>RuleSet</code>s are defined and applied:</p>
+
+<ul>
+<li><code>SupportResource (resource, expectation)</code></li>
+<li><code>SupportProfile (profile, expectation)</code></li>
+<li><code>SupportInteraction (interaction, expectation)</code></li>
+<li><code>SupportSearchParam (name, canonical, type, expectation)</code></li>
+</ul>
+
+<p><em>NOTE: Many people find the default rendering of CapabilityStatements (in the published IG) difficult to read. There are some efforts underway to improve this via additional tooling and/or enhancements to the IG Publisher.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH Doc: <a href="https://bit.ly/3v9JUdj" target="_blank">https://bit.ly/3v9JUdj</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2XLeFXq" target="_blank">https://bit.ly/2XLeFXq</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(8883);">Play video at slide 65</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-65.png" target="_blank" name="66"><img src="slides/slide-65.png"></a><a class="slidenumber" href="#66">66</a></td>
+          <td class="notes">
+            <p>In addition to formal FHIR definitions and examples, implementation guides contain additional content to guide implementers.</p>
+
+<p>This includes:</p>
+
+<ul>
+<li><strong>Full Page Content</strong>: Custom documentation not associated to a specific IG resource
+
+<ul>
+<li>Specified by <a href="https://kramdown.gettalong.org/quickref.html">kramdown-flavored markdown</a> or <a href="https://www.w3docs.com/learn-html/xhtml-extensible-hypertext-markup-language.html">XHTML</a> files in the <code>input/pagecontent</code> or <code>input/pages</code> folder</li>
+<li><em>NOTE: The screenshot does not show this type of content, but the <a href="http://www.hl7.org/fhir/us/core/security.html">US Core Security</a> page is a good example</em></li>
+</ul></li>
+<li><strong>Intro Content</strong>: Content that goes <em>before</em> the formal views (e.g. tables, terminology, constraints) on a resource page
+
+<ul>
+<li>Specified by kramdown-flavored markdown or XHTML files in <code>input/intro-notes</code>, <code>input/pagecontent</code>, or <code>input/pages</code> folder</li>
+<li>File name must be <code>{ResourceType}-{id}-intro.{md|xml}</code></li>
+</ul></li>
+<li><strong>Formal Resource Content</strong>: Titles, descriptions, comments, etc. rendered into the formal views on a resource page
+
+<ul>
+<li>Specified by keywords (<code>Title</code>, <code>Description</code>) and caret rules (<code>^short</code>, <code>^definition</code>, <code>comment</code>, <code>requirements</code>, ...)</li>
+</ul></li>
+<li><strong>Notes Content</strong>: Content that goes <em>after</em> the formal views on a resource page
+
+<ul>
+<li>Specified by kramdown-flavored markdown or XHTML files in <code>input/intro-notes</code>, <code>input/pagecontent</code>, or <code>input/pages</code> folder</li>
+<li>File name must be <code>{ResourceType}-{id}-notes.{md|xml}</code></li>
+</ul></li>
+<li><strong>Binary Content</strong>: Images and/or other binary files that can be downloaded or rendered in the IG
+
+<ul>
+<li>Located in the <code>input/images</code> folder</li>
+</ul></li>
+</ul>
+
+<p>The IG Publisher is responsible for rendering the user-facing HTML content.</p>
+
+<p>For examples of markdown and XHTML pages see:</p>
+
+<ul>
+<li><a href="https://github.com/HL7/fhir-mCODE-ig/tree/master/input/pagecontent">fhir-mCODE-ig/input/pagecontent</a></li>
+<li><a href="https://github.com/HL7/US-Core/tree/master/input/pagecontent">US-Core/input/pagecontent</a></li>
+<li><a href="https://github.com/HL7/US-Core/tree/master/input/intro-notes">US-Core/input/intro-notes</a></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>IG Doc: <a href="https://bit.ly/3EUugVP" target="_blank">https://bit.ly/3EUugVP</a></li>
+            
+              <li>SUSHI Doc: <a href="https://bit.ly/3kMLTyx" target="_blank">https://bit.ly/3kMLTyx</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9011);">Play video at slide 66</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-66.png" target="_blank" name="67"><img src="slides/slide-66.png"></a><a class="slidenumber" href="#67">67</a></td>
+          <td class="notes">
+            <p>The <strong><code>sushi-config.yaml</code></strong> file provides additional control over the IG content.</p>
+
+<ul>
+<li><p>The <em>optional</em> <strong><code>pages</code></strong> property can be used to control the page order and hierarchy.</p>
+
+<ul>
+<li>If you don&#39;t provide a <code>title</code>, SUSHI infers one from the file name.</li>
+<li>If you don&#39;t include the <code>pages</code> property at all, SUSHI will include all pages and determine titles and ordering.</li>
+<li>If you do include the <code>pages</code> property, you <em>must</em> specify every page you want included.</li>
+</ul></li>
+<li><p>The <strong><code>menu</code></strong> property controls the menu at the top of each IG page.</p>
+
+<ul>
+<li>Menus can only be two levels deep (top-level items and their direct children).</li>
+<li>If preferred, you can supply an <code>input/includes/menu.xml</code> file instead.</li>
+</ul></li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>SUSHI Doc: <a href="https://bit.ly/3CY0DBg" target="_blank">https://bit.ly/3CY0DBg</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9341);">Play video at slide 67</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-67.png" target="_blank" name="68"><img src="slides/slide-67.png"></a><a class="slidenumber" href="#68">68</a></td>
+          <td class="notes">
+            <p>The main configuration of an implementation guide is formally defined by its <strong><code>ImplementationGuide</code> resource</strong>:</p>
+
+<ul>
+<li>name, id, canonical URL</li>
+<li>IG version, FHIR version</li>
+<li>dependencies</li>
+<li>included definitions</li>
+<li>included pages</li>
+<li>other IG parameters</li>
+</ul>
+
+<p>FSH authors <em>can</em> maintain an <code>ImplementationGuide</code> JSON file manually, but <em>most</em> choose to have SUSHI generate it.</p>
+
+<p><em>NOTE: No matter what version of FHIR your IG supports, IG Publisher uses the latest <a href="http://build.fhir.org/implementationguide.html">R5 ImplementationGuide</a> internally. As a result, you may see some values or parameters that are not technically supported in R4.</em></p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FHIR Doc: <a href="https://bit.ly/3me3uiK" target="_blank">https://bit.ly/3me3uiK</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9534);">Play video at slide 68</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-68.png" target="_blank" name="69"><img src="slides/slide-68.png"></a><a class="slidenumber" href="#69">69</a></td>
+          <td class="notes">
+            <p>FSH authors control the <code>ImplementationGuide</code> resource via the <strong><code>sushi-config.yaml</code></strong> file.</p>
+
+<ul>
+<li><code>sushi-config.yaml</code> supports everything that <code>ImplementationGuide</code> supports.</li>
+<li>But... it uses a friendlier format (in our opinion) -- so <a href="https://fshschool.org/docs/sushi/configuration/">read the doc</a>.</li>
+<li>Some aspects of IG generation are controlled by <a href="https://confluence.hl7.org/display/FHIR/Implementation+Guide+Parameters">parameters</a>, so it&#39;s good to be familiar with them.</li>
+<li>Many <code>ImplementationGuide</code> elements are generated automatically from other content in the IG.</li>
+</ul>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>SUSHI Doc: <a href="https://bit.ly/3m5qAaZ" target="_blank">https://bit.ly/3m5qAaZ</a></li>
+            
+              <li>IG ParameterTable: <a href="https://bit.ly/2Y1c64b" target="_blank">https://bit.ly/2Y1c64b</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9701);">Play video at slide 69</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-69.png" target="_blank" name="70"><img src="slides/slide-69.png"></a><a class="slidenumber" href="#70">70</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand makes it easier to author IGs, but <strong>creating a <em>good</em> IG is still hard!</strong></p>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9780);">Play video at slide 70</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-70.png" target="_blank" name="71"><img src="slides/slide-70.png"></a><a class="slidenumber" href="#71">71</a></td>
+          <td class="notes">
+            <p>If you maintain an existing IG and want to switch to FHIR Shorthand, <strong>GoFSH</strong> makes it easy! <em>(Well, easier).</em></p>
+
+<p>GoFSH converts FHIR resources into FHIR Shorthand files using one of these formats:</p>
+
+<ul>
+<li><strong>file-per-definition</strong>: Create a separate .fsh file for each formal definition (default)</li>
+<li><strong>group-by-fsh-type</strong>: Create one .fsh file for all profiles, another for all extensions, etc.</li>
+<li><strong>group-by-profile</strong>: Create a .fsh file for each profile and attempt to group related definitions with it.</li>
+<li><strong>single-file</strong>: Create one .fsh file to rule them all!</li>
+</ul>
+
+<p>Some additional cleanup work may be required after running GoFSH, especially if there were errors.</p>
+
+<p>Use the <strong>FSHing trip</strong> feature to run GoFSH, then SUSHI, and compare the results w/ the original IG source.</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>FSH School: <a href="https://bit.ly/2YckXjj" target="_blank">https://bit.ly/2YckXjj</a></li>
+            
+              <li>NPM: <a href="https://bit.ly/3idqxsM" target="_blank">https://bit.ly/3idqxsM</a></li>
+            
+              <li>GitHub: <a href="https://bit.ly/3zRUsg3" target="_blank">https://bit.ly/3zRUsg3</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(9940);">Play video at slide 71</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-71.png" target="_blank" name="72"><img src="slides/slide-71.png"></a><a class="slidenumber" href="#72">72</a></td>
+          <td class="notes">
+            <p>FHIR Shorthand has many tools and resources to help you!  Check them out!</p>
+
+            
+            <p><strong>Links:</strong></p>
+            <ul>
+            
+              <li>SUSHI: <a href="https://bit.ly/3CZyNob" target="_blank">https://bit.ly/3CZyNob</a></li>
+            
+              <li>GoFSH: <a href="https://bit.ly/2YckXjj" target="_blank">https://bit.ly/2YckXjj</a></li>
+            
+              <li>VS Code Ext: <a href="https://bit.ly/3fUsIk7" target="_blank">https://bit.ly/3fUsIk7</a></li>
+            
+              <li>FSH Online: <a href="https://bit.ly/2Y0Ptfu" target="_blank">https://bit.ly/2Y0Ptfu</a></li>
+            
+              <li>FSH Finder: <a href="https://bit.ly/39OlASk" target="_blank">https://bit.ly/39OlASk</a></li>
+            
+              <li>FSH School: <a href="https://bit.ly/3CWpmWw" target="_blank">https://bit.ly/3CWpmWw</a></li>
+            
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(10117);">Play video at slide 72</a></p>
+        </td>
+        </tr>
+      
+        <tr>
+          <td class="slide"><a href="slides/slide-72.png" target="_blank" name="73"><img src="slides/slide-72.png"></a><a class="slidenumber" href="#73">73</a></td>
+          <td class="notes">
+            <p><em>With apologies to Douglas Adams...</em></p>
+
+            
+            <p>⏯ <a href="javascript:popOutPlayerAndPlay(10190);">Play video at slide 73</a></p>
+        </td>
+        </tr>
+      
+    </table>
+    <p>MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.</p>
+  </div>
+  <script src="https://cdn.usefathom.com/script.js" data-site="URVHCNQA" defer></script>
+</body>
+</html>
