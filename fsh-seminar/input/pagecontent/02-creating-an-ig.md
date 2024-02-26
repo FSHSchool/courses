@@ -129,7 +129,7 @@ IGs also often include diagrams. There is native support in the IG Publisher for
 
 #### Starting a new IG
 
-The simplest way to create a new IG is to run `sushi --init` at the command line. Here's what this process looks like on Mac/Linux:
+The simplest way to create a new IG is to run `sushi init` at the command line. Here's what this process looks like on Mac/Linux:
 
 <img src="sushi_init.gif" alt="Screen recording of running the `sushi --init` command" style="float: inherit;">
 
@@ -339,7 +339,7 @@ The ValueSet (not the CodeSystem) is [bound](https://www.hl7.org/fhir/R4/profili
 
 Now that we have identified the structural and semantic mappings from our information model onto FHIR resources, we can implement using FSH.
 
-As you saw above, SUSHI will generate a folder structure for your IG when you run `sushi --init`.
+As you saw above, SUSHI will generate a folder structure for your IG when you run `sushi init`.
 
 We will focus on the `input/fsh/` and `input/pagecontent/` folders, where your FSH and narrative Markdown respectively go.
 
@@ -385,7 +385,7 @@ We will take a simpler approach in the example IG for this seminar:
 
 Recall that the FHIR IG Publisher and FHIR Shorthand compiler (SUSHI) define the folder structure above, and that SUSHI will actually generate this for you when you initialize a new project with `sushi -- init`.
 
-For the purposes of this course, you can either run `sushi --init` yourself to get this folder structure and add in the IG content by following the directions below, or get a pre-created copy of the folder structure and files above that includes everything discussed in Part 2 [from GitHub](https://github.com/FSHSchool/courses-fsh-seminar-exercise). This will also form the basis of the exercise in [Part 3].
+For the purposes of this course, you can either run `sushi init` yourself to get this folder structure and add in the IG content by following the directions below, or get a pre-created copy of the folder structure and files above that includes everything discussed in Part 2 [from GitHub](https://github.com/FSHSchool/courses-fsh-seminar-exercise). This will also form the basis of the exercise in [Part 3].
 
 We will now go through the content needed to construct the IG for our example use case.
 
@@ -439,7 +439,7 @@ Description: "Obstructive Sleep Apnea Conditions"
 
 ##### Profile: Patient
 
-When you create a new IG with `sushi --init`, it will generate `input/fsh/patient.fsh` as a placeholder. This placeholder file looks like:
+When you create a new IG with `sushi init`, it will generate `input/fsh/patient.fsh` as a placeholder. This placeholder file looks like:
 
 ```
 // This is a simple example of a FSH file.
