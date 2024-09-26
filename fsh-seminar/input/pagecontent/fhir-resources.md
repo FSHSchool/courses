@@ -5,7 +5,6 @@
     - [Architecture overview](http://hl7.org/fhir/overview-arch.html)
     - [IG best practices](https://build.fhir.org/ig/FHIR/ig-guidance/branches/master/best-practice.html) (note that this has not officially been published yet, but [the authors are some of the FHIR-I leaders](https://github.com/FHIR/ig-guidance/))
 - Intro to FHIR videos
-    - [45 minutes, from 2019](https://www.youtube.com/watch?v=rJ_VEKiR55I)
+    - [45 minutes, from 2023](https://www.youtube.com/watch?v=6PkDXAEmkbE)
     - [90 minutes, from 2020](https://www.youtube.com/watch?v=YbQcJj1GqH0)
-- [Profiling Academy](https://simplifier.net/guide/profilingacademy/home) - beginner-focused guide to "profiling" (creating your own FHIR customizations), which also explains a lot of FHIR concepts in a clear way
 - The FHIR Confluence site, e.g., [Guide to Designing Resources](https://confluence.hl7.org/display/FHIR/Guide+to+Designing+Resources), but there are many other pages that may be of interest
