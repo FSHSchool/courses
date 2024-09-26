@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <title>ORG.FSHSCHOOL.COURSES.FSH-SEMINAR\FHIR Resources - FHIR v4.0.1
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="http://hl7.org/fhir" />
+
+    <link href="fhir.css" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap-fhir.css" rel="stylesheet" />
+
+    <!-- Project extras -->
+    <link href="assets/css/project.css" rel="stylesheet" />
+    <link href="assets/css/pygments-manni.css" rel="stylesheet" />
+    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="assets/css/prism.css" rel="stylesheet" />
+    <!-- Placeholder for child template CSS declarations -->
+    <link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css"/>
+    <link href="assets/css/fix-fonts.css" rel="stylesheet"/>
+    <link href="assets/css/fsh.css" rel="stylesheet" />
+    <link href="assets/css/video-js.css" rel="stylesheet" />
+    <script src="assets/js/video.min.js"></script>
+
+
+
+    <script>
+        // Set tab based on the anchor in URL
+        var hash = window.location.hash;
+        try {
+            if(hash == "#tab-diff") sessionStorage.setItem('fhir-resource-tab-index', 1);
+            if(hash == "#tab-snapshot") sessionStorage.setItem('fhir-resource-tab-index', 2);
+            if(hash == "#tab-ms") sessionStorage.setItem('fhir-resource-tab-index', 3);
+
+            // Default to snapshot tab
+            if(!sessionStorage.getItem('fhir-resource-tab-index')) sessionStorage.setItem('fhir-resource-tab-index', 2);
+        } catch(e) { }
+
+        // Make it so that clicking the tabs also sets the anchor in the url
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#tabs .ui-tabs-nav li').click(function() {
+                var id = $(this).children('a').attr('id');
+                if(id == "ui-id-2") window.location.hash = "#tab-diff";
+                if(id == "ui-id-3") window.location.hash = "#tab-snapshot";
+                if(id == "ui-id-4") window.location.hash = "#tab-ms";
+            })
+        });
+    </script>
+
+    <script type="text/javascript" src="fhir-table-scripts.js"> </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="assets/ico/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="assets/ico/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="assets/ico/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed"
+        href="assets/ico/apple-touch-icon-57-precomposed.png" />
+    <link rel="shortcut icon" href="assets/ico/favicon.png" />
+</head>
+
+<body onload="document.body.style.opacity='1'">
+    
+    <script src="assets/js/prism.js"></script>
+
+    <style type="text/css">
+        h2 {
+            --heading-prefix:"3"
+        }
+
+        h3,
+        h4,
+        h5,
+        h6 {
+            --heading-prefix:"3"
+        }
+    </style>
+    <header>
+        <nav class="navbar navbar-inverse" style="background-color: #30638e;">
+          <div class="container">
+            <div class="navbar-header" style="">
+              <a class="navbar-brand" style="margin-right: 0;margin-top: 0.25em;" href="https://fshschool.org"><span class="navbar-logo"><svg id="Layer_1" viewBox="9.182 12.932 266.818 60.399" style="width: 100px; enable-background:new 0 0 240 92" xmlns="http://www.w3.org/2000/svg"><style>.st0{fill:#0b2338}.st1{fill:#0b5b94}</style><g transform="matrix(1, 0, 0, 0.948419, 0, 0.742756)"><g><polygon class="st1" points="62.1,14.5 47.6,51.9 32.9,14.5 21.2,14.5 10,74.4 22,74.4 29.1,36.9 43,74.4 52,74.4 65.9,36.9 
+            73,74.4 85.4,74.4 73.8,14.5" style="fill:#fff"></polygon><rect x="88.4" y="14.5" class="st1" width="11.2" height="60" style="fill:#fff"></rect><polygon class="st1" points="103.3,14.5 103.3,24.2 116.5,24.2 116.5,74.4 127.7,74.4 127.7,24.2 140.9,24.2 140.9,14.5" style="fill:#fff"></polygon><g><path class="st1" d="M155.8 74.4h-11.2v-60h26.7c1.1.0 2.9.4 5.4 1.1 2.5.7 5 2.4 7.5 4.9 2.5 2.6 3.7 6.3 3.7 11.2.0 5.1-1.3 9-4 11.6-2.7 2.7-5.4 4.3-8.2 5-2.7.8-4.8 1.1-6.1 1.1l20 25H176l-18.3-24.8V38.9l11.2-.1h.6c1.5.0 3.1-.6 4.6-1.7 1.7-1.3 2.5-3.1 2.5-5.4.0-2.1-.7-3.8-2.1-5.2-1.4-1.3-3.3-2-5.7-2h-13.1V74.4z" style="fill:#fff"></path><polygon class="st1" points="189.5,14.5 224.3,14.5 224.3,24.2 200.8,24.2 200.8,39.6 224,39.6 224,49.3 200.8,49.3 200.8,64.7 
+                224.3,64.7 224.3,74.4 189.5,74.4" style="fill:#fff"></polygon></g></g></g><text style="fill:#fff;font-family:Arial,sans-serif;font-size:76px;white-space:pre" transform="matrix(1, 0, 0, 0.838825, -6, 5.963185)" x="191.004" y="6.55" dx="71.937" dy="57.477">|</text></svg></span></a> <span class="navbar-brand" style="max-width: inherit;text-transform: uppercase;margin-top: 0.25em;color: white;font-weight: 400;"><span class="" style="font-weight: bold;"><a href="/" style="color: white; text-decoration: none;">FSH School</a></span>&nbsp;/&nbsp;<a href="/courses/" style="color: white; text-decoration: none;">Courses</a></span>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <div id="segment-header" class="segment">
+        <!-- segment-header -->
+        <div class="container">
+            <!-- container -->
+            <!-- Placeholder for child template header declarations -->
+
+        <div id="family-nav">
+          <a id="family-logo" no-external="true" href="https://fshschool.org/courses"><img height="50" alt="FSH logo" src="fsh_logo.png"/> </a>
+        </div>
+            
+            <div id="ig-status">
+                <p><span
+                        style="">FSH Seminar</span><br />0.1.0
+                    - ci-build</p>
+            </div>
+        </div> <!-- /container -->
+    </div> <!-- /segment-header -->
+
+    <div id="segment-navbar" class="segment">
+        <!-- segment-navbar -->
+        <div id="stripe"> </div>
+        <div class="container">
+            <!-- container -->
+            <!-- HEADER CONTENT -->
+
+            <nav class="navbar navbar-inverse">
+                <!--status-bar-->
+                <div class="container">
+                    <button data-target=".navbar-inverse-collapse" class="navbar-toggle" data-toggle="collapse"
+                        type="button">
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                    </button>
+                    <a class="navbar-brand hidden" href="http://hl7.org/fhir/R4/index.html">FHIR</a>
+                    <div class="nav-collapse collapse navbar-inverse-collapse">
+                        <!-- menu.xml  -->
+
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Course Content
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="setup.html">0. Setup</a>
+      </li>
+      <li>
+        <a href="01-reading-an-ig.html">1. Reading an IG</a>
+      </li>
+      <li>
+        <a href="02-creating-an-ig.html">2. Creating an IG</a>
+      </li>
+      <li>
+        <a href="03-exercise.html">3. Hands-On Exercise</a>
+      </li>
+      <li>
+        <a href="04-deep-dive-with-fsh.html">4. Dive Deep with FSH</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="fhir-resources.html">FHIR Background/Resources</a>
+  </li>
+  <li>
+    <a href="artifacts.html">Artifacts</a>
+  </li>
+</ul>
+                    </div> <!-- /.nav-collapse -->
+                </div> <!-- /.container -->
+            </nav> <!-- /.navbar -->
+            <!-- /HEADER CONTENT -->
+        </div> <!-- /container -->
+    </div> <!-- /segment-navbar -->
+    <!--status-bar-->
+    <div id="segment-breadcrumb" class="segment">
+        <!-- segment-breadcrumb -->
+        <div class="container">
+            <!-- container -->
+            <ul class="breadcrumb">
+                <li><a href='toc.html'><b>Table of Contents</b></a></li><li><b>FHIR Resources</b></li>
+            </ul>
+        </div> <!-- /container -->
+    </div> <!-- /segment-breadcrumb -->
+
+    <div id="segment-content">
+        <!-- segment-content -->
+        <div class="container">
+            <!-- container -->
+            <div class="row">
+                <div class="inner-wrapper">
+<style type="text/css">
+h2:before{color:silver;counter-increment:section;content:var(--heading-prefix) " ";}
+h3:before{color:silver;counter-increment:sub-section;content:var(--heading-prefix) "." counter(sub-section) " ";}
+h4:before{color:silver;counter-increment:composite;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) " ";}
+h5:before{color:silver;counter-increment:detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";}
+h6:before{color:silver;counter-increment:more-detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) "." counter(more-detail)" ";}
+</style>
+<div class="col-12">
+  <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader-->
+  <h2>FHIR Resources</h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    <p><!-- white space is critical inside of capture --></p>
+<div>
+<!-- do not remove - needed to prevent Jekyll from adding a p tag to any non block level element in the markdown.-->
+</div>
+<ul>
+  <li>Official FHIR documentation
+    <ul>
+      <li><a href="http://hl7.org/fhir/summary.html">Executive summary</a></li>
+      <li><a href="http://hl7.org/fhir/overview-clinical.html">Clinical overview</a></li>
+      <li><a href="http://hl7.org/fhir/overview-dev.html">Developer overview</a></li>
+      <li><a href="http://hl7.org/fhir/overview-arch.html">Architecture overview</a></li>
+      <li><a href="https://build.fhir.org/ig/FHIR/ig-guidance/branches/master/best-practice.html">IG best practices</a> (note that this has not officially been published yet, but <a href="https://github.com/FHIR/ig-guidance/">the authors are some of the FHIR-I leaders</a>)</li>
+    </ul>
+  </li>
+  <li>Intro to FHIR videos
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=6PkDXAEmkbE">45 minutes, from 2023</a></li>
+      <li><a href="https://www.youtube.com/watch?v=YbQcJj1GqH0">90 minutes, from 2020</a></li>
+    </ul>
+  </li>
+  <li>The FHIR Confluence site, e.g., <a href="https://confluence.hl7.org/display/FHIR/Guide+to+Designing+Resources">Guide to Designing Resources</a>, but there are many other pages that may be of interest</li>
+</ul>
+
+
+
+</div>
+        </div>  <!-- /inner-wrapper -->
+      </div>  <!-- /row -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-content -->
+
+  <script type="text/javascript" src="assets/js/jquery.js"> </script>     <!-- note keep space here, otherwise it will be transformed to empty tag -> fails -->
+  <script type="text/javascript" src="assets/js/jquery-ui.min.js"> </script>
+
+  <script type="text/javascript" src="assets/js/window-hash.js"> </script>
+  <a name="bottom"> </a>
+  <div id="segment-footer" igtool="footer" class="segment">  <!-- segment-footer -->
+    <div class="container">  <!-- container -->
+
+      <div class="inner-wrapper">
+        <p>
+          IG &#169; 2022+ <a style="color:var(--footer-hyperlink-text-color)" href="https://fshschool.org">fshschool.org</a>.  Package org.fshschool.courses.fsh-seminar#0.1.0 based on <a style="color: var(--footer-hyperlink-text-color)" href="http://hl7.org/fhir/R4/">FHIR 4.0.1</a>. Generated <span title="Thu, Sep 26, 2024 19:08+0000">2024-09-26</span>
+          <br/>
+          <span style="color: var(--footer-highlight-text-color)">
+                      Links: <a style="color: var(--footer-hyperlink-text-color)" href="toc.html">Table of Contents</a> |
+                 <a style="color: var(--footer-hyperlink-text-color)" href="qa.html">QA Report</a>
+                 
+                
+<br><br><small>MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.</small>
+
+<script
+  src="https://unpkg.com/littlefoot/dist/littlefoot.js"
+  type="application/javascript"
+></script>
+<script type="application/javascript">
+  littlefoot.default(
+	  {
+	    activateOnHover: true,
+	    hoverDelay: 100,
+	    buttonTemplate: "<button aria-label=\"Footnote <% number %>\" class=\"littlefoot__button\" id=\"<% reference %>\" title=\"See Footnote <% number %>\"/><% number %></button>"
+	  }
+  )
+</script>
+
+<script src="https://cdn.usefathom.com/script.js" data-site="URVHCNQA" defer></script>
+          </span>
+        </p>
+      </div>  <!-- /inner-wrapper -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-footer -->
+  
+  <div id="segment-post-footer" class="segment hidden">  <!-- segment-post-footer -->
+    <div class="container">  <!-- container -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-post-footer -->
+
+  <!-- JS and analytics only. -->
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"> </script>
+  <script type="text/javascript" src="assets/js/respond.min.js"> </script>
+  <script type="text/javascript" src="assets/js/anchor.min.js"> </script>
+  <script type="text/javascript" src="assets/js/clipboard.min.js"> </script>
+  <script type="text/javascript" src="assets/js/clipboard-btn.js"> </script>
+  <script type="text/javascript" src="assets/js/anchor-hover.js"> </script>
+  <!-- Analytics Below
+  ================================================== -->
+  </body>
+</html>
+

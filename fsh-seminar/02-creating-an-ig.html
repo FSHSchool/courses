@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <title>ORG.FSHSCHOOL.COURSES.FSH-SEMINAR\Part 2: Creating an IG - FHIR v4.0.1
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="http://hl7.org/fhir" />
+
+    <link href="fhir.css" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap-fhir.css" rel="stylesheet" />
+
+    <!-- Project extras -->
+    <link href="assets/css/project.css" rel="stylesheet" />
+    <link href="assets/css/pygments-manni.css" rel="stylesheet" />
+    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="assets/css/prism.css" rel="stylesheet" />
+    <!-- Placeholder for child template CSS declarations -->
+    <link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css"/>
+    <link href="assets/css/fix-fonts.css" rel="stylesheet"/>
+    <link href="assets/css/fsh.css" rel="stylesheet" />
+    <link href="assets/css/video-js.css" rel="stylesheet" />
+    <script src="assets/js/video.min.js"></script>
+
+
+
+    <script>
+        // Set tab based on the anchor in URL
+        var hash = window.location.hash;
+        try {
+            if(hash == "#tab-diff") sessionStorage.setItem('fhir-resource-tab-index', 1);
+            if(hash == "#tab-snapshot") sessionStorage.setItem('fhir-resource-tab-index', 2);
+            if(hash == "#tab-ms") sessionStorage.setItem('fhir-resource-tab-index', 3);
+
+            // Default to snapshot tab
+            if(!sessionStorage.getItem('fhir-resource-tab-index')) sessionStorage.setItem('fhir-resource-tab-index', 2);
+        } catch(e) { }
+
+        // Make it so that clicking the tabs also sets the anchor in the url
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#tabs .ui-tabs-nav li').click(function() {
+                var id = $(this).children('a').attr('id');
+                if(id == "ui-id-2") window.location.hash = "#tab-diff";
+                if(id == "ui-id-3") window.location.hash = "#tab-snapshot";
+                if(id == "ui-id-4") window.location.hash = "#tab-ms";
+            })
+        });
+    </script>
+
+    <script type="text/javascript" src="fhir-table-scripts.js"> </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="assets/ico/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="assets/ico/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="assets/ico/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed"
+        href="assets/ico/apple-touch-icon-57-precomposed.png" />
+    <link rel="shortcut icon" href="assets/ico/favicon.png" />
+</head>
+
+<body onload="document.body.style.opacity='1'">
+    
+    <script src="assets/js/prism.js"></script>
+
+    <style type="text/css">
+        h2 {
+            --heading-prefix:"5"
+        }
+
+        h3,
+        h4,
+        h5,
+        h6 {
+            --heading-prefix:"5"
+        }
+    </style>
+    <header>
+        <nav class="navbar navbar-inverse" style="background-color: #30638e;">
+          <div class="container">
+            <div class="navbar-header" style="">
+              <a class="navbar-brand" style="margin-right: 0;margin-top: 0.25em;" href="https://fshschool.org"><span class="navbar-logo"><svg id="Layer_1" viewBox="9.182 12.932 266.818 60.399" style="width: 100px; enable-background:new 0 0 240 92" xmlns="http://www.w3.org/2000/svg"><style>.st0{fill:#0b2338}.st1{fill:#0b5b94}</style><g transform="matrix(1, 0, 0, 0.948419, 0, 0.742756)"><g><polygon class="st1" points="62.1,14.5 47.6,51.9 32.9,14.5 21.2,14.5 10,74.4 22,74.4 29.1,36.9 43,74.4 52,74.4 65.9,36.9 
+            73,74.4 85.4,74.4 73.8,14.5" style="fill:#fff"></polygon><rect x="88.4" y="14.5" class="st1" width="11.2" height="60" style="fill:#fff"></rect><polygon class="st1" points="103.3,14.5 103.3,24.2 116.5,24.2 116.5,74.4 127.7,74.4 127.7,24.2 140.9,24.2 140.9,14.5" style="fill:#fff"></polygon><g><path class="st1" d="M155.8 74.4h-11.2v-60h26.7c1.1.0 2.9.4 5.4 1.1 2.5.7 5 2.4 7.5 4.9 2.5 2.6 3.7 6.3 3.7 11.2.0 5.1-1.3 9-4 11.6-2.7 2.7-5.4 4.3-8.2 5-2.7.8-4.8 1.1-6.1 1.1l20 25H176l-18.3-24.8V38.9l11.2-.1h.6c1.5.0 3.1-.6 4.6-1.7 1.7-1.3 2.5-3.1 2.5-5.4.0-2.1-.7-3.8-2.1-5.2-1.4-1.3-3.3-2-5.7-2h-13.1V74.4z" style="fill:#fff"></path><polygon class="st1" points="189.5,14.5 224.3,14.5 224.3,24.2 200.8,24.2 200.8,39.6 224,39.6 224,49.3 200.8,49.3 200.8,64.7 
+                224.3,64.7 224.3,74.4 189.5,74.4" style="fill:#fff"></polygon></g></g></g><text style="fill:#fff;font-family:Arial,sans-serif;font-size:76px;white-space:pre" transform="matrix(1, 0, 0, 0.838825, -6, 5.963185)" x="191.004" y="6.55" dx="71.937" dy="57.477">|</text></svg></span></a> <span class="navbar-brand" style="max-width: inherit;text-transform: uppercase;margin-top: 0.25em;color: white;font-weight: 400;"><span class="" style="font-weight: bold;"><a href="/" style="color: white; text-decoration: none;">FSH School</a></span>&nbsp;/&nbsp;<a href="/courses/" style="color: white; text-decoration: none;">Courses</a></span>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <div id="segment-header" class="segment">
+        <!-- segment-header -->
+        <div class="container">
+            <!-- container -->
+            <!-- Placeholder for child template header declarations -->
+
+        <div id="family-nav">
+          <a id="family-logo" no-external="true" href="https://fshschool.org/courses"><img height="50" alt="FSH logo" src="fsh_logo.png"/> </a>
+        </div>
+            
+            <div id="ig-status">
+                <p><span
+                        style="">FSH Seminar</span><br />0.1.0
+                    - ci-build</p>
+            </div>
+        </div> <!-- /container -->
+    </div> <!-- /segment-header -->
+
+    <div id="segment-navbar" class="segment">
+        <!-- segment-navbar -->
+        <div id="stripe"> </div>
+        <div class="container">
+            <!-- container -->
+            <!-- HEADER CONTENT -->
+
+            <nav class="navbar navbar-inverse">
+                <!--status-bar-->
+                <div class="container">
+                    <button data-target=".navbar-inverse-collapse" class="navbar-toggle" data-toggle="collapse"
+                        type="button">
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                    </button>
+                    <a class="navbar-brand hidden" href="http://hl7.org/fhir/R4/index.html">FHIR</a>
+                    <div class="nav-collapse collapse navbar-inverse-collapse">
+                        <!-- menu.xml  -->
+
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Course Content
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="setup.html">0. Setup</a>
+      </li>
+      <li>
+        <a href="01-reading-an-ig.html">1. Reading an IG</a>
+      </li>
+      <li>
+        <a href="02-creating-an-ig.html">2. Creating an IG</a>
+      </li>
+      <li>
+        <a href="03-exercise.html">3. Hands-On Exercise</a>
+      </li>
+      <li>
+        <a href="04-deep-dive-with-fsh.html">4. Dive Deep with FSH</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="fhir-resources.html">FHIR Background/Resources</a>
+  </li>
+  <li>
+    <a href="artifacts.html">Artifacts</a>
+  </li>
+</ul>
+                    </div> <!-- /.nav-collapse -->
+                </div> <!-- /.container -->
+            </nav> <!-- /.navbar -->
+            <!-- /HEADER CONTENT -->
+        </div> <!-- /container -->
+    </div> <!-- /segment-navbar -->
+    <!--status-bar-->
+    <div id="segment-breadcrumb" class="segment">
+        <!-- segment-breadcrumb -->
+        <div class="container">
+            <!-- container -->
+            <ul class="breadcrumb">
+                <li><a href='toc.html'><b>Table of Contents</b></a></li><li><b>Part 2: Creating an IG</b></li>
+            </ul>
+        </div> <!-- /container -->
+    </div> <!-- /segment-breadcrumb -->
+
+    <div id="segment-content">
+        <!-- segment-content -->
+        <div class="container">
+            <!-- container -->
+            <div class="row">
+                <div class="inner-wrapper">
+<style type="text/css">
+h2:before{color:silver;counter-increment:section;content:var(--heading-prefix) " ";}
+h3:before{color:silver;counter-increment:sub-section;content:var(--heading-prefix) "." counter(sub-section) " ";}
+h4:before{color:silver;counter-increment:composite;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) " ";}
+h5:before{color:silver;counter-increment:detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";}
+h6:before{color:silver;counter-increment:more-detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) "." counter(more-detail)" ";}
+</style>
+<div class="col-12">
+  <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader-->
+  <h2>Part 2: Creating an IG</h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    <p><!-- white space is critical inside of capture --></p>
+<div class="markdown-toc">
+
+</div>
+<p>The goal of this part of the course is to describe the thought process and mechanics of starting a new IG and creating an initial set of constraints. We'll start with <strong>why</strong> you might want to create an IG, then talk about <strong>what</strong> is in a FHIR IG, and finally show <strong>how</strong> to create one.</p>
+
+<h3><em>Why</em> create an IG? 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-2-1').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-2-1" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/2.1.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/2.1.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>A FHIR IG is fundamentally an agreement among implementers on an approach to solve a specific problem. The effectiveness of this agreement depends on multiple factors including:</p>
+
+<ul>
+  <li>The clarity of the definition of the problem the IG attempts to solves, and the specific use cases it addresses</li>
+  <li>Appropriate selection, description, and involvement of the participants/stakeholders involved in the problem</li>
+  <li>Delineation of the necessary data elements and workflow to support the use cases</li>
+  <li>Suitable selection of terminology</li>
+  <li>Balancing specification of constraints with implementation burden</li>
+</ul>
+
+<p>These factors can be codified into the workflow below<sup id="fnref:mark" role="doc-noteref"><a href="#fn:mark" class="footnote" rel="footnote">1</a></sup> (but note that while this workflow is effective for many FHIR IGs – especially Domain of Knowledge and Community of Implementation IGs – it may not be appropriate for all IGs):</p>
+
+<div style="text-align: center;"><img src="ig_workflow.svg" alt="Workflow for developing a FHIR Implementation Guide" class="img-responsive" /></div>
+
+<p>The section of <strong>upstream work</strong> in the diagram is critical to the success of subsequent steps, and the output of this work should be reflected both in the downstream decisions codified in the IG's artifacts and in the narrative of the IG.</p>
+
+<p>The <strong>implementation guide</strong> portion<sup id="fnref:implementation-guide" role="doc-noteref"><a href="#fn:implementation-guide" class="footnote" rel="footnote">2</a></sup> is generated by the process of taking the outputs from the upstream work and converting them to FHIR artifacts. This requires making a number of <strong>profiling decisions</strong>, which is the core work of an IG author.</p>
+
+<p>Once the IG is created, additional <strong>downstream work</strong>, such as the creation of a reference implementation or test data may be support adoption by implementers.</p>
+
+<p>Creating a new IG is an involved process that may take multiple years to complete. This is in part due to the complexity of the ecosystem FHIR inhabits, and the number of different stakeholders often need to be aligned for an IG to be successful.</p>
+
+<h3><em>What</em> is in an IG, and how does it get there? <!--
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-2-2').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-2-2" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/2.2.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/2.2.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>-->--&gt;</h3>
+
+<p>An IG is a set of FHIR artifacts and accompanying narrative that constrains and extends the base FHIR specification to meet the needs of specified use cases.</p>
+
+<div style="text-align: center;"><img alt="Venn diagram visualizing the idea that IGs both constrain and extend the base FHIR specification." src="ig_venn.svg" class="img-responsive" /></div>
+
+<p><strong>Constraints</strong> reduce the flexibility of the base FHIR resources to better meet the needs of the IG's use case(s). For example, the base <a href="https://www.hl7.org/fhir/patient.html">Patient resource</a> does not require <code class="language-plaintext highlighter-rouge">Patient.name</code> to be filled in, but <em>many</em> use cases require a patient's name. An IG for one of these use cases might therefore include a profile of Patient that constrains the <a href="https://www.hl7.org/fhir/conformance-rules.html#cardinality">cardinality</a> of <code class="language-plaintext highlighter-rouge">Patient.name</code> to be <code class="language-plaintext highlighter-rouge">1..*</code> (rather than the default of <code class="language-plaintext highlighter-rouge">0..*</code>) to ensure at least one value for <code class="language-plaintext highlighter-rouge">name</code> is included. Other common types of constraints include <a href="https://www.hl7.org/fhir/terminologies.html#strength">terminology binding</a>, <a href="https://www.hl7.org/fhir/profiling.html#slicing">slicing</a>, and <a href="https://www.hl7.org/fhir/conformance-rules.html#constraints">invariants</a>.</p>
+
+<p>The base FHIR specification by design does not include all the functionality needed for all use cases. However, it does include mechanisms to <strong>extend</strong> functionality in a consistent, computable fashion. <a href="https://www.hl7.org/fhir/extensibility.html">Extensions</a> provide a way to add data elements to profiles, and resources like <a href="https://www.hl7.org/fhir/operationdefinition.html">OperationDefintion</a> and <a href="https://www.hl7.org/fhir/searchparameter.html">SearchParameter</a> provide a mechanism for defining use case-specific APIs.</p>
+
+<p>IGs therefore contain the FHIR artifacts that extend or constrain FHIR, and the accompanying narrative. In the next section we'll describe the mechanics getting FHIR artifacts, narrative, and other content into an IG.</p>
+
+<h4 id="the-ig-publisher-application">The IG Publisher Application</h4>
+
+<p>Both the human-readable and computable versions of IGs are generated by software called the <a href="https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation">FHIR IG Publisher</a>. This is a Java application usually named <code class="language-plaintext highlighter-rouge">publisher.jar</code> and available for download from <a href="https://github.com/HL7/fhir-ig-publisher/releases">https://github.com/HL7/fhir-ig-publisher/releases</a>.</p>
+
+<p>The IG publisher takes a set of inputs and converts them into the content for a website constituting a "build" of the IG. The website includes packaged downloads of the computable portions of the IG at <code class="language-plaintext highlighter-rouge">https://example.com/your-ig/package.tgz</code>.</p>
+
+<!-- If the image below is not wrapped in a div tag, the publisher tries to wrap text around the image, which is not desired. -->
+<div style="text-align: center;"><?xml version="1.0" encoding="us-ascii" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="289px" preserveAspectRatio="none" style="width:426px;height:289px;background:#FFFFFF;" version="1.1" viewBox="0 0 426 289" width="426px" zoomAndPan="magnify"><defs /><g><!--cluster FHIR Implementation Guide Inputs--><g id="cluster_FHIR Implementation Guide Inputs"><rect fill="none" height="87" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="413" x="7" y="7" /><text fill="#000000" font-family="Arial" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="265" x="81" y="21.9951">FHIR Implementation Guide Inputs</text></g><!--entity other--><g id="elem_other"><path d="M294.5,44.5 L294.5,75.7969 A2.5,2.5 0 0 0 297,78.2969 L401,78.2969 A2.5,2.5 0 0 0 403.5,75.7969 L403.5,52 L393.5,42 L297,42 A2.5,2.5 0 0 0 294.5,44.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M393.5,42 L393.5,49.5 A2.5,2.5 0 0 0 396,52 L403.5,52 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="89" x="304.5" y="64.9951">Other assets</text></g><!--entity md--><g id="elem_md"><path d="M168.5,44.5 L168.5,75.7969 A2.5,2.5 0 0 0 171,78.2969 L257,78.2969 A2.5,2.5 0 0 0 259.5,75.7969 L259.5,52 L249.5,42 L171,42 A2.5,2.5 0 0 0 168.5,44.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M249.5,42 L249.5,49.5 A2.5,2.5 0 0 0 252,52 L259.5,52 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="71" x="178.5" y="64.9951">Markdown</text></g><!--entity fsh--><g id="elem_fsh"><path d="M23,44.5 L23,75.7969 A2.5,2.5 0 0 0 25.5,78.2969 L130.5,78.2969 A2.5,2.5 0 0 0 133,75.7969 L133,52 L123,42 L25.5,42 A2.5,2.5 0 0 0 23,44.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M123,42 L123,49.5 A2.5,2.5 0 0 0 125.5,52 L133,52 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="90" x="33" y="64.9951">FHIR Artifacts</text></g><!--entity publisher--><g id="elem_publisher"><path d="M165.8807,146.4842 C170.199,141.3843 173.8071,140.5871 177.8077,146.8187 C180.9728,139.5754 186.5243,138.8787 190.9713,145.6114 C194.3474,140.642 199.578,138.9288 203.0281,145.5344 C205.3307,138.2217 210.9861,136.5969 215.9942,142.9715 C219.7089,138.5958 224.9729,138.3095 227.2959,144.4649 C231.6626,139.3325 235.2693,138.7339 238.7937,145.2933 C244.1044,140.3426 249.0403,140.6461 252.5663,147.3944 C256.3006,142.1538 261.5011,140.9978 264.902,147.7376 C274.6569,148.3889 278.0187,152.835 274.0967,162.1885 C276.8332,171.5161 274.5023,177.8934 263.4146,177.7026 C260.321,183.7914 256.2045,184.5023 252.1449,178.6112 C249.7277,185.7582 244.886,185.4214 240.3264,180.7544 C236.6424,187.5875 232.4276,187.4241 227.167,182.5226 C223.9893,187.2666 219.6405,188.0493 215.8973,183.186 C211.4374,189.0083 207.2239,189.2473 202.6091,183.3619 C197.4467,189.0611 192.5233,187.9415 190.0396,180.7499 C185.1807,185.2375 181.5768,184.2881 179.173,178.222 C174.6112,182.9737 170.5832,183.2049 166.8268,177.2898 C159.093,175.5233 156.2641,169.83 161.1615,163.0413 C155.7964,155.7794 156.7658,149.619 165.8807,146.4842 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="84" x="172" y="165.9951">publisher.jar</text></g><!--entity built--><g id="elem_built"><rect fill="#F1F1F1" height="39.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="78" x="175" y="244" /><polygon fill="#F1F1F1" points="236,249,236,263,248,263,248,255,242,249,236,249" style="stroke:#181818;stroke-width:0.5;" /><line style="stroke:#181818;stroke-width:0.5;" x1="242" x2="242" y1="249" y2="255" /><line style="stroke:#181818;stroke-width:0.5;" x1="248" x2="242" y1="255" y2="255" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="48" x="185" y="269.9951">Built IG</text></g><!--link fsh to publisher--><g id="link_fsh_publisher"><path d="M101.38,78.02 C122.77,93.59 154.72,116.85 179.13,134.61 " fill="none" id="fsh-to-publisher" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="183.28,137.64,178.3576,129.1094,179.2376,134.6974,173.6496,135.5774,183.28,137.64" style="stroke:#181818;stroke-width:1.0;" /></g><!--link md to publisher--><g id="link_md_publisher"><path d="M214,78.24 C214,93.21 214,115.13 214,132.51 " fill="none" id="md-to-publisher" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="214,137.74,218,128.74,214,132.74,210,128.74,214,137.74" style="stroke:#181818;stroke-width:1.0;" /></g><!--link other to publisher--><g id="link_other_publisher"><path d="M325.79,78.02 C304.56,93.59 272.85,116.85 248.62,134.61 " fill="none" id="other-to-publisher" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="244.49,137.64,254.1157,135.5552,248.5256,134.6881,249.3927,129.0981,244.49,137.64" style="stroke:#181818;stroke-width:1.0;" /></g><!--link publisher to built--><g id="link_publisher_built"><path d="M214,184.3 C214,200.41 214,222.13 214,238.6 " fill="none" id="publisher-to-built" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="214,243.96,218,234.96,214,238.96,210,234.96,214,243.96" style="stroke:#181818;stroke-width:1.0;" /></g></g></svg></div>
+
+<p>The typical workflow for working on an IG is:</p>
+
+<ol>
+  <li>Edit the IG content locally on your computer</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">publisher.jar</code> to create a local build of the IG you can review</li>
+  <li>Use <a href="https://git-scm.com">git</a> to push your changes to a collaboration space like GitHub or Gitlab, where a "continuous integration" (CI) service can create a publicly accessible copy of the IG build</li>
+</ol>
+
+<p>This very website is built using the FHIR IG workflow and tools, including <code class="language-plaintext highlighter-rouge">publisher.jar</code>.</p>
+
+<h4 id="specifying-computable-rules">Specifying computable rules</h4>
+
+<p>Under the hood, computable rules in FHIR are defined by a set of <a href="https://www.hl7.org/fhir/resourcelist.html">conformance-specific FHIR resources</a>. The FHIR spec not only defines resources for representing health data (like the <a href="http://hl7.org/fhir/patient.html">Patient</a> resource from <a href="01-reading-an-ig.html">Part 1</a>), but also defines resources for many other uses including conformance.</p>
+
+<p><a href="https://www.hl7.org/fhir/structuredefinition.html">StructureDefinition</a> is one of FHIR's conformance resources, which is how FHIR profiles are defined. Here's <a href="http://hl7.org/fhir/us/mcode/2021May/StructureDefinition-mcode-cancer-patient.html">an example of a <code class="language-plaintext highlighter-rouge">StructureDefinition</code> from the mCODE IG</a>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"StructureDefinition"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcode-cancer-patient"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.17.1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CancerPatient"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cancer Patient"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A patient who has..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fhirVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.0.1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"resource"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"abstract"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"baseDefinition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"derivation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constraint"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"differential"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"mustSupport"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient.deceased[x]"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient.deceased[x]"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"mustSupport"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>While you can create <code class="language-plaintext highlighter-rouge">StructureDefinition</code> resources manually in JSON (or XML), it is often much easier to use <a href="https://fshschool.org">FHIR Shorthand (FSH)</a>, which is a <a href="https://en.wikipedia.org/wiki/Domain-specific_language">domain-specific language</a> for creating FHIR resources.</p>
+
+<p>Here's the same <code class="language-plaintext highlighter-rouge">StructureDefinition</code> resource from above, but this time written in FSH:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Profile: CancerPatient
+Parent: USCorePatient
+Id: mcode-cancer-patient
+Title: "Cancer Patient"
+Description: "A patient who has..."
+* deceased[x] MS
+* . MS
+</code></pre></div></div>
+
+<p>An application called <a href="https://fshschool.org/docs/sushi/">SUSHI</a> takes care of compiling FSH into FHIR resources represented in JSON. This is baked into the IG publisher workflow – the workflow diagramed above really looks more like this:</p>
+
+<!-- If the image below is not wrapped in a div tag, the publisher tries to wrap text around the image, which is not desired. -->
+<div style="text-align: center;"><?xml version="1.0" encoding="us-ascii" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="299px" preserveAspectRatio="none" style="width:591px;height:299px;background:#FFFFFF;" version="1.1" viewBox="0 0 591 299" width="591px" zoomAndPan="magnify"><defs /><g><!--cluster FHIR Implementation Guide Inputs--><g id="cluster_FHIR Implementation Guide Inputs"><rect fill="none" height="97" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="578" x="7" y="7" /><text fill="#000000" font-family="Arial" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="265" x="163.5" y="21.9951">FHIR Implementation Guide Inputs</text></g><!--entity other--><g id="elem_other"><path d="M149.5,49.5 L149.5,80.7969 A2.5,2.5 0 0 0 152,83.2969 L256,83.2969 A2.5,2.5 0 0 0 258.5,80.7969 L258.5,57 L248.5,47 L152,47 A2.5,2.5 0 0 0 149.5,49.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M248.5,47 L248.5,54.5 A2.5,2.5 0 0 0 251,57 L258.5,57 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="89" x="159.5" y="69.9951">Other assets</text></g><!--entity md--><g id="elem_md"><path d="M23.5,49.5 L23.5,80.7969 A2.5,2.5 0 0 0 26,83.2969 L112,83.2969 A2.5,2.5 0 0 0 114.5,80.7969 L114.5,57 L104.5,47 L26,47 A2.5,2.5 0 0 0 23.5,49.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M104.5,47 L104.5,54.5 A2.5,2.5 0 0 0 107,57 L114.5,57 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="71" x="33.5" y="69.9951">Markdown</text></g><!--entity fsh--><g id="elem_fsh"><path d="M294,49.5 L294,80.7969 A2.5,2.5 0 0 0 296.5,83.2969 L459.5,83.2969 A2.5,2.5 0 0 0 462,80.7969 L462,57 L452,47 L296.5,47 A2.5,2.5 0 0 0 294,49.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M452,47 L452,54.5 A2.5,2.5 0 0 0 454.5,57 L462,57 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="148" x="304" y="69.9951">FHIR Shorthand (FSH)</text></g><!--entity sushi--><g id="elem_sushi"><path d="M507.0059,50.9851 C510.4923,44.8839 516.6442,44.9701 520.5315,50.5198 C522.2164,42.8205 528.5907,42.7703 533.443,47.128 C538.8625,41.6509 546.152,41.2754 548.8491,50.0673 C553.1185,42.7988 558.2834,43.4387 562.4435,50.1735 C571.959,54.0143 572.6152,61.4868 564.1156,67.1066 C570.7265,72.6509 568.1169,78.1835 561.3182,81.0345 C558.599,88.68 553.0318,91.1353 546.8497,84.5568 C543.8723,90.8214 539.7176,91.81 534.1683,87.7009 C528.2369,92.2407 523.6573,91.9411 520.6209,84.4429 C515.6255,91.8106 508.6253,89.7555 505.8023,82.2749 C494.4679,81.1353 492.7989,75.4179 497.6493,66.1136 C492.4434,57.2767 497.9718,51.015 507.0059,50.9851 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="41" x="512.5" y="69.9951">SUSHI</text></g><!--entity publisher--><g id="elem_publisher"><path d="M155.8807,156.4842 C160.199,151.3843 163.8071,150.5871 167.8077,156.8187 C170.9728,149.5754 176.5243,148.8787 180.9713,155.6114 C184.3474,150.642 189.578,148.9288 193.0281,155.5344 C195.3307,148.2217 200.9861,146.5969 205.9942,152.9715 C209.7089,148.5958 214.9729,148.3095 217.2959,154.4649 C221.6626,149.3325 225.2693,148.7339 228.7937,155.2933 C234.1044,150.3426 239.0403,150.6461 242.5663,157.3944 C246.3006,152.1538 251.5011,150.9978 254.902,157.7376 C264.6569,158.3889 268.0187,162.835 264.0967,172.1885 C266.8332,181.5161 264.5023,187.8934 253.4146,187.7026 C250.321,193.7914 246.2045,194.5023 242.1449,188.6112 C239.7277,195.7582 234.886,195.4214 230.3264,190.7544 C226.6424,197.5875 222.4276,197.4241 217.167,192.5226 C213.9893,197.2666 209.6405,198.0493 205.8973,193.186 C201.4374,199.0083 197.2239,199.2473 192.6091,193.3619 C187.4467,199.0611 182.5233,197.9415 180.0396,190.7499 C175.1807,195.2375 171.5768,194.2881 169.173,188.222 C164.6112,192.9737 160.5832,193.2049 156.8268,187.2898 C149.093,185.5233 146.2641,179.83 151.1615,173.0413 C145.7964,165.7794 146.7658,159.619 155.8807,156.4842 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="84" x="162" y="175.9951">publisher.jar</text></g><!--entity built--><g id="elem_built"><rect fill="#F1F1F1" height="39.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="78" x="165" y="254" /><polygon fill="#F1F1F1" points="226,259,226,273,238,273,238,265,232,259,226,259" style="stroke:#181818;stroke-width:0.5;" /><line style="stroke:#181818;stroke-width:0.5;" x1="232" x2="232" y1="259" y2="265" /><line style="stroke:#181818;stroke-width:0.5;" x1="238" x2="232" y1="265" y2="265" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="48" x="175" y="279.9951">Built IG</text></g><!--link fsh to sushi--><g id="link_fsh_sushi"><path d="M462.16,65 C472.14,65 482.11,65 492.09,65 " fill="none" id="fsh-to-sushi" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="497.3,65,488.3,61,492.3,65,488.3,69,497.3,65" style="stroke:#181818;stroke-width:1.0;" /></g><!--link sushi to publisher--><g id="link_sushi_publisher"><path d="M512.66,88 C503.48,96.71 492,106.04 480,112 C411.68,145.93 324.29,160.04 266.35,165.89 " fill="none" id="sushi-to-publisher" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="261.19,166.4,270.5363,169.5059,266.1663,165.9138,269.7584,161.5438,261.19,166.4" style="stroke:#181818;stroke-width:1.0;" /></g><!--link md to publisher--><g id="link_md_publisher"><path d="M91.29,83.17 C112.96,99.86 146.12,125.41 170.87,144.48 " fill="none" id="md-to-publisher" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="175.08,147.72,170.3837,139.0629,171.1163,144.6721,165.5071,145.4048,175.08,147.72" style="stroke:#181818;stroke-width:1.0;" /></g><!--link other to publisher--><g id="link_other_publisher"><path d="M204,83.17 C204,99.31 204,123.73 204,142.56 " fill="none" id="other-to-publisher" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="204,147.72,208,138.72,204,142.72,200,138.72,204,147.72" style="stroke:#181818;stroke-width:1.0;" /></g><!--link publisher to built--><g id="link_publisher_built"><path d="M204,194.3 C204,210.41 204,232.13 204,248.6 " fill="none" id="publisher-to-built" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="204,253.96,208,244.96,204,248.96,200,244.96,204,253.96" style="stroke:#181818;stroke-width:1.0;" /></g></g></svg></div>
+
+<h4 id="narrative">Narrative</h4>
+
+<p>Typically IG narrative is written in a lightweight markup language called <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>. The IG Publisher takes care of converting this into HTML files viewable in a web browser.</p>
+
+<p>By default, SUSHI generates a placeholder <code class="language-plaintext highlighter-rouge">input/pagecontent/index.md</code> file that is the home page for the IG. Additional <code class="language-plaintext highlighter-rouge">.md</code> files in this folder can be created to add additional pages; you will also need to add them to the <code class="language-plaintext highlighter-rouge">pages</code> object in <code class="language-plaintext highlighter-rouge">sushi-config.yaml</code>.</p>
+
+<h4 id="recommended-tools-for-ig-authoring">Recommended tools for IG authoring</h4>
+
+<p>The <a href="prerequisites.html">prerequisites</a> for this course include installing <a href="https://code.visualstudio.com">Visual Studio Code (VSCode)</a> and the <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">FSH language extension</a>. While you can use any text editor to edit FSH (<code class="language-plaintext highlighter-rouge">.fsh</code>) files, currently only VSCode has syntax highlighting and other language-specific features via the custom language extension.</p>
+
+<p>VSCode also <a href="https://code.visualstudio.com/docs/languages/markdown">supports editing Markdown out of the box</a> (Markdown is used very widely outside of the FHIR/HL7 world), and if you follow that link you will see some additional Markdown extensions that are available if you want additional functionality (like "linting", which will warn you of syntax errors as you type). One of the most useful VSCode features is <a href="https://code.visualstudio.com/docs/languages/markdown#_markdown-preview">built-in Markdown previewing</a>.</p>
+
+<p>IGs also often include diagrams. There is native support in the IG Publisher for <a href="https://plantuml.com">PlantUML</a>, which is used to make the diagrams on this page. However, PlantUML has a much steeper learning curve than other diagramming tools (<a href="https://crashedmind.github.io/PlantUMLHitchhikersGuide/layout/layout.html">this is a good PlantUML resource</a> if you are interested). You may find it easier to embed images exported from other tools like Microsoft Visio or <a href="https://www.diagrams.net">diagrams.net</a>, which can be done by placing them within the <code class="language-plaintext highlighter-rouge">input/images/</code> folder and then using Markdown syntax for images. For example, <code class="language-plaintext highlighter-rouge">input/images/something.png</code> could be embedded in a Markdown page with <code class="language-plaintext highlighter-rouge">![](something.png)</code>. (Note that the path is different between the input location and the Markdown syntax – this is because <code class="language-plaintext highlighter-rouge">publisher.jar</code> moves the images as part of the build process. This means a Markdown preview of a <code class="language-plaintext highlighter-rouge">pagecontent/</code> file in a FHIR IG won't properly display images.)</p>
+
+<h4 id="starting-a-new-ig">Starting a new IG</h4>
+
+<p>The simplest way to create a new IG is to run <code class="language-plaintext highlighter-rouge">sushi init</code> at the command line. Here's what this process looks like on Mac/Linux:</p>
+
+<p><img src="sushi_init.gif" alt="Screen recording of running the `sushi --init` command" style="float: inherit;" /></p>
+
+<p>After you run this command, you will have a new folder with a structure of subfolders that forms the skeleton of an IG:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>📂 SomeIgNameHere
+ ├─ .gitignore
+ ├─ _genonce.bat
+ ├─ _genonce.sh
+ ├─ _updatePublisher.bat
+ ├─ _updatePublisher.sh
+ ├─ ig.ini
+ ├─📂 input
+ │  ├─📂 fsh
+ │  │ └─ patient.fsh
+ │  ├─ ignoreWarnings.txt
+ │  └─📂 pagecontent
+ │    └─ index.md
+ └─ sushi-config.yaml
+</code></pre></div></div>
+
+<p>We will explain the purpose of these folders and files below.</p>
+
+<p>While this folder does have a <code class="language-plaintext highlighter-rouge">.gitignore</code> file, it is not a <a href="https://git-scm.com">git</a> repository. You will generally want to enable git:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+git add <span class="nt">-A</span>
+git commit <span class="nt">-m</span> <span class="s2">"Initial commit"</span>
+</code></pre></div></div>
+
+<p>You can see the contents of the IG at this point <a href="#TBD">here</a>.</p>
+
+<p>We will be "forking" this repository to use as an example in the rest of this part of the course, and to use as the basis for the exercise in <a href="03-exercise.html">Part 3</a>.</p>
+
+<h3><em>How</em> do you create an IG? 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-2-3').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-2-3" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/2.3.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/2.3.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>We will use a hypothetical scenario as the basis for an instructional IG, which we will walk through creating in this section.</p>
+
+<p>We will use the process from the workflow diagram at the top of this page, reproduced here for convenience:</p>
+
+<div style="text-align: center;"><img src="ig_workflow.svg" alt="Workflow for developing a FHIR Implementation Guide" class="img-responsive" /></div>
+
+<h4 id="step-1-define-problem--participants">Step 1: Define problem &amp; participants</h4>
+
+<p><strong>Hypothetical problem:</strong></p>
+
+<blockquote>
+  <p>The Obstructive Sleep Apnea Association (OSAA - a fictitious clinical organization based in the U.S.) is looking to evaluate the impact of obesity as a risk &gt; for Obstructive Sleep Apnea (OSA). OSAA needs a way to ensure the relevant clinical data are collected in a standard, interoperable format from participating member sites.</p>
+</blockquote>
+
+<p><strong>Participants:</strong></p>
+
+<ul>
+  <li>OSAA</li>
+  <li>Participating study sites</li>
+</ul>
+
+<p>For the purposes of this course, we will assume the content of this IG is limited to Domain of Knowledge (i.e., the API for data exchange is out of scope).</p>
+
+<h4 id="step-2-define-use-cases">Step 2: Define use case(s)</h4>
+
+<p>The use case for this work is as follows:</p>
+
+<blockquote>
+  <p>OSAA has setup a small registry to collect EHR clinical data from healthcare organizations participating in this evaluation.</p>
+
+  <p>OSAA sites will submit the following <strong>required</strong> data to the central OSAA registry:</p>
+
+  <ul>
+    <li>Patient name, age, birth place</li>
+    <li>Patient's managing practitioner name, and the practitioner(s) NPI identifier(s)</li>
+    <li>A diagnosis of OSA, identified by one of the following ICD-10-CM codes:
+      <ol>
+        <li><code class="language-plaintext highlighter-rouge">G47.33</code> Obstructive sleep apnea (adult) (pediatric)</li>
+        <li><code class="language-plaintext highlighter-rouge">G47.30</code> Sleep apnea, unspecified</li>
+      </ol>
+    </li>
+    <li>Patient's body mass index (BMI)
+      <ul>
+        <li>BMI calculated value</li>
+        <li>Date when calculated</li>
+        <li>The provider who performed the BMI calculation</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>Additionally, all participating sites may <strong>optionally</strong> submit:</p>
+
+  <ul>
+    <li>Date of OSA diagnosis</li>
+    <li>Patient age at time of OSA diagnosis</li>
+  </ul>
+</blockquote>
+
+<p>Typically a use case like this would be developed with the involvement of stakeholders and subject matter experts. In this case, OSAA and providers from study sites would likely be involved alongside the technical experts authoring the specification.</p>
+
+<h4 id="step-3-workflowdata-elementsterminology">Step 3: Workflow/Data Elements/Terminology</h4>
+
+<h5 id="workflow">Workflow</h5>
+
+<p>Out of scope because this is a Domain of Knowledge IG.</p>
+
+<h5 id="data-elements">Data elements</h5>
+
+<p>Based on the use case, the essential data elements are:</p>
+
+<ul>
+  <li>Patient name</li>
+  <li>Patient birth date</li>
+  <li>Patient birth place</li>
+  <li>Managing practitioner name</li>
+  <li>Managing practitioner NPI identifier</li>
+  <li>Diagnosis of obstructive sleep apnea (OSA)
+    <ul>
+      <li>Diagnosis identified by one of the following ICD-10-CM codes:
+        <ol>
+          <li><em>G47.33  Obstructive sleep apnea (adult) (pediatric)</em></li>
+          <li><em>G47.30  Sleep apnea, unspecified</em></li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li><em>Optional:</em> Diagnosis date</li>
+  <li><em>Optional:</em> Patient age at diagnosis</li>
+  <li>Diagnosing provider</li>
+  <li>Body mass index (BMI) measurement
+    <ul>
+      <li>BMI calculated value</li>
+      <li>Date when calculated</li>
+      <li>The provider who performed the BMI calculation</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="terminology">Terminology</h5>
+
+<p>Domain expertise may be required to identify the relevant <a href="https://www.hl7.org/fhir/terminologies.html">terminology</a>. The <a href="https://chat.fhir.org/#narrow/stream/179202-terminology">Terminology stream on chat.fhir.org</a> may be a good resource to identify experts who can point you to the best code systems for your use case.</p>
+
+<p>In this case, <a href="https://www.hl7.org/fhir/icd.html">ICD-10-CM</a> was identified in the use case as the code system to use for identifying diagnoses.</p>
+
+<h4 id="step-4-profiling-decisions">Step 4: Profiling decisions</h4>
+
+<h5 id="high-level-information-model">High-level information model</h5>
+
+<p>A good way to map a set of data elements onto FHIR resources is to identify any relationships among the identified data elements. We accomplish this by creating a high level concept or logical information model.</p>
+
+<p>According to <a href="https://fhirblog.com/creating-an-information-model/">David Hay</a>:</p>
+
+<blockquote>
+  <p>an "Information Model" describes the actual data items that are intended to be included when sharing clinical data. It is intended to allow a clinician (or a Business Analyst) to document these requirements without thinking about how it will be represented in ‘real’ FHIR resources. <em>Very little FHIR knowledge is required.</em></p>
+</blockquote>
+
+<p>Here is an information model for our use case:</p>
+
+<!-- If the image below is not wrapped in a div tag, the publisher tries to wrap text around the image, which is not desired. -->
+<div style="text-align: center;"><?xml version="1.0" encoding="us-ascii" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="546px" preserveAspectRatio="none" style="width:672px;height:546px;background:#FFFFFF;" version="1.1" viewBox="0 0 672 546" width="672px" zoomAndPan="magnify"><defs /><g><!--entity patient--><g id="elem_patient"><path d="M6,187.5 L6,218.7969 A2.5,2.5 0 0 0 8.5,221.2969 L104.5,221.2969 A2.5,2.5 0 0 0 107,218.7969 L107,195 L97,185 L8.5,185 A2.5,2.5 0 0 0 6,187.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M97,185 L97,192.5 A2.5,2.5 0 0 0 99.5,195 L107,195 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="81" x="16" y="207.9951">OSA Patient</text></g><!--entity name--><g id="elem_name"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="59" x="183.5" y="7" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="39" x="193.5" y="29.9951">name</text></g><!--entity birth_date--><g id="elem_birth_date"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="86" x="170" y="78" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="66" x="180" y="100.9951">birth date</text></g><!--entity birth_place--><g id="elem_birth_place"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="92" x="167" y="149" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="72" x="177" y="171.9951">birth place</text></g><!--entity bmi--><g id="elem_bmi"><path d="M345.5,116.5 L345.5,147.7969 A2.5,2.5 0 0 0 348,150.2969 L421,150.2969 A2.5,2.5 0 0 0 423.5,147.7969 L423.5,124 L413.5,114 L348,114 A2.5,2.5 0 0 0 345.5,116.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M413.5,114 L413.5,121.5 A2.5,2.5 0 0 0 416,124 L423.5,124 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="58" x="355.5" y="136.9951">OSA BMI</text></g><!--entity bmi_value--><g id="elem_bmi_value"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="85" x="545.5" y="7" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="65" x="555.5" y="29.9951">BMI value</text></g><!--entity result_date--><g id="elem_result_date"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="94" x="541" y="78" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="74" x="551" y="100.9951">result date</text></g><!--entity performer--><g id="elem_performer"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="88" x="544" y="149" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="68" x="554" y="171.9951">performer</text></g><!--entity condition--><g id="elem_condition"><path d="M325,293.5 L325,324.7969 A2.5,2.5 0 0 0 327.5,327.2969 L441.5,327.2969 A2.5,2.5 0 0 0 444,324.7969 L444,301 L434,291 L327.5,291 A2.5,2.5 0 0 0 325,293.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M434,291 L434,298.5 A2.5,2.5 0 0 0 436.5,301 L444,301 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="99" x="335" y="313.9951">OSA Condition</text></g><!--entity dx--><g id="elem_dx"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="125" x="525.5" y="220" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="105" x="535.5" y="242.9951">diagnosis code</text></g><!--entity dx_date--><g id="elem_dx_date"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="121" x="527.5" y="291" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="101" x="537.5" y="313.9951">diagnosis date</text></g><!--entity dx_provider--><g id="elem_dx_provider"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="156" x="510" y="362" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="136" x="520" y="384.9951">diagnosing provider</text></g><!--entity practitioner--><g id="elem_practitioner"><path d="M319,435.5 L319,466.7969 A2.5,2.5 0 0 0 321.5,469.2969 L447.5,469.2969 A2.5,2.5 0 0 0 450,466.7969 L450,443 L440,433 L321.5,433 A2.5,2.5 0 0 0 319,435.5 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><path d="M440,433 L440,440.5 A2.5,2.5 0 0 0 442.5,443 L450,443 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="111" x="329" y="455.9951">OSA Practitioner</text></g><!--entity identifier--><g id="elem_identifier"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="115" x="530.5" y="433" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="95" x="540.5" y="455.9951">identifier (NPI)</text></g><!--entity name2--><g id="elem_name2"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="59" x="558.5" y="504" /><text fill="#000000" font-family="Arial" font-size="14" lengthAdjust="spacing" textLength="39" x="568.5" y="526.9951">name</text></g><!--link patient to name--><g id="link_patient_name"><path d="M69.3,184.66 C88.06,156.24 126.69,100.61 167,60 C171.67,55.3 176.97,50.66 182.26,46.38 " fill="none" id="patient-to-name" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="186.29,43.18,176.7567,45.6533,182.3773,46.293,181.7376,51.9136,186.29,43.18" style="stroke:#181818;stroke-width:1.0;" /></g><!--link patient to birth_date--><g id="link_patient_birth_date"><path d="M83.71,184.85 C110.76,166.12 152.92,136.92 181.46,117.15 " fill="none" id="patient-to-birth_date" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="185.92,114.06,176.2461,115.9081,181.8132,116.912,180.8093,122.479,185.92,114.06" style="stroke:#181818;stroke-width:1.0;" /></g><!--link patient to birth_place--><g id="link_patient_birth_place"><path d="M107.24,191.41 C124.73,187.33 144.4,182.75 161.92,178.67 " fill="none" id="patient-to-birth_place" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="166.8,177.53,157.1294,175.6645,161.929,178.6585,158.935,183.458,166.8,177.53" style="stroke:#181818;stroke-width:1.0;" /></g><!--link patient to bmi--><g id="link_patient_bmi"><path d="M107.27,209.61 C148.62,213.48 208.61,215.33 259,202 C294.88,192.51 331.37,170.19 355.48,153.28 " fill="none" id="patient-to-bmi" style="stroke:#181818;stroke-width:2.0;" /><polygon fill="#181818" points="359.84,150.19,350.1843,152.1309,355.7607,153.0813,354.8103,158.6577,359.84,150.19" style="stroke:#181818;stroke-width:2.0;" /></g><!--link bmi to bmi_value--><g id="link_bmi_bmi_value"><path d="M414.98,113.86 C439.93,98.77 476.81,77.09 510,60 C519.85,54.93 530.58,49.81 540.82,45.1 " fill="none" id="bmi-to-bmi_value" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="545.48,42.97,535.6316,43.0644,540.9306,45.0444,538.9506,50.3434,545.48,42.97" style="stroke:#181818;stroke-width:1.0;" /></g><!--link bmi to result_date--><g id="link_bmi_result_date"><path d="M423.87,125.14 C455.65,119.47 501.08,111.35 535.93,105.12 " fill="none" id="bmi-to-result_date" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="541,104.22,531.4398,101.8529,536.0768,105.093,532.8367,109.73,541,104.22" style="stroke:#181818;stroke-width:1.0;" /></g><!--link bmi to performer--><g id="link_bmi_performer"><path d="M423.87,138.67 C456.53,144.34 503.58,152.51 538.77,158.62 " fill="none" id="bmi-to-performer" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="543.88,159.51,535.6985,154.0271,538.9539,158.6533,534.3277,161.9088,543.88,159.51" style="stroke:#181818;stroke-width:1.0;" /></g><!--link patient to condition--><g id="link_patient_condition"><path d="M107.01,219.1 C164.99,237.95 261.01,269.17 323.26,289.41 " fill="none" id="patient-to-condition" style="stroke:#181818;stroke-width:2.0;" /><polygon fill="#181818" points="328.05,290.97,320.723,284.3886,323.2939,289.4275,318.255,291.9983,328.05,290.97" style="stroke:#181818;stroke-width:2.0;" /></g><!--link condition to dx--><g id="link_condition_dx"><path d="M436.61,290.99 C465.26,280.89 501.06,268.28 530.55,257.89 " fill="none" id="condition-to-dx" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="535.6,256.11,525.7828,255.321,530.8829,257.7681,528.4358,262.8683,535.6,256.11" style="stroke:#181818;stroke-width:1.0;" /></g><!--link condition to dx_date--><g id="link_condition_dx_date"><path d="M444.05,309 C468.46,309 496.9,309 521.96,309 " fill="none" id="condition-to-dx_date" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="527.25,309,518.25,305,522.25,309,518.25,313,527.25,309" style="stroke:#181818;stroke-width:1.0;" /></g><!--link condition to dx_provider--><g id="link_condition_dx_provider"><path d="M436.61,327.01 C465.26,337.11 501.06,349.72 530.55,360.11 " fill="none" id="condition-to-dx_provider" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="535.6,361.89,528.4358,355.1317,530.8829,360.2319,525.7828,362.679,535.6,361.89" style="stroke:#181818;stroke-width:1.0;" /></g><!--link patient to practitioner--><g id="link_patient_practitioner"><path d="M81.21,221.04 C139.99,265.75 292.26,381.59 355.41,429.63 " fill="none" id="patient-to-practitioner" style="stroke:#181818;stroke-width:2.0;" /><polygon fill="#181818" points="359.44,432.7,354.709,424.0618,355.4642,429.6681,349.8579,430.4232,359.44,432.7" style="stroke:#181818;stroke-width:2.0;" /></g><!--link practitioner to identifier--><g id="link_practitioner_identifier"><path d="M450.09,451 C474.16,451 501.41,451 525.22,451 " fill="none" id="practitioner-to-identifier" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="530.25,451,521.25,447,525.25,451,521.25,455,530.25,451" style="stroke:#181818;stroke-width:1.0;" /></g><!--link practitioner to name2--><g id="link_practitioner_name2"><path d="M436.61,469.01 C473.24,481.92 521.55,498.94 553.41,510.16 " fill="none" id="practitioner-to-name2" style="stroke:#181818;stroke-width:1.0;" /><polygon fill="#181818" points="558.37,511.91,551.2058,505.1517,553.6529,510.2519,548.5528,512.699,558.37,511.91" style="stroke:#181818;stroke-width:1.0;" /></g></g></svg></div>
+
+<p>High-level information models like this (i.e., not FHIR-specific) are helpful for a number of reasons:</p>
+
+<ul>
+  <li>FHIR is an evolving standard, and the <a href="https://confluence.hl7.org/display/FHIR/FHIR+Maturity+Model">maturity level</a> of FHIR resources may vary. Lower-maturity resources may not be as fully-developed, and while they may superficially seem like a good choice for a given use case, on closer inspection they may not be mature enough. Having a high-level information model provides a benchmark to compare against when considering the suitability of a FHIR resource.</li>
+  <li>A use case's conformant data elements might be applied or evaluated against other common data models (CDM) within a given domain. This is facilitated by the high-level information model.
+    <ul>
+      <li>For example, clinical data for observational studies could be based on FHIR resource models or the OMOP CDM.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="mapping-high-level-information-model-to-fhir-resources">Mapping high-level information model to FHIR resources</h5>
+
+<p>We will need to pick a version of FHIR to base the IG off of. As of May 2022 <a href="http://hl7.org/fhir/R4/">FHIR 4.0.1</a> is the stable release, which is usually the correct choice. However, you can <a href="http://hl7.org/fhir/directory.html">see all release here</a>, and if an upcoming release is close to being ready you may want to use that instead. Currently both R4B and R5 are in progress.</p>
+
+<p>IG authors should take care to align with existing specifications in the relevant jurisdiction. In our case, we will align with <a href="http://hl7.org/fhir/us/core/2021Jan/">FHIR U.S. Core 3.2</a> profiles where possible.<sup id="fnref:USCore" role="doc-noteref"><a href="#fn:USCore" class="footnote" rel="footnote">3</a></sup></p>
+
+<p>The <a href="https://chat.fhir.org/#narrow/stream/179252-IG-creation">IG creation stream on chat.fhir.org</a> is a good place to ask for advice on alignment with existing specifications for a given use case.</p>
+
+<p>We will now create a <strong>Resources Model</strong>, which <a href="https://fhirblog.com/creating-an-information-model/">David Hay</a> defines as follows:</p>
+
+<blockquote>
+  <p>A "Resources Model" takes the Information Model and "divides it up" into the actual FHIR resources (including extensions) that will be required to represent the data in the Information Model. This needs a good understanding of FHIR, but the resultant model should be understandable by the clinician. Most of the time a Resources Model will represent multiple resources – though it is possible to create one for a single resource only.</p>
+</blockquote>
+
+<p>Determining which FHIR resources are the best fit for mapping with the information model may be quite challenging due to the number of FHIR resources and conventions about which resources to use when. Some good places to start when trying to figure this out:</p>
+
+<ul>
+  <li>Look at the <a href="https://www.hl7.org/fhir/resourcelist.html">FHIR resource list</a> and read the "Scope and Usage" section on each resource that seems potentially applicable.</li>
+  <li>Look at existing established IGs. For example, <a href="http://hl7.org/fhir/us/core/2021Jan/">US Core</a> has a <a href="http://hl7.org/fhir/us/core/2021Jan/profiles-and-extensions.html">number of profiles</a>, so looking through these to see if any elements of your information model map cleanly onto one may be helpful.</li>
+  <li>Ask for help on <a href="https://chat.fhir.org/#narrow/stream/179252-IG-creation">chat.fhir.org</a>.</li>
+</ul>
+
+<p>A structural mapping of our information elements to FHIR resource elements is shown in the table below. In this table, each row represents a data element, which are grouped into profiles of FHIR resources based on the "Profile Name" column. You can see which FHIR resource is being used for a given data element by looking at the first part of the "FHIR element name / Path" column (i.e., the patient's name is represented by <code class="language-plaintext highlighter-rouge">Patient.name</code>, indicating that the <a href="https://www.hl7.org/fhir/R4/patient.html">Patient</a> resource is used).</p>
+
+<table class="grid">
+  <thead>
+    <tr>
+      <th>Profile Name</th>
+      <th>FHIR element name / Path</th>
+      <th>Use Case Data Element</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSAPatient</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Patient.name</code></td>
+      <td>Patient name</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSAPatient</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Patient.birthDate</code></td>
+      <td>Patient birth date</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSAPatient</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Patient.generalPractitioner</code></td>
+      <td>Patient's primary care provider</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSAPatient</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Patient.extension.patient-birthPlace</code></td>
+      <td>Patient's birth place</td>
+      <td>Found FHIR standard extension, <a href="http://hl7.org/fhir/extension-patient-birthplace.html">patient-birthPlace</a></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSAPractitioner</code></td>
+      <td>Defined in <a href="03-exercise.html">Part 3</a></td>
+      <td>Practitioner name</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSAPractitioner</code></td>
+      <td>Defined in <a href="03-exercise.html">Part 3</a></td>
+      <td>Practitioner NPI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSACondition</code></td>
+      <td>Defined in <a href="03-exercise.html">Part 3</a></td>
+      <td>OSA diagnosis code</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSACondition</code></td>
+      <td>Defined in <a href="03-exercise.html">Part 3</a></td>
+      <td>OSA onset date</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSACondition</code></td>
+      <td>Defined in <a href="03-exercise.html">Part 3</a></td>
+      <td>Managing provider who diagnosed OSA</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSABodyMassIndex</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Observation.code</code></td>
+      <td>Body Mass Index (BMI)</td>
+      <td>Base on existing <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-bmi.html">US Core BMI profile</a></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSABodyMassIndex</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Observation.effectiveDateTime</code></td>
+      <td>Body Mass Index (BMI)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OSABodyMassIndex</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Observation.valueQuantity</code></td>
+      <td>BMI measurement</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When creating structural mappings to FHIR data elements, consider the following:</p>
+
+<ul>
+  <li>Does an appropriate element exist in the FHIR resource?</li>
+  <li>Is there a <a href="http://hl7.org/fhir/extensibility-registry.html">FHIR standard extension</a> that can be used?</li>
+  <li>Could this be addressed through a FHIR query or operation instead of using an extension?</li>
+  <li>Could the data element be derived by the receiving application, rather than generating it in the sending application?</li>
+</ul>
+
+<h5 id="semantic-mappings">Semantic mappings</h5>
+
+<p>At this point you should have already identified target terminology, and now need to connect this to the relevant data elements from your Resources Model.</p>
+
+<p>The two most common terminology-related conformance resources are:</p>
+
+<ol>
+  <li><a href="https://www.hl7.org/fhir/codesystem.html">CodeSystem</a> – "declares the existence of and describes a code system or code system supplement and its key properties, and optionally defines a part or all of its content. Also known as Ontology, Terminology, or Enumeration"</li>
+  <li><a href="https://www.hl7.org/fhir/R4/valueset.html">ValueSet</a> – "specifies a set of codes drawn from one or more code systems, intended for use in a particular context. Value sets link between CodeSystem definitions and their use in coded elements"</li>
+</ol>
+
+<p>You should <strong>avoid creating a new CodeSystem if possible</strong>. Instead, use one of the existing HL7 or external code systems <a href="https://terminology.hl7.org/">defined here</a>. More information on code systems may also be found at the <a href="https://confluence.hl7.org/display/TA/External+Terminologies+-+Information">HL7 Health Terminology Authority (HTA) Confluence site</a>. Creating a new CodeSystem will likely increase implementer burden and harms interoperability across Implementation Guides.</p>
+
+<p>CodeSystems in FHIR are identified by a canonical URL or <a href="https://en.wikipedia.org/wiki/Object_identifier">OID</a>. You will need to identify this to reference an existing CodeSystem in a ValueSet.</p>
+
+<p>The ValueSet (not the CodeSystem) is <a href="https://www.hl7.org/fhir/R4/profiling.html#binding">bound</a> to a FHIR element. When considering ValueSet bindings, keep the following in mind:</p>
+
+<ul>
+  <li>Is there an existing value set that can be used (e.g., from <a href="https://vsac.nlm.nih.gov/">VSAC</a>)? If not, should you create a new ValueSet resource in your IG, or create it externally to your IG? (The <a href="https://chat.fhir.org/#narrow/stream/179202-terminology">Terminology stream on chat.fhir.org</a> may be a good place to ask questions about the specifics of your use case.)</li>
+  <li>Are there value set constraints assigned to the FHIR resource element already? If so, what is the <a href="https://www.hl7.org/fhir/R4/profiling.html#binding">binding strength</a> (example, preferred, extensible, required)?</li>
+  <li>What is the best binding strength for your use case? (Note that profiles can only <em>increase</em> the strength of a binding, not decrease it.)</li>
+</ul>
+
+<h4 id="step-5-construct-the-implementation-guide">Step 5: Construct the Implementation Guide</h4>
+
+<p>Now that we have identified the structural and semantic mappings from our information model onto FHIR resources, we can implement using FSH.</p>
+
+<p>As you saw above, SUSHI will generate a folder structure for your IG when you run <code class="language-plaintext highlighter-rouge">sushi init</code>.</p>
+
+<p>We will focus on the <code class="language-plaintext highlighter-rouge">input/fsh/</code> and <code class="language-plaintext highlighter-rouge">input/pagecontent/</code> folders, where your FSH and narrative Markdown respectively go.</p>
+
+<p><span class="label label-success">Note</span> For more information on the FSH syntax, see the official <a href="http://hl7.org/fhir/uv/shorthand/reference.html">FHIR Shorthand language reference</a>, and the links to sections of this specification in the narrative below. Details of using FSH will also be covered in <a href="04-deep-dive-with-fsh.html">Part 4</a> of this course.</p>
+
+<h5 id="fsh-folder-conventions">FSH folder conventions</h5>
+
+<p>All FSH files have a <code class="language-plaintext highlighter-rouge">.fsh</code> extension and are saved in <code class="language-plaintext highlighter-rouge">input/fsh/</code>. There is no standardized convention for organizing your <code class="language-plaintext highlighter-rouge">input/fsh/</code> folder. You <em>could</em> have a single <code class="language-plaintext highlighter-rouge">everything.fsh</code> file that defined all your conformance resources, but in practice this can be hard to navigate.</p>
+
+<p>If you have a simple IG, it's reasonable to have a single <code class="language-plaintext highlighter-rouge">.fsh</code> file for each separate FHIR resource that you create. You can also group related resources together in the same <code class="language-plaintext highlighter-rouge">.fsh</code> file, but again be wary of allowing these files to become too long. (Note that SUSHI reads all <code class="language-plaintext highlighter-rouge">.fsh</code> files at once, so there's no technical reason to group related resources in the same file.)</p>
+
+<p>The mCODE IG approaches this problem in a fairly structured way, using 2-3 letter prefixes for its <code class="language-plaintext highlighter-rouge">.fsh</code> files to group them by resource type (e.g., <code class="language-plaintext highlighter-rouge">SD</code> for StructureDefinition, indicating a FSH file that defines profiles) and subject (whatever comes after the prefix). You can <a href="https://github.com/HL7/fhir-mCODE-ig/tree/master/input/fsh">see this in action here</a>. This is a reasonable approach assuming you don't find the prefixes too cryptic:</p>
+
+<ul>
+  <li>Profiles - <code class="language-plaintext highlighter-rouge">SD_&lt;domain&gt;.fsh</code> (SD = StructureDefintion)</li>
+  <li>Value sets - <code class="language-plaintext highlighter-rouge">VS_&lt;domain&gt;.fsh</code></li>
+  <li>Aliases to code systems and external profiles - <code class="language-plaintext highlighter-rouge">AL_&lt;domain&gt;.fsh</code></li>
+  <li>Examples - <code class="language-plaintext highlighter-rouge">EX_&lt;domain&gt;.fsh</code></li>
+  <li>Other definitions (e.g., FHIR CapabilityStatements, FSH RuleSets) - <code class="language-plaintext highlighter-rouge">DEF_&lt;descriptor&gt;.fsh</code></li>
+</ul>
+
+<p>We will take a simpler approach in the example IG for this seminar:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>📂 fsh-seminar-exercise
+ ├─ .gitignore
+ ├─ _genonce.bat
+ ├─ _genonce.sh
+ ├─ _updatePublisher.bat
+ ├─ _updatePublisher.sh
+ ├─ ig.ini
+ ├─📂 input
+ │  ├─📂 fsh
+ |  │ └─ aliases.fsh               # All aliases from long URLs to short keywords
+ |  | └─ examples.fsh              # Example FHIR resource instances
+ │  │ └─ profile_patient.fsh       # Profile for patient identity + demographics
+ │  │ └─ profile_practitioner.fsh  # Profile for the health care provider
+ │  │ └─ profile_clinical.fsh      # Profiles for the clinical portion of the use case
+ │  │ └─ value_set_osa.fsh         # ValueSet for Obstructive Sleep Apnea
+ │  ├─ ignoreWarnings.txt
+ │  └─📂 pagecontent
+ │    └─ index.md
+ └─ sushi-config.yaml
+</code></pre></div></div>
+
+<p>Recall that the FHIR IG Publisher and FHIR Shorthand compiler (SUSHI) define the folder structure above, and that SUSHI will actually generate this for you when you initialize a new project with <code class="language-plaintext highlighter-rouge">sushi -- init</code>.</p>
+
+<p>For the purposes of this course, you can either run <code class="language-plaintext highlighter-rouge">sushi init</code> yourself to get this folder structure and add in the IG content by following the directions below, or get a pre-created copy of the folder structure and files above that includes everything discussed in Part 2 <a href="https://github.com/FSHSchool/courses-fsh-seminar-exercise">from GitHub</a>. This will also form the basis of the exercise in <a href="03-exercise.html">Part 3</a>.</p>
+
+<p>We will now go through the content needed to construct the IG for our example use case.</p>
+
+<h5 id="sushi-configuration">SUSHI configuration</h5>
+
+<p>We know that the IG needs to use FHIR 4.0.1, and depends on US Core 3.2. This configuration is done in <code class="language-plaintext highlighter-rouge">sushi-config.yaml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">fhirVersion</span><span class="pi">:</span> <span class="s">4.0.1</span> <span class="c1"># Should already be set by SUSHI -- just check to make sure it's the correct version</span>
+<span class="na">dependencies</span><span class="pi">:</span>
+  <span class="na">hl7.fhir.us.core</span><span class="pi">:</span> <span class="s">3.2.0</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>The rest of this file should be auto-generated by SUSHI and won't need modification, other than to add in additional narrative pages and navigation bar items.</p>
+
+<p>Now is a good time to try building the IG. To do this, go to the IG's folder in your command prompt and run <code class="language-plaintext highlighter-rouge">_genonce</code> (<code class="language-plaintext highlighter-rouge">./_genonce.sh</code> for Mac/Linux, <code class="language-plaintext highlighter-rouge">_genonce</code> for Windows). If the IG builds successfully, you should be able to open <code class="language-plaintext highlighter-rouge">output/index.html</code> in your web browser see the boilerplate IG home page.</p>
+
+<h5 id="aliases">Aliases</h5>
+
+<p><a href="http://hl7.org/fhir/uv/shorthand/reference.html#defining-aliases">Aliases are a FSH convenience feature</a> to avoid having to repeatedly type long URLs.</p>
+
+<p>We know we'll need to use ICD-11-CM and some US Core profiles, so let's define aliases for those in <code class="language-plaintext highlighter-rouge">input/fsh/aliases.fsh</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Code systems
+Alias:   $ICD10CM = http://hl7.org/fhir/sid/icd-10-cm
+Alias:   $IdType = http://terminology.hl7.org/CodeSystem/v2-0203
+Alias:   $ObsStatus = http://hl7.org/fhir/observation-status
+
+// US Core
+Alias:   $USCorePatient = http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient
+Alias:   $USCoreBodyMassIndex = http://hl7.org/fhir/us/core/StructureDefinition/us-core-bmi
+</code></pre></div></div>
+
+<p>This will allow us to refer to ICD codes with <code class="language-plaintext highlighter-rouge">ICD10CM#G47.33</code> when creating our ValueSet, and to US Core profiles with their aliases rather than their much longer canonical URIs.</p>
+
+<h5 id="valueset-obstructive-sleep-apnea-icd-10-cm-codes">ValueSet: Obstructive Sleep Apnea ICD-10-CM codes</h5>
+
+<p>In <code class="language-plaintext highlighter-rouge">input/fsh/value_set_osa.fsh</code>, <a href="http://hl7.org/fhir/uv/shorthand/reference.html#defining-value-sets">define a ValueSet</a> for the ICD codes listed in the use case:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ValueSet: ObstructiveSleepApneaVS
+Id: osa-vs
+Title: "Obstructive Sleep Apnea Conditions"
+Description: "Obstructive Sleep Apnea Conditions"
+* $ICD10CM#G47.33  "Obstructive sleep apnea (adult) (pediatric)"
+* $ICD10CM#G47.30  "Sleep apnea, unspecified"
+</code></pre></div></div>
+
+<h5 id="profile-patient">Profile: Patient</h5>
+
+<p>When you create a new IG with <code class="language-plaintext highlighter-rouge">sushi init</code>, it will generate <code class="language-plaintext highlighter-rouge">input/fsh/patient.fsh</code> as a placeholder. This placeholder file looks like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// This is a simple example of a FSH file.
+// This file can be renamed, and additional FSH files can be added.
+// SUSHI will look for definitions in any file using the .fsh ending.
+Profile: MyPatient
+Parent: Patient
+Description: "An example profile of the Patient resource."
+* name 1..* MS
+
+//...
+</code></pre></div></div>
+
+<p>This is essentially the minimal amount of FSH code that can be used to generate a profile. You can use <a href="https://fshschool.org/FSHOnline/#/share/3AJKcrq">FSH Online</a> to see how this is transformed into a StructureDefinition represented in JSON.</p>
+
+<p>ℹ️ Note that when creating a profile, you only need to specify "differentials": any element that is already specified in the parent does <em>not</em> need to be re-specified in your profile.</p>
+
+<p>Here's what the human-readable version of the <code class="language-plaintext highlighter-rouge">MyPatient</code> profile looks like from an IG:</p>
+
+<div><img class="img-responsive" style="max-width: 883px;" src="patient_1.png" alt="Differential of minimal patient profile" /></div>
+
+<p>In the example above, a two constraints are added to the <code class="language-plaintext highlighter-rouge">name</code> element: <code class="language-plaintext highlighter-rouge">1..*</code> cardinality ("one or more") and a MustSupport (<code class="language-plaintext highlighter-rouge">MS</code>; will be discussed below).</p>
+
+<p>We will discard this example and create our own profile in <code class="language-plaintext highlighter-rouge">input/fsh/profile_patient.fsh</code>, <a href="http://hl7.org/fhir/uv/shorthand/reference.html#defining-profiles">define a profile</a> based on <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-patient.html">US Core's Patient profile</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Profile: OSAPatient
+Parent: $USCorePatient
+Description: "An example Patient profile"
+* birthDate 1..1
+* extension contains http://hl7.org/fhir/StructureDefinition/patient-birthPlace named birthPlace 0..1 MS
+* generalPractitioner only Reference(OSAPractitioner)
+</code></pre></div></div>
+
+<p>This FSH does the following:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">* birthDate 1..1</code> makes this element required (it inherits a MustSupport flag from <code class="language-plaintext highlighter-rouge">USCorePatient</code>).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">patient-birthPlace</code> extension is added as optional (<code class="language-plaintext highlighter-rouge">0..1</code> cardinality) and MustSupport. We are using an extension because birth place is not supported by a standard element in the base Patient resource. The <a href="https://www.hl7.org/fhir/R4/extension-patient-birthplace.html">birthPlace extension</a> is actually part of FHIR R4, so it's better from an interoperability perspective to use this extension vs. defining our own custom extension.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">generalPractitioner</code> reference is restricted to only reference <a href="https://www.hl7.org/fhir/R4/practitioner.html">Practitioner</a> instances that conform to the <code class="language-plaintext highlighter-rouge">OSAPractitioner</code> profile (to be defined below). This makes it clear to implementers how the <code class="language-plaintext highlighter-rouge">OSAPatient</code> and <code class="language-plaintext highlighter-rouge">OSAPractitioner</code> profiles are related.</li>
+</ol>
+
+<p>Name, age (i.e., <code class="language-plaintext highlighter-rouge">birthDate</code>), and birth place are all required based on the use case. It's reasonable to assume that name and age are known, so these elements are marked as required (minimum cardinality <code class="language-plaintext highlighter-rouge">1</code>; note that <code class="language-plaintext highlighter-rouge">name</code> inherits this from <code class="language-plaintext highlighter-rouge">USCorePatient</code>).</p>
+
+<p>We do not set the <code class="language-plaintext highlighter-rouge">patient-birthPlace</code> extension to be required (minimum cardinality <code class="language-plaintext highlighter-rouge">1</code>) because it's <em>possible</em> these data will be missing, and we don't want to make it impossible to produce a conforming instance of Patient if the birth place isn't available. However, this should be populated if available so we mark it as MustSupport.</p>
+
+<p>The required elements (<code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">birthDate</code>) are also marked as MustSupport. This is redundant for the system producing the FHIR resource instances as the cardinality constraint ensures they are populated even without the MustSupport flag. However, for the receiving system, the MustSupport flag still has meaning – it typically would indicate that the receiving system would need to "meaningfully process" the MustSupport elements; without the MustSupport flag, the receiving system could discard these elements. The narrative of the IG should provide a definition of MustSupport to clarify its meaning to all participants (in our case OSAA as the receiver of FHIR resource instances, and the participating study sites as the producers of these instances).</p>
+
+<p>At this point it's a good idea to run <code class="language-plaintext highlighter-rouge">_genonce</code> again to see the changes you've made to the IG. If you see an error related to <code class="language-plaintext highlighter-rouge">OSAPractitioner</code>, that is because you haven't defined this profile yet (see below) but you have referenced it. You can comment out the relevant line (<code class="language-plaintext highlighter-rouge">// * generalPractitioner only Reference(OSAPractitioner)</code> in <code class="language-plaintext highlighter-rouge">OSAPatient</code> to temporarily avoid this error.</p>
+
+<p>If you do have <code class="language-plaintext highlighter-rouge">OSAPractitioner</code> defined so <code class="language-plaintext highlighter-rouge">_genonce</code> can run to completion, you should see something like this for the differential of <code class="language-plaintext highlighter-rouge">OSAPatient</code>:</p>
+
+<div><img src="osa_patient.png" class="img-responsive" style="max-width: 1052px;" alt="Differential of OSAPatient" /></div>
+
+<p>If you made a mistake with your FSH syntax, you will see an error from SUSHI at the beginning of the <code class="language-plaintext highlighter-rouge">_genonce</code> process. It may be easier to debug this error by running SUSHI directly with <code class="language-plaintext highlighter-rouge">sushi</code>. The SUSHI command also runs a lot faster than the entire <code class="language-plaintext highlighter-rouge">_genonce</code> command, so you may find it useful to run <code class="language-plaintext highlighter-rouge">sushi</code> while writing FSH to check for syntax errors or other warnings.</p>
+
+<h5 id="profile-practitioner">Profile: Practitioner</h5>
+
+<p>This is part of the <a href="03-exercise.html">Part 3</a> exercise, so the solution is hidden (<a role="button" data-toggle="collapse" href="#solution-profile-pactitioner" aria-expanded="false" aria-controls="solution-profile-pactitioner">show solution</a>).</p>
+
+<div class="collapse" id="solution-profile-pactitioner">
+  <p>In <code class="language-plaintext highlighter-rouge">input/fsh/profile_practitioner.fsh</code>, <a href="http://hl7.org/fhir/uv/shorthand/reference.html#defining-profiles">define a profile</a> based on <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-practitioner.html">US Core's Practitioner profile</a>:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Profile: OSAPractitioner
+Parent: $USCorePractitioner
+Description: "An example Practitioner profile"
+* identifier[NPI] 1..1
+</code></pre></div>  </div>
+
+  <p>From the use case, practitioner name and NPI are required. The US Core profile we are basing ours off of already has <code class="language-plaintext highlighter-rouge">Practitioner.name</code> as <code class="language-plaintext highlighter-rouge">1..1 MS</code>, so we don't need to add any constraints here for name. <code class="language-plaintext highlighter-rouge">Practitioner.identifier[NPI]</code> is <code class="language-plaintext highlighter-rouge">0..1 MS</code> in the parent profile as well, so we will further constrain to <code class="language-plaintext highlighter-rouge">1..1</code> here.</p>
+
+  <p>Note that you will need to add the <code class="language-plaintext highlighter-rouge">$USCorePractitioner</code> alias to <code class="language-plaintext highlighter-rouge">aliases.fsh</code>.</p>
+</div>
+
+<h5 id="profile-condition">Profile: Condition</h5>
+
+<p>This is part of the <a href="03-exercise.html">Part 3</a> exercise, so the solution is hidden (<a role="button" data-toggle="collapse" href="#solution-profile-condition" aria-expanded="false" aria-controls="solution-profile-condition">show solution</a>).</p>
+
+<div class="collapse" id="solution-profile-condition">
+  <p>In <code class="language-plaintext highlighter-rouge">input/fsh/profile_clinical.fsh</code>, <a href="http://hl7.org/fhir/uv/shorthand/reference.html#defining-profiles">define a profile</a> based on <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-condition.html">US Core's Condition profile</a>:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Profile: OSACondition
+Parent: $USCoreCondition
+Description: "Obstructive sleep apnea (OSA) is a condition in which breathing stops involuntarily for brief periods of time during sleep. [Source: Healthline](https://www.healthline.com/health/sleep/obstructive-sleep-apnea)"
+* code from ObstructiveSleepApneaVS (required)
+* asserter only Reference(OSAPractitioner)
+* onset[x] MS
+* onset[x] ^short = "Best guess at onset of condition (not diagnosis time)"
+* extension contains AgeAtOSADiagnosis named ageAtOsaDx 0..1 MS
+
+Extension: AgeAtOSADiagnosis
+Id: age-at-osa-diagnosis
+Title: "Age at the time of diagnosis"
+Description: "The date (and time) when the OSA diagnosis was made. Note that this could be calculated from the diagnosis date and time and birth date."
+* value[x] only Age
+</code></pre></div>  </div>
+
+  <p>You should now be familiar with most of the contents of this profile, with a few exceptions:</p>
+
+  <ul>
+    <li>The <code class="language-plaintext highlighter-rouge">Description</code> declaration includes Markdown syntax, which will be converted to HTML by the IG publisher pipeline.</li>
+    <li>The <code class="language-plaintext highlighter-rouge">onset[x] ^short</code> rule provides a short narrative description of the element. This will be covered more in <a href="04-deep-dive-with-fsh.html">Part 4</a>.</li>
+  </ul>
+
+  <p>Note that you will need to add the <code class="language-plaintext highlighter-rouge">$USCoreCondition</code> alias to <code class="language-plaintext highlighter-rouge">aliases.fsh</code>.</p>
+</div>
+
+<h5 id="profile-observation">Profile: Observation</h5>
+
+<p>In <code class="language-plaintext highlighter-rouge">input/fsh/profile_clinical.fsh</code>, <a href="http://hl7.org/fhir/uv/shorthand/reference.html#defining-profiles">define a profile</a> based on <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-bmi.html">US Core's BMI profile</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Profile: OSABodyMassIndex
+Parent: $USCoreBodyMassIndex
+Description: "Body mass index, or BMI, is a measure of body size. It combines a person's weight with their height."
+* performer 1..1 MS
+
+// BMI is a point in time measurement so exclude measurement by time period.
+* effective[x] only dateTime
+</code></pre></div></div>
+
+<h5 id="creating-examples">Creating examples</h5>
+
+<p>When creating examples, note that if you are basing your profile on another profile rather than the base FHIR resource, there could be additional required elements and constraints that are inherited from those parent profiles. For example, the <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-Condition.html">US Core Condition Profile</a> requires <a href="http://hl7.org/fhir/us/core/2021Jan/StructureDefinition-us-core-Condition.html">Condition.category</a>.</p>
+
+<p>Examples also go in <code class="language-plaintext highlighter-rouge">input/fsh/</code> just like profile definitions. You can actually put them in the same file as a profile definition, which can get messy for a large IG but is fine for this example.</p>
+
+<p>Create a new file called <code class="language-plaintext highlighter-rouge">input/fsh/examples.fsh</code> and append the following FSH:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Instance: osa-patient-jane-doe
+InstanceOf: OSAPatient
+Description: "Example OSA Patient."
+* name.family = "Doe"
+* name.given[0] = "Jane"
+* identifier.use = #usual
+* identifier.type = $IdType#MR "Medical Record Number"
+* identifier.system = "http://hospital.example.org"
+* identifier.value = "1234"
+* gender = #female
+* birthDate = "1950-01-22"
+* extension[birthPlace].valueAddress.state = "MA"
+</code></pre></div></div>
+
+<p>Run <code class="language-plaintext highlighter-rouge">_genonce</code> again and you should then see an "Examples" tab appearing on the page for your <code class="language-plaintext highlighter-rouge">OSAPatient</code> profile. You should also be able to open <code class="language-plaintext highlighter-rouge">output/Patient-osa-patient-jane-doe.html</code> by following the links in the built IG.</p>
+
+<p>The human-readable "Narrative Content" view of examples in the IG publisher is often missing a lot of data. Use the JSON view as an alternative to see all the data:</p>
+
+<div><img src="patient_ex.png" class="img-responsive" style="max-width: 661px;" alt="Screenshot of example patient JSON in IG Publisher output" /></div>
+
+<p>Follow the same pattern to create an example for BMI and Condition:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Instance: osa-bmi-example
+InstanceOf: OSABodyMassIndex
+Description: "Example of OSA BMI value"
+* subject = Reference(osa-patient-jane-doe)
+* status = $ObsStatus#final
+* effectiveDateTime = "2021-09-28"
+* performer = Reference(osa-practitioner-kyle-anydoc)
+* valueQuantity = 32.5 'kg/m2' "kg/m2"
+</code></pre></div></div>
+
+<p>Note the reference to <code class="language-plaintext highlighter-rouge">osa-practitioner-kyle-anydoc</code>. You will need to create this example as well for the IG to build without errors. This is part of the <a href="03-exercise.html">Part 3</a> exercise, so the solution is hidden (<a role="button" data-toggle="collapse" href="#solution-example-kyle" aria-expanded="false" aria-controls="solution-example-kyle">show solution</a>).</p>
+
+<div class="collapse" id="solution-example-kyle">
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Instance: osa-practitioner-kyle-anydoc
+InstanceOf: OSAPractitioner
+Description: "Example of OSA Practitioner"
+* identifier[NPI].value = "9988776655"
+* name.family = "Anydoc"
+* name.given = "Kyle"
+* name.prefix = "Dr."
+* gender = #male
+* address.use = #home
+* address.line = "567 Healthcare Drive"
+* address.city = "Anytown"
+* address.state = "MA"
+* address.postalCode = "12345"
+* address.country = "US"
+* qualification.code = http://terminology.hl7.org/CodeSystem/v2-0360|2.7#MD "Doctor of Medicine"
+</code></pre></div>  </div>
+</div>
+
+<h5 id="check-the-qa-page">Check the QA page</h5>
+
+<p>Once your IG builds, it is a good idea to check <code class="language-plaintext highlighter-rouge">output/qa.html</code> to try to resolve any content errors or warnings with the IG. While SUSHI can preempt a subset of the possible content errors/warnings, it doesn't catch all of them due to the complexity of the IG building process.</p>
+
+<p>If there are spurious warnings, you can add the content of <code class="language-plaintext highlighter-rouge">output/qa.txt</code> (the plain text version of the HTML page) to <code class="language-plaintext highlighter-rouge">input/ignoreWarnings.txt</code> along with a comment explaining why the warning was ignored.</p>
+
+<h4 id="step-6-downstream-work">Step 6: Downstream work</h4>
+
+<p>If you recall the workflow diagram from above…</p>
+
+<div style="text-align: center;"><img src="ig_workflow.svg" alt="Workflow for developing a FHIR Implementation Guide" class="img-responsive" /></div>
+
+<p>…you will notice that it culminates with "Downstream work", which may include developing test scenarios and reference data for the IG's use cases, and creating reference implementations. This is beyond the scope of this seminar, but this is still an important part of the IG development process.</p>
+
+<hr />
+
+<p>In <a href="03-exercise.html">Part 3</a>, you will complete the remaining profiling work in the example IG developed above.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:mark" role="doc-endnote">
+      <p>Thanks to Dr. Mark Kramer for providing this figure. <a href="#fnref:mark" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:implementation-guide" role="doc-endnote">
+      <p>The "implementation guide" section of this diagram is somewhat simplified for the sake of clarity: for example, workflows are represented by <a href="https://www.hl7.org/fhir/R4/searchparameter.html">SearchParameter</a> resources in addition to "FHIR Operations" (<a href="https://www.hl7.org/fhir/R4/operationdefinition.html">OperationDefinition</a> resources). Likewise, in addition to "FHIR Value Sets" (<a href="https://www.hl7.org/fhir/valueset.html">ValueSet</a> resources), there are other terminology-related resources like <a href="https://www.hl7.org/fhir/R4/codesystem.html">CodeSystem</a> and <a href="https://www.hl7.org/fhir/R4/conceptmap.html">ConceptMap</a>. <a href="#fnref:implementation-guide" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:USCore" role="doc-endnote">
+      <p>Note that <a href="http://hl7.org/fhir/us/core/STU4/">US Core 4.0.0</a> has subsequently been released. <a href="#fnref:USCore" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+
+</div>
+        </div>  <!-- /inner-wrapper -->
+      </div>  <!-- /row -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-content -->
+
+  <script type="text/javascript" src="assets/js/jquery.js"> </script>     <!-- note keep space here, otherwise it will be transformed to empty tag -> fails -->
+  <script type="text/javascript" src="assets/js/jquery-ui.min.js"> </script>
+
+  <script type="text/javascript" src="assets/js/window-hash.js"> </script>
+  <a name="bottom"> </a>
+  <div id="segment-footer" igtool="footer" class="segment">  <!-- segment-footer -->
+    <div class="container">  <!-- container -->
+
+      <div class="inner-wrapper">
+        <p>
+          IG &#169; 2022+ <a style="color:var(--footer-hyperlink-text-color)" href="https://fshschool.org">fshschool.org</a>.  Package org.fshschool.courses.fsh-seminar#0.1.0 based on <a style="color: var(--footer-hyperlink-text-color)" href="http://hl7.org/fhir/R4/">FHIR 4.0.1</a>. Generated <span title="Thu, Sep 26, 2024 19:08+0000">2024-09-26</span>
+          <br/>
+          <span style="color: var(--footer-highlight-text-color)">
+                      Links: <a style="color: var(--footer-hyperlink-text-color)" href="toc.html">Table of Contents</a> |
+                 <a style="color: var(--footer-hyperlink-text-color)" href="qa.html">QA Report</a>
+                 
+                
+<br><br><small>MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.</small>
+
+<script
+  src="https://unpkg.com/littlefoot/dist/littlefoot.js"
+  type="application/javascript"
+></script>
+<script type="application/javascript">
+  littlefoot.default(
+	  {
+	    activateOnHover: true,
+	    hoverDelay: 100,
+	    buttonTemplate: "<button aria-label=\"Footnote <% number %>\" class=\"littlefoot__button\" id=\"<% reference %>\" title=\"See Footnote <% number %>\"/><% number %></button>"
+	  }
+  )
+</script>
+
+<script src="https://cdn.usefathom.com/script.js" data-site="URVHCNQA" defer></script>
+          </span>
+        </p>
+      </div>  <!-- /inner-wrapper -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-footer -->
+  
+  <div id="segment-post-footer" class="segment hidden">  <!-- segment-post-footer -->
+    <div class="container">  <!-- container -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-post-footer -->
+
+  <!-- JS and analytics only. -->
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"> </script>
+  <script type="text/javascript" src="assets/js/respond.min.js"> </script>
+  <script type="text/javascript" src="assets/js/anchor.min.js"> </script>
+  <script type="text/javascript" src="assets/js/clipboard.min.js"> </script>
+  <script type="text/javascript" src="assets/js/clipboard-btn.js"> </script>
+  <script type="text/javascript" src="assets/js/anchor-hover.js"> </script>
+  <!-- Analytics Below
+  ================================================== -->
+  </body>
+</html>
+

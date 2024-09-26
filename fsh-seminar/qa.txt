@@ -1,0 +1,41 @@
+FSHSeminar : Validation Results
+=========================================
+
+err = 2, warn = 6, info = 0
+IG Publisher Version: 1.6.28
+Generated Thu Sep 26 19:08:18 UTC 2024. FHIR version 4.0.1 for org.fshschool.courses.fsh-seminar#0.1.0 (canonical = https://fshschool.org/courses/fsh-seminar)
+ Build Errors : 18 / 5 / 0
+ /home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar : 0 / 0 / 1
+ /home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/StructureDefinition-MyPatient : 2 / 1 / 1
+</table>
+== n/a ==
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource StructureDefinition/MyPatient.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/01-reading-an-ig.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 726 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/02-creating-an-ig.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1082 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1694 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/toc.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 245 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/artifacts.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 275 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-definitions.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 635 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/03-exercise.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 472 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/setup.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 300 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-mappings.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 448 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.xml.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2396 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-examples.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 336 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/04-deep-dive-with-fsh.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 262 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.ttl.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 1927 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/index.html: Invalid literal declaration following text: 
+    // Get rid of "Computable Name:" at top of index.html
+    [...document.querySelectorAll("*")].filter(e => e.childNodes 
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/fhir-resources.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 279 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.history.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 325 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient.profile.json.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 2548 column 103
+ERROR: /home/runner/work/courses/courses/fsh-seminar/output/StructureDefinition-MyPatient-testing.html: Unable to Parse HTML - node 'button' has unexpected content '%' (last text = '\" class=\"littlefoot__button\" id=\"' at line 343 column 103
+WARNING: 1: The HTML fragment 'ip-statements.xhtml' is not included anywhere in the produced implementation guide
+WARNING: 2: An HTML fragment from the set [cross-version-analysis.xhtml, cross-version-analysis-inline.xhtml] is not included anywhere in the produced implementation guide
+WARNING: 3: An HTML fragment from the set [dependency-table.xhtml, dependency-table-short.xhtml] is not included anywhere in the produced implementation guide
+WARNING: 4: The HTML fragment 'globals-table.xhtml' is not included anywhere in the produced implementation guide
+== fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar.json ==
+== fsh-generated/resources/StructureDefinition-MyPatient.json ==
+WARNING: StructureDefinition.where(url = 'https://fshschool.org/courses/fsh-seminar/StructureDefinition/MyPatient'): The Implementation Guide contains no examples for this profile
+ERROR: StructureDefinition.text.div: Hyperlink 'StructureDefinition-MyPatient-definitions.html#Patient' at 'div/table/tr/td/a' for 'Patient' does not resolve
+ERROR: StructureDefinition.text.div: Hyperlink 'StructureDefinition-MyPatient-definitions.html#Patient.name' at 'div/table/tr/td/a' for 'name' does not resolve

@@ -1,0 +1,19 @@
+{
+  "url" : "https://fshschool.org/courses/fsh-seminar/ImplementationGuide/org.fshschool.courses.fsh-seminar",
+  "name" : "FSHSeminar",
+  "title" : "FSH Seminar",
+  "description" : null,
+  "status" : "draft",
+  "package-id" : "org.fshschool.courses.fsh-seminar",
+  "ig-ver" : "0.1.0",
+  "date" : "Thu, 26 Sep, 2024 19:08:02 +0000",
+  "dateISO8601" : "2024-09-26T19:08:02+00:00",
+  "errs" : 2,
+  "warnings" : 6,
+  "hints" : 0,
+  "suppressed-hints" : 0,
+  "suppressed-warnings" : 0,
+  "version" : "4.0.1",
+  "tool" : "5.0.0 (3)",
+  "maxMemory" : 693005312
+}

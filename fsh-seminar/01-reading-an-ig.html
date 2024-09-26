@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <title>ORG.FSHSCHOOL.COURSES.FSH-SEMINAR\Part 1: Reading an IG - FHIR v4.0.1
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="http://hl7.org/fhir" />
+
+    <link href="fhir.css" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap-fhir.css" rel="stylesheet" />
+
+    <!-- Project extras -->
+    <link href="assets/css/project.css" rel="stylesheet" />
+    <link href="assets/css/pygments-manni.css" rel="stylesheet" />
+    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="assets/css/prism.css" rel="stylesheet" />
+    <!-- Placeholder for child template CSS declarations -->
+    <link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css"/>
+    <link href="assets/css/fix-fonts.css" rel="stylesheet"/>
+    <link href="assets/css/fsh.css" rel="stylesheet" />
+    <link href="assets/css/video-js.css" rel="stylesheet" />
+    <script src="assets/js/video.min.js"></script>
+
+
+
+    <script>
+        // Set tab based on the anchor in URL
+        var hash = window.location.hash;
+        try {
+            if(hash == "#tab-diff") sessionStorage.setItem('fhir-resource-tab-index', 1);
+            if(hash == "#tab-snapshot") sessionStorage.setItem('fhir-resource-tab-index', 2);
+            if(hash == "#tab-ms") sessionStorage.setItem('fhir-resource-tab-index', 3);
+
+            // Default to snapshot tab
+            if(!sessionStorage.getItem('fhir-resource-tab-index')) sessionStorage.setItem('fhir-resource-tab-index', 2);
+        } catch(e) { }
+
+        // Make it so that clicking the tabs also sets the anchor in the url
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#tabs .ui-tabs-nav li').click(function() {
+                var id = $(this).children('a').attr('id');
+                if(id == "ui-id-2") window.location.hash = "#tab-diff";
+                if(id == "ui-id-3") window.location.hash = "#tab-snapshot";
+                if(id == "ui-id-4") window.location.hash = "#tab-ms";
+            })
+        });
+    </script>
+
+    <script type="text/javascript" src="fhir-table-scripts.js"> </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="assets/ico/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="assets/ico/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="assets/ico/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed"
+        href="assets/ico/apple-touch-icon-57-precomposed.png" />
+    <link rel="shortcut icon" href="assets/ico/favicon.png" />
+</head>
+
+<body onload="document.body.style.opacity='1'">
+    
+    <script src="assets/js/prism.js"></script>
+
+    <style type="text/css">
+        h2 {
+            --heading-prefix:"4"
+        }
+
+        h3,
+        h4,
+        h5,
+        h6 {
+            --heading-prefix:"4"
+        }
+    </style>
+    <header>
+        <nav class="navbar navbar-inverse" style="background-color: #30638e;">
+          <div class="container">
+            <div class="navbar-header" style="">
+              <a class="navbar-brand" style="margin-right: 0;margin-top: 0.25em;" href="https://fshschool.org"><span class="navbar-logo"><svg id="Layer_1" viewBox="9.182 12.932 266.818 60.399" style="width: 100px; enable-background:new 0 0 240 92" xmlns="http://www.w3.org/2000/svg"><style>.st0{fill:#0b2338}.st1{fill:#0b5b94}</style><g transform="matrix(1, 0, 0, 0.948419, 0, 0.742756)"><g><polygon class="st1" points="62.1,14.5 47.6,51.9 32.9,14.5 21.2,14.5 10,74.4 22,74.4 29.1,36.9 43,74.4 52,74.4 65.9,36.9 
+            73,74.4 85.4,74.4 73.8,14.5" style="fill:#fff"></polygon><rect x="88.4" y="14.5" class="st1" width="11.2" height="60" style="fill:#fff"></rect><polygon class="st1" points="103.3,14.5 103.3,24.2 116.5,24.2 116.5,74.4 127.7,74.4 127.7,24.2 140.9,24.2 140.9,14.5" style="fill:#fff"></polygon><g><path class="st1" d="M155.8 74.4h-11.2v-60h26.7c1.1.0 2.9.4 5.4 1.1 2.5.7 5 2.4 7.5 4.9 2.5 2.6 3.7 6.3 3.7 11.2.0 5.1-1.3 9-4 11.6-2.7 2.7-5.4 4.3-8.2 5-2.7.8-4.8 1.1-6.1 1.1l20 25H176l-18.3-24.8V38.9l11.2-.1h.6c1.5.0 3.1-.6 4.6-1.7 1.7-1.3 2.5-3.1 2.5-5.4.0-2.1-.7-3.8-2.1-5.2-1.4-1.3-3.3-2-5.7-2h-13.1V74.4z" style="fill:#fff"></path><polygon class="st1" points="189.5,14.5 224.3,14.5 224.3,24.2 200.8,24.2 200.8,39.6 224,39.6 224,49.3 200.8,49.3 200.8,64.7 
+                224.3,64.7 224.3,74.4 189.5,74.4" style="fill:#fff"></polygon></g></g></g><text style="fill:#fff;font-family:Arial,sans-serif;font-size:76px;white-space:pre" transform="matrix(1, 0, 0, 0.838825, -6, 5.963185)" x="191.004" y="6.55" dx="71.937" dy="57.477">|</text></svg></span></a> <span class="navbar-brand" style="max-width: inherit;text-transform: uppercase;margin-top: 0.25em;color: white;font-weight: 400;"><span class="" style="font-weight: bold;"><a href="/" style="color: white; text-decoration: none;">FSH School</a></span>&nbsp;/&nbsp;<a href="/courses/" style="color: white; text-decoration: none;">Courses</a></span>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <div id="segment-header" class="segment">
+        <!-- segment-header -->
+        <div class="container">
+            <!-- container -->
+            <!-- Placeholder for child template header declarations -->
+
+        <div id="family-nav">
+          <a id="family-logo" no-external="true" href="https://fshschool.org/courses"><img height="50" alt="FSH logo" src="fsh_logo.png"/> </a>
+        </div>
+            
+            <div id="ig-status">
+                <p><span
+                        style="">FSH Seminar</span><br />0.1.0
+                    - ci-build</p>
+            </div>
+        </div> <!-- /container -->
+    </div> <!-- /segment-header -->
+
+    <div id="segment-navbar" class="segment">
+        <!-- segment-navbar -->
+        <div id="stripe"> </div>
+        <div class="container">
+            <!-- container -->
+            <!-- HEADER CONTENT -->
+
+            <nav class="navbar navbar-inverse">
+                <!--status-bar-->
+                <div class="container">
+                    <button data-target=".navbar-inverse-collapse" class="navbar-toggle" data-toggle="collapse"
+                        type="button">
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                    </button>
+                    <a class="navbar-brand hidden" href="http://hl7.org/fhir/R4/index.html">FHIR</a>
+                    <div class="nav-collapse collapse navbar-inverse-collapse">
+                        <!-- menu.xml  -->
+
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Course Content
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="setup.html">0. Setup</a>
+      </li>
+      <li>
+        <a href="01-reading-an-ig.html">1. Reading an IG</a>
+      </li>
+      <li>
+        <a href="02-creating-an-ig.html">2. Creating an IG</a>
+      </li>
+      <li>
+        <a href="03-exercise.html">3. Hands-On Exercise</a>
+      </li>
+      <li>
+        <a href="04-deep-dive-with-fsh.html">4. Dive Deep with FSH</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="fhir-resources.html">FHIR Background/Resources</a>
+  </li>
+  <li>
+    <a href="artifacts.html">Artifacts</a>
+  </li>
+</ul>
+                    </div> <!-- /.nav-collapse -->
+                </div> <!-- /.container -->
+            </nav> <!-- /.navbar -->
+            <!-- /HEADER CONTENT -->
+        </div> <!-- /container -->
+    </div> <!-- /segment-navbar -->
+    <!--status-bar-->
+    <div id="segment-breadcrumb" class="segment">
+        <!-- segment-breadcrumb -->
+        <div class="container">
+            <!-- container -->
+            <ul class="breadcrumb">
+                <li><a href='toc.html'><b>Table of Contents</b></a></li><li><b>Part 1: Reading an IG</b></li>
+            </ul>
+        </div> <!-- /container -->
+    </div> <!-- /segment-breadcrumb -->
+
+    <div id="segment-content">
+        <!-- segment-content -->
+        <div class="container">
+            <!-- container -->
+            <div class="row">
+                <div class="inner-wrapper">
+<style type="text/css">
+h2:before{color:silver;counter-increment:section;content:var(--heading-prefix) " ";}
+h3:before{color:silver;counter-increment:sub-section;content:var(--heading-prefix) "." counter(sub-section) " ";}
+h4:before{color:silver;counter-increment:composite;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) " ";}
+h5:before{color:silver;counter-increment:detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";}
+h6:before{color:silver;counter-increment:more-detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) "." counter(more-detail)" ";}
+</style>
+<div class="col-12">
+  <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader-->
+  <h2>Part 1: Reading an IG</h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    <p><!-- white space is critical inside of capture --></p>
+<div class="markdown-toc">
+<ul id="markdown-toc">
+  <li><a href="#other-computable-artifacts" id="markdown-toc-other-computable-artifacts">Other Computable Artifacts</a></li>
+</ul>
+
+</div>
+<p>The goal of this module is to describe why you might want to create a FHIR IG, what a FHIR IG is, and how to read one. To do this, we will cover some foundational concepts in the abstract, and then see how these concepts are implemented in a completed IG.</p>
+
+<h3>Why author a FHIR IG? 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-1-1').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-1-1" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/1.1.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/1.1.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>The base FHIR specification is purposefully incomplete. While it defines the critical, generalizable elements needed for a FHIR implementation, such as the syntax and the base FHIR resources, it leaves the use case-specific implementation details undefined.</p>
+
+<p>
+<img src="pie.svg" alt="Pie chart showing what is and isn't covered by the base FHIR specification." class="figure" />
+</p>
+
+<p>FHIR Implementation Guides (IGs) fill in these gaps in different ways depending on the specific needs.</p>
+
+<p><a href="http://www.healthintersections.com.au/?page_id=2">Grahame Grieve</a>, the <a href="https://confluence.hl7.org/display/FHIR/FHIR+Product+Director+Page">FHIR Product Director</a>, breaks down the purpose of FHIR IGs into four broad categories in <a href="https://youtu.be/_byBTlasS2w?t=950">this presentation</a>:</p>
+
+<ol>
+  <li>
+    <p><strong>National Base IGs</strong></p>
+
+    <p>Doesn't describe a full implementation; instead, describes how regulations for a national health infrastructure apply in the context of FHIR. Typically this involves the code systems, identifiers, and extensions necessary for regulation (e.g., <a href="https://hl7.org/fhir/us/core/StructureDefinition-us-core-race.html">race</a> and <a href="https://hl7.org/fhir/us/core/StructureDefinition-us-core-ethnicity.html">ethnicity</a> in the US; or <a href="http://hl7.org.au/fhir/StructureDefinition-indigenous-status.html">Australian indigenous status</a>) specific to the jurisdiction in question.</p>
+
+    <p>(Typically these should not contain constraints like <a href="https://www.hl7.org/fhir/conformance-rules.html#cardinality">requiring presence of a specific element</a> or <a href="https://www.hl7.org/fhir/conformance-rules.html#mustSupport">MustSupport</a>, which are more suitable for IGs satisfying one of the other purposes below.)</p>
+
+    <p>Examples: <a href="https://www.hl7.org/fhir/us/core/">US Core</a>, <a href="http://hl7.org.au/fhir/">AU Base</a></p>
+  </li>
+  <li>
+    <p><strong>Domain of Knowledge IGs</strong></p>
+
+    <p>Describes how to represent a clinical or business concept, without defining an API for exchanging these data.</p>
+
+    <p>Example: <a href="https://hl7.org/fhir/uv/ips/">International Patient Summary</a>, <a href="https://github.com/HL7/fhir-mCODE-ig">mCODE</a></p>
+  </li>
+  <li>
+    <p><strong>Community of Implementation</strong></p>
+
+    <p>An agreement on how data are exchanged by a group of actors (i.e., contains an API).</p>
+
+    <p>Example: <a href="https://github.com/HL7/fhir-mCODE-ig">mCODE</a>, <a href="https://www.hl7.org/fhir/us/core/">US Core</a></p>
+  </li>
+  <li>
+    <p><strong>Product IGs</strong></p>
+
+    <p>Documents what a specific piece of software does in the FHIR ecosystem. These are not published by HL7, but may be published by vendors to document their own software. Often are not public.</p>
+  </li>
+</ol>
+
+<p>Some IGs fulfill multiple purposes, which is generally ok as long as the implications are considered carefully. For example, in the case of National Base IGs, a multi-purpose may be problematic: for example, in US Core, implementers may want to inherit the National Base IG content and not the Community of Implementation content, the latter of which includes US Core's cardinality/MustSupport constraints.</p>
+
+<p>The content in this course is to some degree focused around the reading and writing of <strong>Domain of Knowledge IGs</strong>, and to a lesser extent <strong>Community of Implementation</strong><sup id="fnref:community-of-implementation" role="doc-noteref"><a href="#fn:community-of-implementation" class="footnote" rel="footnote">1</a></sup>, though many parts of the course are applicable to all.</p>
+
+<h3>What is a FHIR IG? 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-1-2').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-1-2" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/1.2.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/1.2.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>Now that we have established the broad purpose for creating a FHIR IG, we will more formally define the contents of an IG.</p>
+
+<p>In short, FHIR Implementation Guides (IGs) are:</p>
+
+<blockquote>
+  <p>A set of rules of how a particular interoperability or standards problem is solved <sup id="fnref:fhir-ig" role="doc-noteref"><a href="#fn:fhir-ig" class="footnote" rel="footnote">2</a></sup></p>
+</blockquote>
+
+<p>To define these rules, IGs include:</p>
+
+<ol>
+  <li>Computable rules</li>
+  <li>Human-readable versions of the computable rules</li>
+  <li>Additional narrative descriptions of the rules, and additional information about the problem the IG is trying to solve</li>
+</ol>
+
+<p>The high-level goal of an IG is to provide sufficiently detailed instructions to implementers so that they can independently set up systems that will be able to successfully communicate with each other.</p>
+
+<p>To meet this goal, the computable rules are often insufficient. IGs usually include a <em>significant</em> amount of narrative content to supplement the computable rules, which may describe:</p>
+
+<ol>
+  <li>The primary use cases that are in the scope of the IG</li>
+  <li>The actors, and how the actors are expected to interact</li>
+  <li>How the components of the IG can be used together to meet the needs of these actors for these use cases</li>
+  <li>Conformance criteria that are not able to be represented in the computable portion of the IG</li>
+</ol>
+
+<h4 id="conformance">Conformance</h4>
+
+<p>Implementations are said to conform to an IG if they abide by both the computable and narrative rules in the IG.</p>
+
+<p>The computable portions of an IG can be used for automated testing for conformance. For example:</p>
+
+<ul>
+  <li>Individual FHIR resource instances can be <a href="http://hl7.org/fhir/R4/validation.html">validated</a> against a specific IG using <a href="https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator">the FHIR validator application</a></li>
+  <li>Automated tests can be created based on an IG to assess conformance of a system.</li>
+</ul>
+
+<p>Narrative conformance criteria typically use <a href="https://datatracker.ietf.org/doc/html/rfc2119">RFC 2119</a> key words in all-caps like MUST, SHOULD, and MAY. This signals to implementers which specific parts of the narrative should be treated as conformance criteria. Because narrative conformance criteria can't usually be assessed algorithmically, the IG authors must take care to make sure the narrative content clearly provides the necessary information to implementers.</p>
+
+<h4 id="reading-an-ig">Reading an IG</h4>
+
+<ol>
+  <li>
+    <p>First, start by reading the <strong>narrative content</strong>.</p>
+
+    <p>Start by reading the narrative on the home page. If other narrative pages are prominently mentioned or linked to from the home page, read them as well.</p>
+  </li>
+  <li>
+    <p>Then, examine the <strong>computable content</strong>.</p>
+
+    <p>Several different types of computable content are contained within a typical IG (these are described below). Where you start depends on your goal.</p>
+
+    <p>For example, if you are interested in gaining a general understanding of an IG, you may want to review all the computable content superficially (which can be done by clicking each link on the <code class="language-plaintext highlighter-rouge">artifacts.html</code> page of the IG).</p>
+
+    <p>Alternatively, you may be interested in an implementation for a specific actor or use case. In this case, the IG will hopefully provide some guidance on which resources are most important. If not, for content-related use cases, <code class="language-plaintext highlighter-rouge">Profiles</code> are likely the best entry point to the computable content. For API-driven use cases, <code class="language-plaintext highlighter-rouge">CapabilityStatements</code> are a logical starting point.</p>
+  </li>
+</ol>
+
+<p>The next few sections will provide an overview of common types of computable artifacts.</p>
+
+<h3>Common Computable Artifacts: Profiles 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-1-3').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-1-3" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/1.3.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/1.3.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>The goal of a <a href="https://www.hl7.org/fhir/profiling.html">FHIR profile</a> is to take one of the <a href="https://www.hl7.org/fhir/resourcelist.html">base FHIR resources</a> and add computable rules on top of it. These rules come in two flavors:</p>
+
+<ol>
+  <li>Constraints that apply to an entire element, such as how many times a given element can appear or which terminology to use for a code</li>
+  <li>Constraints that apply to specified splits or parts of an element<sup id="fnref:extensions-slices" role="doc-noteref"><a href="#fn:extensions-slices" class="footnote" rel="footnote">3</a></sup></li>
+</ol>
+
+<p>To make this more concrete, let's look at an example instance of a base FHIR resource – in this case, <a href="http://hl7.org/fhir/patient.html">Patient</a>. This instance is the package of data a FHIR server might use to represent a specific patient. For example, if you wanted to retrieve the data for the patient with the medical record number <code class="language-plaintext highlighter-rouge">1032702</code>, you could query <code class="language-plaintext highlighter-rouge">https://hospital.example.org/fhir/Patient/1032702</code>. The response to this query would be the instance of the Patient resource describing this patient, which might look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">resourceType</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Patient</span><span class="dl">"</span><span class="p">,</span>                                                      <span class="c1">// Resource identity and metadata</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PatientExample</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">meta</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">profile</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="dl">"</span><span class="s2">http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient</span><span class="dl">"</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">extension</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>                                                                  <span class="c1">// Extension</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">valueCode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">F</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">identifier</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>                                                                 <span class="c1">// Standard data</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">use</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">usual</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">coding</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MR</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">system</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://terminology.hl7.org/CodeSystem/v2-0203</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">display</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Medical Record Number</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Medical Record Number</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">system</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://hospital.smarthealthit.org</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1032702</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">active</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">family</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Shaw</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">given</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">Amy</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">V.</span><span class="dl">"</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">telecom</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">system</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">phone</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">555-555-5555</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">use</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">home</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">system</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">amy.shaw@example.com</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">gender</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">female</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">birthDate</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1987-02-20</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">line</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">49 Meadow St</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">Apartment B</span><span class="dl">"</span>
+      <span class="p">],</span>
+      <span class="dl">"</span><span class="s2">city</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mounds</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">state</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OK</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">postalCode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">74047</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">period</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">start</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2016-12-06</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">end</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-07-22</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The fields under "Standard data" in the example above are often called "elements" in an instance of a FHIR resource, as are extensions and slices. For example, the element <code class="language-plaintext highlighter-rouge">gender</code> has the value <code class="language-plaintext highlighter-rouge">female</code> in the example above. Elements may be nested (like <code class="language-plaintext highlighter-rouge">address.city</code>, which has the value <code class="language-plaintext highlighter-rouge">Mounds</code>), have multiple values (like <code class="language-plaintext highlighter-rouge">address.line</code>), or refer to a specific code from a terminology (like <code class="language-plaintext highlighter-rouge">extension[us-core-birthsex].valueCode</code>).</p>
+
+<p>When evaluating an instance for conformance, the computable rules specified in the base FHIR resource and any applicable profiles are applied across the elements in the instance. In this case, the instance <em>must</em> conform to the rules specified in FHIR's specification for the Patient resource – or it wouldn't be an instance of Patient at all.</p>
+
+<p>Additionally, if a resource instance follows the rules defined by a FHIR profile (and any applicable general conformance criteria from the profile's IG), then the instance is said to "conform" to the profile. A single instance may even conform to multiple profiles simultaneously.<sup id="fnref:meta-profile" role="doc-noteref"><a href="#fn:meta-profile" class="footnote" rel="footnote">4</a></sup></p>
+
+<p class="alert alert-info"><strong>A note on FHIR jargon.</strong> The FHIR spec defines a number of <a href="https://www.hl7.org/fhir/resourcelist.html">resources</a>, which are information models that are the building blocks of FHIR implementations. FHIR servers create an <em>instance</em> of a given resource (i.e., an instance of the Patient resource representing a specific patient). It is this <em>instance</em> that may conform to a given FHIR profile, not the resource itself. But in casual conversation, you may hear that "resource X conforms to profile Y" – this really means "<em>resource instance</em> X conforms to profile Y", but saying "resource instance" is cumbersome.<br /><br />You may also here "resource" used to refer to the FHIR specification's definition of a resource: e.g., "<code class="language-plaintext highlighter-rouge">name</code> is an element of the Patient resource" refers to the <code class="language-plaintext highlighter-rouge">name</code> element in <a href="https://www.hl7.org/fhir/patient.html">the FHIR spec's definition of the Patient resource</a>.</p>
+
+<p>Each profile has its own page in an IG build, and this is where you can find the conformance rules specified by that profile. <a href="https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html">Here's an example of a profile page in an IG</a>. The next part of the course will talk about how these pages are generated.</p>
+
+<hr />
+
+<p>Below is an annotated screenshot showing some of the key components of profiles in an IG:</p>
+
+<p style="text-align: center;"><img src="profile_anatomy.png" alt="" class="img-responsive" style="filter: drop-shadow(0 0 0.5rem #666);max-width: 90%;margin: 0 auto 0 auto; float: inherit;" /></p>
+
+<ol>
+  <li>The <strong>Content</strong> tab is the entry point to the profile, and contains the majority of the key information you'll need to understand the profile.</li>
+  <li>The <strong>Detailed Descriptions</strong> tab lists all the information for each element in the resource being profiled.</li>
+  <li>The <strong>Examples</strong> tab lists example instances provided by the authors that conform to the profile.</li>
+  <li>The <strong>XML</strong>, <strong>JSON</strong>, and (optionally) <strong>TTL</strong> tabs show the computable version of the profile in the respective format. (TTL stands for <a href="https://www.w3.org/TR/turtle/">Turtle format</a>, which is not widely used.)</li>
+  <li>The <strong>yellow box</strong> at the top of the page indicates which version of the IG you are viewing. This is important so you can tell if you are on the most up-to-date published version of an IG – sometimes Google searches or other links will land you on an old version.</li>
+  <li>This section contains <strong>profile metadata</strong> including the defining URL, computable <code class="language-plaintext highlighter-rouge">Name</code>, human-readable <code class="language-plaintext highlighter-rouge">Title</code>, and the narrative <code class="language-plaintext highlighter-rouge">Definition</code>.</li>
+  <li>Under the profile metadata is the <strong>narrative</strong> portion of the profile.</li>
+  <li>Finally, the <strong>formal views of profile content</strong> appears at the bottom of the page. This is the human-readable version of the computable version of the profile. We will discuss this in detail below.</li>
+</ol>
+
+<hr />
+
+<h4 id="formal-view-of-profile-content-tabs">Formal View of Profile Content Tabs</h4>
+
+<ol>
+  <li><strong>Text Summary</strong> provides a brief auto-generated narrative description of the profile.</li>
+  <li><strong>Differential Table</strong> shows <em>only</em> the rules added by this specific profile. In other words, it compares the Profile you are viewing to its parent (either a base FHIR resource or another profile).</li>
+  <li><strong>Snapshot Table</strong> shows <em>all</em> the rules contained in the profile, including rules inherited from its parents.</li>
+  <li><strong>Snapshot Table (Must Support)</strong> is the subset of the elements on the previous tab with a <code class="language-plaintext highlighter-rouge">MustSupport</code> flag. This is described later.</li>
+</ol>
+
+<p>Typically the <strong>differential</strong> ("diff") table tab is the best place to start when trying to understand what a rules a profile is setting. Here's the diff table from <a href="https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html#tabs-diff">the example of profile</a> linked above:</p>
+
+<p><img src="profile_diff.png" alt="Screenshot of diff table from the example profile" class="img-responsive" /></p>
+
+<p>This shows that this profile adds two constrains: the addition of <code class="language-plaintext highlighter-rouge">MustSupport</code> flags for the root <code class="language-plaintext highlighter-rouge">Patient</code> element (indicating that the entire profile is <code class="language-plaintext highlighter-rouge">MustSupport</code> to implementers ), and <code class="language-plaintext highlighter-rouge">Patient.deceased[x]</code>. The meaning of <code class="language-plaintext highlighter-rouge">MustSupport</code> and the full set of possible element-level constraints are discussed in the <a href="02-creating-an-ig.html">next part of the course</a>.</p>
+
+<p>The <strong>snapshot</strong> table tab is typically the best way to see all elements that may/should/must be populated for an instance of a resource to conform. This table is too long in the example profile to reproduce as a screenshot, but you can <a href="https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html#tabs-snap">see it here</a>.</p>
+
+<p>The table tabs have a high amount of information density:</p>
+
+<p><img src="profile_snapshot_annotated.png" alt="Annotated screenshot of the snapshot table from the example profile" class="img-responsive" /></p>
+
+<p>The <a href="02-creating-an-ig.html">next part of the course</a> will cover the constrains in the table tabs in more detail. In the meantime, you can click on the headings in the example profile to go to the relevant parts of the FHIR spec.</p>
+
+<h3>Common Computable Artifacts: Terminology 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-1-4').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-1-4" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/1.4.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/1.4.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>FHIR IGs can define two terminology-related artifacts:</p>
+
+<ol>
+  <li><strong><a href="https://www.hl7.org/fhir/codesystem.html">Code systems</a></strong> define a universe of predefined codes that may be used to represent data. ICD-10 is one of the most well-known code systems, but there are <em>many</em> others. If no existing code system meets a given use case, a custom one can be defined within an IG.<sup id="fnref:custom-code-system" role="doc-noteref"><a href="#fn:custom-code-system" class="footnote" rel="footnote">5</a></sup></li>
+  <li><strong><a href="https://www.hl7.org/fhir/valueset.html">Value sets</a></strong> define a subset of a code system that is relevant for a given element. There are two methods for defining value sets: intensionally or extensionally. Intensional value sets are algorithmically defined, while extensional value sets have an enumerated list of codes. These two methods can be combined or used separately.</li>
+</ol>
+
+<h3 id="other-computable-artifacts">Other Computable Artifacts</h3>
+
+<p>There are <em>many</em> more artifacts that can be defined by IGs. These will be enumerated in <a href="04-deep-dive-with-fsh.html">Part 4</a>.</p>
+
+<h3>Reviewing an Example IG 
+
+<!--
+<button type="button" class="btn btn-primary" onclick="document.getElementById('video-1-6').classList.toggle('hidden');">⏯ Video Version</button>
+
+<div id="video-1-6" class="hidden">
+<video
+    class="video-js"
+    controls
+    preload="auto"
+    width="960"
+    height="540"
+    poster="video/1.6.jpg"
+    data-setup="{}"
+  >
+    <source src="http://example.org/1.6.mp4" type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video</a>.
+    </p>
+</video>
+</div>--></h3>
+
+<p>To see a practical application of the concepts discussed above, we will review portions of the <a href="http://hl7.org/fhir/us/mcode/STU2/">minimal Common Oncology Data Elements (mCODE) Implementation Guide</a> (specifically the STU2 version), which is primarily a Domain of Knowledge IG but also has some Community of Implementation content:<sup id="fnref:mcode-versions" role="doc-noteref"><a href="#fn:mcode-versions" class="footnote" rel="footnote">6</a></sup></p>
+
+<ul>
+  <li>
+    <p><strong><a href="http://hl7.org/fhir/us/mcode/STU2/index.html">Home page</a></strong>: This is the entry point to the IG, and typically describes the background, scope, and general structure of the IG. Ideally the home page of an IG should be the single point of entry for all key content: by following links in the navigation bar or in the narrative of the home page, all the key IG content should be easily accessible.</p>
+
+    <p>The IG home page should also help guide the reader through the key content within the IG. Some IGs do a better job of this than others, and if the authors' intent is not clear for a given IG you can fall back onto some standard navigation pages (discussed below).</p>
+
+    <p>The key information on the mCODE home page is related to the Content by Group pages (see next bullet point), and the diagram showing the structure of mCODE STU2.</p>
+
+    <p>mCODE's home page also links to some other key concepts and resources specific to this IG, including the Data Dictionary, development history, credits, and author contact information.</p>
+  </li>
+  <li>
+    <p><strong>"Content by Group" pages</strong>: <a href="https://hl7.org/fhir/us/mcode/STU2/index.html#overview">Section 1.2 of the home page</a> links to the different groups of profiles and other artifacts in the IG. Not all IGs have this structure (and many IGs don't have as many artifacts as the mCODE IG, making this kind of structure is unnecessary).</p>
+
+    <p>Following the pattern described above of reading prominently linked narrative content before diving into the individual IG artifacts, consider reviewing these pages next after finishing the content on the home page.</p>
+
+    <p>Note that the Content by Group Pages are also linked second in the navigation bar, another indication of their level of importance.</p>
+  </li>
+  <li>
+    <p><strong>Conformance pages</strong>: These appear third in the navigation bar, and are custom-written narrative pages specifically for the mCODE IG, broken into four sections by topic.</p>
+
+    <p>Reviewing the details of these is beyond the scope of this course, and not all IGs include this much information on conformance. However, one common item that you should be looking for is how the IG <a href="https://hl7.org/fhir/us/mcode/stu2/conformance-profiles.html#must-implement-versus-must-support">defines MustSupport</a>, as this is a key conformance concept and is <a href="https://www.hl7.org/fhir/profiling.html#mustsupport">not defined in the base FHIR specification, but is instead left to profile authors to define</a></p>
+  </li>
+  <li>
+    <p><strong>FHIR Artifacts</strong>: The fourth item in the navigation bar lists the various types of FHIR artifacts. These are custom pages made specifically for mCODE (except for "Complete Listing"; this is described below).</p>
+
+    <p>Note that you likely have come across all the key artifacts as these are <em>also</em> listed at the bottom of each "Content by Group" page.</p>
+  </li>
+  <li>
+    <p><strong>Standard navigation pages</strong>
+  Every IG has an <code class="language-plaintext highlighter-rouge">artifacts.html</code> page, so if you find the IG's approach to organizing artifacts in the narrative confusing, you can always open that page to see a comprehensive list of all artifacts. <a href="https://hl7.org/fhir/us/mcode/STU2/artifacts.html">Here's that page for mCODE (found at <code class="language-plaintext highlighter-rouge">FHIR Artifacts &gt; Complete Listing</code> in the nav bar)</a>.</p>
+
+    <p>IGs also have a table of contents page (<code class="language-plaintext highlighter-rouge">toc.html</code>) that you can use to see a full list of all the web pages in the IG. <a href="https://hl7.org/fhir/us/mcode/STU2/toc.html">Here's that page for mCODE</a>.</p>
+  </li>
+</ul>
+
+<p>Now that we (hopefully) understand the overall purpose of the IG and the general conformance criteria, let's look in detail at one of the key profiles in the IG: <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html">Primary Cancer Condition</a>.</p>
+
+<ul>
+  <li>The <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#usage"><strong>Usage</strong> and <strong>Conformance</strong> sections</a> are additional narrative specific for this profile.</li>
+  <li>We see in the Text Summary tab that the profile is based on <a href="http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-condition.html">USCoreCondition</a>.</li>
+  <li>The <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#tabs-diff">Differential Table</a> shows the addition of a number of constraints:
+    <ol>
+      <li>MustSupport extensions: <code class="language-plaintext highlighter-rouge">Condition.extension:assertedDate</code> and <code class="language-plaintext highlighter-rouge">Condition.extension:histologyMorphologyBehavior</code>. Clicking the names in the diff table brings you to the <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition-definitions.html#Condition.extension:assertedDate">detailed definitions</a>, which provide additional information on these extensions. You may notice these are <a href="https://www.hl7.org/fhir/profiling.html#slicing">slices</a> of <code class="language-plaintext highlighter-rouge">Condition.extension</code>, which is a topic we'll cover later in the course.</li>
+      <li>An extensible value set binding of <code class="language-plaintext highlighter-rouge">Condition.code</code> to the <a href="https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-primary-cancer-disorder-vs.html">Primary Cancer Disorder Value Set</a>. Clicking on <a href="http://hl7.org/fhir/R4/terminologies.html#extensible"><code class="language-plaintext highlighter-rouge">extensible</code></a> in the diff table gives you more information about what this binding strength means.</li>
+      <li>A required binding of <code class="language-plaintext highlighter-rouge">Condition.bodySite</code> to <a href="https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-body-location-qualifier-vs.html">Body Location Qualifier Value Set</a>, and a MustSupport flag for this element.</li>
+      <li>Two MustSupport extensions to <code class="language-plaintext highlighter-rouge">Condition.bodySite</code>: <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition-definitions.html#Condition.bodySite.extension:locationQualifier"><code class="language-plaintext highlighter-rouge">Condition.bodySite.extension:locationQualifier</code></a> and <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition-definitions.html#Condition.bodySite.extension:lateralityQualifier"><code class="language-plaintext highlighter-rouge">Condition.bodySite.extension:lateralityQualifier</code></a>.</li>
+      <li>Constrained <code class="language-plaintext highlighter-rouge">Condition.stage.assessment</code> to refer to an Observation conforming to <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-cancer-stage-group.html">Cancer Stage Group Profile</a>, and added MustSupport flags to this element and its parent.</li>
+      <li>A required binding of <code class="language-plaintext highlighter-rouge">Condition.stage.type</code> to <a href="https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-observation-codes-stage-group-vs.html">Staging Type for Stage Group Value Set</a>.</li>
+    </ol>
+  </li>
+  <li>The <a href="https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#tabs-snap">Snapshot Table</a> lists all the elements that may appear in a conforming instance of Condition.</li>
+</ul>
+
+<p>This information tells me as an implementer what sort of data and terminology I'll need to have available to create conforming instances of Condition.</p>
+
+<p>This is the first pass of the process needed to understand each profile in the IG. Depending on the use case, other resources may also need to be reviewed in detail.</p>
+
+<hr />
+
+<p>Now that we've seen how to read an IG, in the <a href="02-creating-an-ig.html">next part of the course</a> we will look at how to create an IG from scratch.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:community-of-implementation" role="doc-endnote">
+      <p>We do not spend much time on the portion of FHIR IGs related to <a href="https://en.wikipedia.org/wiki/API">APIs</a>, which are typically targeted at software engineers. <a href="#fnref:community-of-implementation" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:fhir-ig" role="doc-endnote">
+      <p><a href="https://www.hl7.org/fhir/implementationguide.html">https://www.hl7.org/fhir/implementationguide.html</a> <a href="#fnref:fhir-ig" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:extensions-slices" role="doc-endnote">
+      <p>These come in two flavors:  <strong>slices</strong> (constraints on the parts of an element can hold multiple values) and <strong>extensions</strong> (constraints on an <code class="language-plaintext highlighter-rouge">extension</code> or <code class="language-plaintext highlighter-rouge">modifierExtension</code> element, which counter-intuitively use constraints to extend functionality). We will cover these in more detail later in the course. <a href="#fnref:extensions-slices" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:meta-profile" role="doc-endnote">
+      <p>Resource instances can actually specify which profiles they intend to conform to using the <code class="language-plaintext highlighter-rouge">meta.profile</code> metadata element. But instances may also unintentionally conform to <em>many</em> profiles – this is actually beneficial to interoperability as in some cases, a FHIR server's default response may already conform to a given profile if that profile is relatively unconstrained. <a href="#fnref:meta-profile" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:custom-code-system" role="doc-endnote">
+      <p>Defining your own code system is generally only a good idea as a last resort. From the implementer's perspective, it is generally more burdensome to add support for a brand new code system vs. using a more common code system that might already be part of an implementation. <a href="#fnref:custom-code-system" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:mcode-versions" role="doc-endnote">
+      <p>STU refers to Standard for Trial Use, which is a <a href="https://confluence.hl7.org/display/HL7/HL7+Balloting">HL7 ballot level</a> indicating the maturity of the implementation guide. This is the most recent balloted version of mCODE as of writing. More information about the HL7 ballot process <a href="https://confluence.hl7.org/display/HL7/Jira+Ballot+Process">can be found here</a>. <a href="#fnref:mcode-versions" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+
+</div>
+        </div>  <!-- /inner-wrapper -->
+      </div>  <!-- /row -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-content -->
+
+  <script type="text/javascript" src="assets/js/jquery.js"> </script>     <!-- note keep space here, otherwise it will be transformed to empty tag -> fails -->
+  <script type="text/javascript" src="assets/js/jquery-ui.min.js"> </script>
+
+  <script type="text/javascript" src="assets/js/window-hash.js"> </script>
+  <a name="bottom"> </a>
+  <div id="segment-footer" igtool="footer" class="segment">  <!-- segment-footer -->
+    <div class="container">  <!-- container -->
+
+      <div class="inner-wrapper">
+        <p>
+          IG &#169; 2022+ <a style="color:var(--footer-hyperlink-text-color)" href="https://fshschool.org">fshschool.org</a>.  Package org.fshschool.courses.fsh-seminar#0.1.0 based on <a style="color: var(--footer-hyperlink-text-color)" href="http://hl7.org/fhir/R4/">FHIR 4.0.1</a>. Generated <span title="Thu, Sep 26, 2024 19:08+0000">2024-09-26</span>
+          <br/>
+          <span style="color: var(--footer-highlight-text-color)">
+                      Links: <a style="color: var(--footer-hyperlink-text-color)" href="toc.html">Table of Contents</a> |
+                 <a style="color: var(--footer-hyperlink-text-color)" href="qa.html">QA Report</a>
+                 
+                
+<br><br><small>MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.</small>
+
+<script
+  src="https://unpkg.com/littlefoot/dist/littlefoot.js"
+  type="application/javascript"
+></script>
+<script type="application/javascript">
+  littlefoot.default(
+	  {
+	    activateOnHover: true,
+	    hoverDelay: 100,
+	    buttonTemplate: "<button aria-label=\"Footnote <% number %>\" class=\"littlefoot__button\" id=\"<% reference %>\" title=\"See Footnote <% number %>\"/><% number %></button>"
+	  }
+  )
+</script>
+
+<script src="https://cdn.usefathom.com/script.js" data-site="URVHCNQA" defer></script>
+          </span>
+        </p>
+      </div>  <!-- /inner-wrapper -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-footer -->
+  
+  <div id="segment-post-footer" class="segment hidden">  <!-- segment-post-footer -->
+    <div class="container">  <!-- container -->
+    </div>  <!-- /container -->
+  </div>  <!-- /segment-post-footer -->
+
+  <!-- JS and analytics only. -->
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"> </script>
+  <script type="text/javascript" src="assets/js/respond.min.js"> </script>
+  <script type="text/javascript" src="assets/js/anchor.min.js"> </script>
+  <script type="text/javascript" src="assets/js/clipboard.min.js"> </script>
+  <script type="text/javascript" src="assets/js/clipboard-btn.js"> </script>
+  <script type="text/javascript" src="assets/js/anchor-hover.js"> </script>
+  <!-- Analytics Below
+  ================================================== -->
+  </body>
+</html>
+
