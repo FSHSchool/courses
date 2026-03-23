@@ -6,8 +6,9 @@ This uses the standard FHIR tooling.
 
 To build locally:
 
-1. Download the [latest `publisher.jar` from GitHub](https://github.com/HL7/fhir-ig-publisher/releases) and put it in the `input-cache/` folder.
-2. Run `./_genonce.sh` on Mac/Linux or `_genonce.bat` on Windows.
+1. Run `./_build.sh` on Mac/Linux or `_build.bat` on Windows and choose option `1) Download or update publisher`.
+    * or download the [latest `publisher.jar` from GitHub](https://github.com/HL7/fhir-ig-publisher/releases) and put it in the `input-cache/` folder.
+2. Run `./_build.sh` on Mac/Linux or `_build.bat` on Windows and choose option `2) Build IG`.
 
 To publish on <https://fshschool.org/courses/fsh-seminar/>, push to `main` and GitHub Actions will build/publish:
 
