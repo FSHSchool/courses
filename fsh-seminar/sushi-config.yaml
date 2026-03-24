@@ -12,7 +12,6 @@ fhirVersion: 4.0.1
 copyrightYear: 2022+
 releaseLabel: ci-build
 license: Apache-2.0
-dependencies:
 publisher:
   name: fshschool.org
   url: https://fshschool.org

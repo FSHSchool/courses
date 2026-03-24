@@ -1,6 +1,6 @@
 The goal of this part of the course is to describe the thought process and mechanics of starting a new IG and creating an initial set of constraints. We'll start with **why** you might want to create an IG, then talk about **what** is in a FHIR IG, and finally show **how** to create one.
 
-<h3><em>Why</em> create an IG? {% include video_embed.html video="2.1" %}</h3>
+<h3><em>Why</em> create an IG?</h3>
 
 A FHIR IG is fundamentally an agreement among implementers on an approach to solve a specific problem. The effectiveness of this agreement depends on multiple factors including: 
 
@@ -26,7 +26,7 @@ Creating a new IG is an involved process that may take multiple years to complet
 
 [^mark]: Thanks to Dr. Mark Kramer for providing this figure.
 
-<h3><em>What</em> is in an IG, and how does it get there? <!--{% include video_embed.html video="2.2" %}--></h3>
+<h3><em>What</em> is in an IG, and how does it get there?</h3>
 
 An IG is a set of FHIR artifacts and accompanying narrative that constrains and extends the base FHIR specification to meet the needs of specified use cases.
 
@@ -166,7 +166,7 @@ You can see the contents of the IG at this point [here](#TBD).
 
 We will be "forking" this repository to use as an example in the rest of this part of the course, and to use as the basis for the exercise in [Part 3](03-exercise.html).
 
-<h3><em>How</em> do you create an IG? {% include video_embed.html video="2.3" %}</h3>
+<h3><em>How</em> do you create an IG?</h3>
 
 We will use a hypothetical scenario as the basis for an instructional IG, which we will walk through creating in this section.
 
