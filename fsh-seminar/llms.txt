@@ -1,0 +1,22 @@
+# org.fshschool.courses.fsh-seminar#0.1.0: FSH Seminar(en)
+
+## Pages
+
+* [](en/index.md)
+* [Part 3: Hands-On Exercise](en/03-exercise.md)
+* [Course Setup](en/setup.md)
+* [FHIR Resources](en/fhir-resources.md)
+* [Part 2: Creating an IG](en/02-creating-an-ig.md)
+* [Artifacts Summary](en/artifacts.md)
+* [Part 4: Deep Dive With FSH](en/04-deep-dive-with-fsh.md)
+* [Part 1: Reading an IG](en/01-reading-an-ig.md)
+
+## Resources
+
+### Resource Profiles
+
+* [MyPatient](en/StructureDefinition-MyPatient.md)
+
+### ImplementationGuides
+
+* [FSH Seminar](en/ImplementationGuide-org.fshschool.courses.fsh-seminar.md)

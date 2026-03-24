@@ -1,0 +1,21 @@
+FSHSeminar : Validation Results
+=========================================
+
+err = 0, warn = 6, info = 1
+IG Publisher Version: 2.2.2
+Generated Tue Mar 24 13:04:22 UTC 2026. FHIR version 4.0.1 for org.fshschool.courses.fsh-seminar#0.1.0 (canonical = https://fshschool.org/courses/fsh-seminar)
+ Build Errors : 1 / 5 / 0
+ /home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar : 0 / 0 / 1
+ /home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/StructureDefinition-MyPatient : 0 / 1 / 2
+</table>
+== n/a ==
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource StructureDefinition/MyPatient.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+ERROR: en/02-creating-an-ig.html#/html/body/div/div/div/div/div/p/a at Line 332, column 54: The link '#TBD' for "here" cannot be resolved (valid targets: 55 targets)
+WARNING: 1: The HTML fragment 'ip-statements.xhtml' is not included anywhere in the produced implementation guide
+WARNING: 2: An HTML fragment from the set [cross-version-analysis.xhtml, cross-version-analysis-inline.xhtml] is not included anywhere in the produced implementation guide
+WARNING: 3: An HTML fragment from the set [dependency-table.xhtml, dependency-table-short.xhtml, dependency-table-nontech.xhtml] is not included anywhere in the produced implementation guide
+WARNING: 4: The HTML fragment 'globals-table.xhtml' is not included anywhere in the produced implementation guide
+== fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar.json ==
+== fsh-generated/resources/StructureDefinition-MyPatient.json ==
+INFORMATION: StructureDefinition/MyPatient: StructureDefinition.snapshot.element[4].binding.extension[0]: The extension http://hl7.org/fhir/StructureDefinition/elementdefinition-maxValueSet|5.2.0 is deprecated
+WARNING: StructureDefinition.where(url = 'https://fshschool.org/courses/fsh-seminar/StructureDefinition/MyPatient'): The Implementation Guide contains no examples for this profile

@@ -1,0 +1,865 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>IP Review</title>
+    <link rel="stylesheet" href="fhir.css"/>
+  </head>
+  <body>
+    <h2>Unattributed Code Systems</h2>
+    <ul></ul>
+    <h2>Copyright Fragment</h2>
+    <p style="color: maroon">
+      <b>This fragment is not visible to the reader</b>
+    </p>
+    <div>No use of external IP (other than from the FHIR specification)</div>
+    <h2>Copyright and Registered Trademark Uses</h2>
+    <ul>
+      <li>
+
+
+
+
+          IG &copy; 2022+ fshschool.org.  
+          Package org.fshschool.courses.fsh-seminar#0.1.0 based on FHIR 4.0.1.
+          Generated 
+  
+    2026-03-24
+  
+
+          
+          
+                      Links: Table of Contents |
+                 QA Report
+                 
+                
+MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.
+
+
+
+
+          
+        
+        
+      
+    
+  
+    
+      
+    
+  
+  
+  
+
+  
+  
+  
+   
+   
+   
+   
+   
+   
+  
+  
+
+
+ (        <a href="en/toc.html">src</a>
+)
+      </li>
+      <li>
+
+          hl7.fhir.us.hai: Healthcare Associated Infection Implementation Guide  &reg;&copy; HL7 |
+             
+                CC0
+         (        <a href="searchform.html">src</a>
+)
+      </li>
+      <li>
+FSH Seminar - Local Development build (v0.1.0) built by the FHIR (HL7&reg; FHIR&reg; Standard) Build Tools. See the Directory of published versions (        <a href="toc.html">src</a>
+)
+      </li>
+    </ul>
+    <h2>External References</h2>
+    <table class="grid">
+      <tr>
+        <th>
+          <b>Type</b>
+        </th>
+        <th>
+          <b>Reference</b>
+        </th>
+        <th>
+          <b>Content</b>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/courses">fshschool.org</a>
+        </td>
+        <td>
+
+                    <a no-external="true" id="family-logo" href="https://fshschool.org/courses">
+<img src="fsh_logo.png" alt="FSH logo" height="50"/> 
+          </a>
+
+        
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="http://www.healthintersections.com.au/?page_id=2">www.healthintersections.com.au</a>
+        </td>
+        <td>
+          <a href="http://www.healthintersections.com.au/?page_id=2">Grahame Grieve</a>
+, the           <a href="https://confluence.hl7.org/display/FHIR/FHIR+Product+Director+Page">FHIR Product Director</a>
+, breaks down the purpose of FHIR IGs into four broad categories in           <a href="https://youtu.be/_byBTlasS2w?t=950">this presentation</a>
+:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://youtu.be/_byBTlasS2w?t=950">youtu.be</a>
+        </td>
+        <td>
+          <a href="http://www.healthintersections.com.au/?page_id=2">Grahame Grieve</a>
+, the           <a href="https://confluence.hl7.org/display/FHIR/FHIR+Product+Director+Page">FHIR Product Director</a>
+, breaks down the purpose of FHIR IGs into four broad categories in           <a href="https://youtu.be/_byBTlasS2w?t=950">this presentation</a>
+:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/HL7/fhir-mCODE-ig">github.com</a>
+        </td>
+        <td>
+Example:           <a href="https://hl7.org/fhir/uv/ips/">International Patient Summary</a>
+,           <a href="https://github.com/HL7/fhir-mCODE-ig">mCODE</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/HL7/fhir-mCODE-ig">github.com</a>
+        </td>
+        <td>
+Example:           <a href="https://github.com/HL7/fhir-mCODE-ig">mCODE</a>
+,           <a href="https://www.hl7.org/fhir/us/core/">US Core</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://en.wikipedia.org/wiki/API">en.wikipedia.org</a>
+        </td>
+        <td>
+We do not spend much time on the portion of FHIR IGs related to           <a href="https://en.wikipedia.org/wiki/API">APIs</a>
+, which are typically targeted at software engineers.&nbsp;          <a role="doc-backlink" href="#fnref:community-of-implementation" class="reversefootnote">↩</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/01-reading-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org">fshschool.org</a>
+        </td>
+        <td>
+
+
+
+
+          IG &copy; 2022+           <a style="color:var(--footer-hyperlink-text-color)" href="https://fshschool.org">fshschool.org</a>
+.  
+          Package org.fshschool.courses.fsh-seminar#0.1.0 based on           <a style="color: var(--footer-hyperlink-text-color)" href="http://hl7.org/fhir/R4/">FHIR 4.0.1</a>
+.
+          Generated 
+            <span title="2026-03-24 13:03:00 +0000">
+    2026-03-24
+  </span>
+
+
+                    <br/>
+
+                    <span style="color: var(--footer-highlight-text-color)">
+
+                      Links: <a style="color: var(--footer-hyperlink-text-color)" href="toc.html">Table of Contents</a> |
+                 <a style="color: var(--footer-hyperlink-text-color)" href="../qa.html">QA Report</a>
+                 
+                
+<br><br><small>MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.</small>
+
+<script src="assets/vendor/littlefoot/littlefoot.js" type="application/javascript"></script>
+<script src="assets/js/activate-littlefoot.js" type="application/javascript"></script>
+
+          
+        
+          <!-- /inner-wrapper -->
+        <!-- /container -->
+      <!-- /segment-footer -->
+  
+  <div id="segment-post-footer" class="segment hidden">    <!-- segment-post-footer -->
+    <div class="container">    <!-- container -->
+    </div>    <!-- /container -->
+  </div>    <!-- /segment-post-footer -->
+
+    <!-- JS and analytics only. -->
+    <!-- Bootstrap core JavaScript
+  ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  <script src="assets/js/bootstrap.min.js" type="text/javascript"> </script>
+  <script src="assets/js/respond.min.js" type="text/javascript"> </script>
+  <script src="assets/js/anchor.min.js" type="text/javascript"> </script>
+  <script src="assets/js/clipboard.min.js" type="text/javascript"> </script>
+  <script src="assets/js/clipboard-btn.js" type="text/javascript"> </script>
+  <script src="assets/js/anchor-hover.js" type="text/javascript"> </script>
+    <!-- Analytics Below
+  ================================================== -->
+  
+
+
+</br></br>          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/HL7/fhir-ig-publisher/releases">github.com</a>
+        </td>
+        <td>
+Both the human-readable and computable versions of IGs are generated by software called the           <a href="https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation">FHIR IG Publisher</a>
+. This is a Java application usually named           <code class="language-plaintext highlighter-rouge">publisher.jar</code>
+ and available for download from           <a href="https://github.com/HL7/fhir-ig-publisher/releases">https://github.com/HL7/fhir-ig-publisher/releases</a>
+.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://git-scm.com">git-scm.com</a>
+        </td>
+        <td>
+Use           <a href="https://git-scm.com">git</a>
+ to push your changes to a collaboration space like GitHub or Gitlab, where a "continuous integration" (CI) service can create a publicly accessible copy of the IG build
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org">fshschool.org</a>
+        </td>
+        <td>
+While you can create           <code class="language-plaintext highlighter-rouge">StructureDefinition</code>
+ resources manually in JSON (or XML), it is often much easier to use           <a href="https://fshschool.org">FHIR Shorthand (FSH)</a>
+, which is a           <a href="https://en.wikipedia.org/wiki/Domain-specific_language">domain-specific language</a>
+ for creating FHIR resources.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://en.wikipedia.org/wiki/Domain-specific_language">en.wikipedia.org</a>
+        </td>
+        <td>
+While you can create           <code class="language-plaintext highlighter-rouge">StructureDefinition</code>
+ resources manually in JSON (or XML), it is often much easier to use           <a href="https://fshschool.org">FHIR Shorthand (FSH)</a>
+, which is a           <a href="https://en.wikipedia.org/wiki/Domain-specific_language">domain-specific language</a>
+ for creating FHIR resources.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/docs/sushi/">fshschool.org</a>
+        </td>
+        <td>
+An application called           <a href="https://fshschool.org/docs/sushi/">SUSHI</a>
+ takes care of compiling FSH into FHIR resources represented in JSON. This is baked into the IG publisher workflow – the workflow diagramed above really looks more like this:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://en.wikipedia.org/wiki/Markdown">en.wikipedia.org</a>
+        </td>
+        <td>
+Typically IG narrative is written in a lightweight markup language called           <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>
+. The IG Publisher takes care of converting this into HTML files viewable in a web browser.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://code.visualstudio.com">code.visualstudio.com</a>
+        </td>
+        <td>
+The           <a href="index.html#prerequisites">prerequisites</a>
+ for this course include installing           <a href="https://code.visualstudio.com">Visual Studio Code (VSCode)</a>
+ and the           <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">FSH language extension</a>
+. While you can use any text editor to edit FSH (          <code class="language-plaintext highlighter-rouge">.fsh</code>
+) files, currently only VSCode has syntax highlighting and other language-specific features via the custom language extension.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">marketplace.visualstudio.com</a>
+        </td>
+        <td>
+The           <a href="index.html#prerequisites">prerequisites</a>
+ for this course include installing           <a href="https://code.visualstudio.com">Visual Studio Code (VSCode)</a>
+ and the           <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">FSH language extension</a>
+. While you can use any text editor to edit FSH (          <code class="language-plaintext highlighter-rouge">.fsh</code>
+) files, currently only VSCode has syntax highlighting and other language-specific features via the custom language extension.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://code.visualstudio.com/docs/languages/markdown">code.visualstudio.com</a>
+        </td>
+        <td>
+VSCode also           <a href="https://code.visualstudio.com/docs/languages/markdown">supports editing Markdown out of the box</a>
+ (Markdown is used very widely outside of the FHIR/HL7 world), and if you follow that link you will see some additional Markdown extensions that are available if you want additional functionality (like "linting", which will warn you of syntax errors as you type). One of the most useful VSCode features is           <a href="https://code.visualstudio.com/docs/languages/markdown#_markdown-preview">built-in Markdown previewing</a>
+.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://code.visualstudio.com/docs/languages/markdown#_markdown-preview">code.visualstudio.com</a>
+        </td>
+        <td>
+VSCode also           <a href="https://code.visualstudio.com/docs/languages/markdown">supports editing Markdown out of the box</a>
+ (Markdown is used very widely outside of the FHIR/HL7 world), and if you follow that link you will see some additional Markdown extensions that are available if you want additional functionality (like "linting", which will warn you of syntax errors as you type). One of the most useful VSCode features is           <a href="https://code.visualstudio.com/docs/languages/markdown#_markdown-preview">built-in Markdown previewing</a>
+.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://plantuml.com">plantuml.com</a>
+        </td>
+        <td>
+IGs also often include diagrams. There is native support in the IG Publisher for           <a href="https://plantuml.com">PlantUML</a>
+, which is used to make the diagrams on this page. However, PlantUML has a much steeper learning curve than other diagramming tools (          <a href="https://crashedmind.github.io/PlantUMLHitchhikersGuide/layout/layout.html">this is a good PlantUML resource</a>
+ if you are interested). You may find it easier to embed images exported from other tools like Microsoft Visio or           <a href="https://www.diagrams.net">diagrams.net</a>
+, which can be done by placing them within the           <code class="language-plaintext highlighter-rouge">input/images/</code>
+ folder and then using Markdown syntax for images. For example,           <code class="language-plaintext highlighter-rouge">input/images/something.png</code>
+ could be embedded in a Markdown page with           <code class="language-plaintext highlighter-rouge">![](something.png)</code>
+. (Note that the path is different between the input location and the Markdown syntax – this is because           <code class="language-plaintext highlighter-rouge">publisher.jar</code>
+ moves the images as part of the build process. This means a Markdown preview of a           <code class="language-plaintext highlighter-rouge">pagecontent/</code>
+ file in a FHIR IG won't properly display images.)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://crashedmind.github.io/PlantUMLHitchhikersGuide/layout/layout.html">crashedmind.github.io</a>
+        </td>
+        <td>
+IGs also often include diagrams. There is native support in the IG Publisher for           <a href="https://plantuml.com">PlantUML</a>
+, which is used to make the diagrams on this page. However, PlantUML has a much steeper learning curve than other diagramming tools (          <a href="https://crashedmind.github.io/PlantUMLHitchhikersGuide/layout/layout.html">this is a good PlantUML resource</a>
+ if you are interested). You may find it easier to embed images exported from other tools like Microsoft Visio or           <a href="https://www.diagrams.net">diagrams.net</a>
+, which can be done by placing them within the           <code class="language-plaintext highlighter-rouge">input/images/</code>
+ folder and then using Markdown syntax for images. For example,           <code class="language-plaintext highlighter-rouge">input/images/something.png</code>
+ could be embedded in a Markdown page with           <code class="language-plaintext highlighter-rouge">![](something.png)</code>
+. (Note that the path is different between the input location and the Markdown syntax – this is because           <code class="language-plaintext highlighter-rouge">publisher.jar</code>
+ moves the images as part of the build process. This means a Markdown preview of a           <code class="language-plaintext highlighter-rouge">pagecontent/</code>
+ file in a FHIR IG won't properly display images.)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://www.diagrams.net">www.diagrams.net</a>
+        </td>
+        <td>
+IGs also often include diagrams. There is native support in the IG Publisher for           <a href="https://plantuml.com">PlantUML</a>
+, which is used to make the diagrams on this page. However, PlantUML has a much steeper learning curve than other diagramming tools (          <a href="https://crashedmind.github.io/PlantUMLHitchhikersGuide/layout/layout.html">this is a good PlantUML resource</a>
+ if you are interested). You may find it easier to embed images exported from other tools like Microsoft Visio or           <a href="https://www.diagrams.net">diagrams.net</a>
+, which can be done by placing them within the           <code class="language-plaintext highlighter-rouge">input/images/</code>
+ folder and then using Markdown syntax for images. For example,           <code class="language-plaintext highlighter-rouge">input/images/something.png</code>
+ could be embedded in a Markdown page with           <code class="language-plaintext highlighter-rouge">![](something.png)</code>
+. (Note that the path is different between the input location and the Markdown syntax – this is because           <code class="language-plaintext highlighter-rouge">publisher.jar</code>
+ moves the images as part of the build process. This means a Markdown preview of a           <code class="language-plaintext highlighter-rouge">pagecontent/</code>
+ file in a FHIR IG won't properly display images.)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://git-scm.com">git-scm.com</a>
+        </td>
+        <td>
+While this folder does have a           <code class="language-plaintext highlighter-rouge">.gitignore</code>
+ file, it is not a           <a href="https://git-scm.com">git</a>
+ repository. You will generally want to enable git:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fhirblog.com/creating-an-information-model/">fhirblog.com</a>
+        </td>
+        <td>
+According to           <a href="https://fhirblog.com/creating-an-information-model/">David Hay</a>
+:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fhirblog.com/creating-an-information-model/">fhirblog.com</a>
+        </td>
+        <td>
+We will now create a           <strong>Resources Model</strong>
+, which           <a href="https://fhirblog.com/creating-an-information-model/">David Hay</a>
+ defines as follows:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://en.wikipedia.org/wiki/Object_identifier">en.wikipedia.org</a>
+        </td>
+        <td>
+CodeSystems in FHIR are identified by a canonical URL or           <a href="https://en.wikipedia.org/wiki/Object_identifier">OID</a>
+. You will need to identify this to reference an existing CodeSystem in a ValueSet.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/HL7/fhir-mCODE-ig/tree/master/input/fsh">github.com</a>
+        </td>
+        <td>
+The mCODE IG approaches this problem in a fairly structured way, using 2-3 letter prefixes for its           <code class="language-plaintext highlighter-rouge">.fsh</code>
+ files to group them by resource type (e.g.,           <code class="language-plaintext highlighter-rouge">SD</code>
+ for StructureDefinition, indicating a FSH file that defines profiles) and subject (whatever comes after the prefix). You can           <a href="https://github.com/HL7/fhir-mCODE-ig/tree/master/input/fsh">see this in action here</a>
+. This is a reasonable approach assuming you don't find the prefixes too cryptic:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/FSHSchool/courses-fsh-seminar-exercise">github.com</a>
+        </td>
+        <td>
+For the purposes of this course, you can either run           <code class="language-plaintext highlighter-rouge">sushi init</code>
+ yourself to get this folder structure and add in the IG content by following the directions below, or get a pre-created copy of the folder structure and files above that includes everything discussed in Part 2           <a href="https://github.com/FSHSchool/courses-fsh-seminar-exercise">from GitHub</a>
+. This will also form the basis of the exercise in           <a href="03-exercise.html">Part 3</a>
+.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/02-creating-an-ig.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/FSHOnline/#/share/3AJKcrq">fshschool.org</a>
+        </td>
+        <td>
+This is essentially the minimal amount of FSH code that can be used to generate a profile. You can use           <a href="https://fshschool.org/FSHOnline/#/share/3AJKcrq">FSH Online</a>
+ to see how this is transformed into a StructureDefinition represented in JSON.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="http://localhost:4321/fshschool-ig-authoring/02-creating-an-ig.html#how-do-you-create-an-ig%E2%8F%AF-video-versionto-view-this-v">localhost</a>
+        </td>
+        <td>
+As a FHIR implementation modeler, author a FHIR Implementation Guide (IG) based on           <a href="http://hl7.org/fhir">FHIR 4.0.1</a>
+ for the fictitious use case scenario           <a href="http://localhost:4321/fshschool-ig-authoring/02-creating-an-ig.html#how-do-you-create-an-ig%E2%8F%AF-video-versionto-view-this-v">described in Part 2</a>
+, and reproduced below for convenience:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/FSHOnline/#/">fshschool.org</a>
+        </td>
+        <td>
+If you just want to quickly test how to represent and validate a contained construct in FSH without having to run the IG publisher, try it using           <a href="https://fshschool.org/FSHOnline/#/">FSHOnline</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/FSHOnline/#/">fshschool.org</a>
+        </td>
+        <td>
+Want to see more FSH examples? Go to           <a href="https://fshschool.org/FSHOnline/#/">FSHOnline</a>
+ and click on the "FSH Examples".
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/FSHOnline/#/">fshschool.org</a>
+        </td>
+        <td>
+Want to see how another IG's StructureDefinitions in JSON could be represented in FSH? Also try it using           <a href="https://fshschool.org/FSHOnline/#/">FSHOnline</a>
+. Cut and paste your JSON into the right column and click on           <em>Convert to FSH</em>
+ to see the syntax.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">marketplace.visualstudio.com</a>
+        </td>
+        <td>
+Try using some of the nice perks in the           <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">vscode-language-fsh</a>
+ extension to help navigate references between your authored FHIR constructs (profiles, value sets, extensions, etc.)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles">marketplace.visualstudio.com</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles">Markdown Preview Github Styling</a>
+ - provides a basic dynamic rendering of your markdown page while you type (but note that embedded images won't be rendered in the preview due to the directory structure).
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio">marketplace.visualstudio.com</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio">Draw.io integration</a>
+ - integrates Draw.io/diagrams.net into VSCode so that you can create nice diagrams directly inside your IG authoring environment
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://commonmark.org/help/">commonmark.org</a>
+        </td>
+        <td>
+          <a href="https://commonmark.org/help/">This Markdown guide</a>
+ may be helpful if you're new to Markdown.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/03-exercise.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/FSHSchool/courses-fsh-seminar-exercise/tree/solution">github.com</a>
+        </td>
+        <td>
+          <a href="https://github.com/FSHSchool/courses-fsh-seminar-exercise/tree/solution">Available here</a>
+.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/StructureDefinition-MyPatient.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org">fshschool.org</a>
+        </td>
+        <td>
+
+                  <i>Responsible:</i>
+ 
+
+                  <a href="https://fshschool.org">fshschool.org</a>
+
+
+      
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/fhir-resources.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/FHIR/ig-guidance/">github.com</a>
+        </td>
+        <td>
+          <a href="https://build.fhir.org/ig/FHIR/ig-guidance/branches/master/best-practice.html">IG best practices</a>
+ (note that this has not officially been published yet, but           <a href="https://github.com/FHIR/ig-guidance/">the authors are some of the FHIR-I leaders</a>
+)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/fhir-resources.html">web</a>
+        </td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=6PkDXAEmkbE">www.youtube.com</a>
+        </td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=6PkDXAEmkbE">45 minutes, from 2023</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/fhir-resources.html">web</a>
+        </td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=YbQcJj1GqH0">www.youtube.com</a>
+        </td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=YbQcJj1GqH0">90 minutes, from 2020</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/index.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org">fshschool.org</a>
+        </td>
+        <td>
+This course is a comprehensive overview of IG authoring for those interested in creating FHIR IGs using           <a href="https://fshschool.org">FHIR Shorthand</a>
+, also known as "FSH" (pronounced "fish").
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=rJ_VEKiR55I">www.youtube.com</a>
+        </td>
+        <td>
+          <a href="https://www.youtube.com/watch?v=rJ_VEKiR55I">45 minute FHIR introduction video</a>
+ – please consider viewing before the course begins
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://code.visualstudio.com">code.visualstudio.com</a>
+        </td>
+        <td>
+Install           <a href="https://code.visualstudio.com">Visual Studio Code</a>
+ and the           <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">FSH language extension</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">marketplace.visualstudio.com</a>
+        </td>
+        <td>
+Install           <a href="https://code.visualstudio.com">Visual Studio Code</a>
+ and the           <a href="https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh">FSH language extension</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://jekyllrb.com/docs/installation/#guides">jekyllrb.com</a>
+        </td>
+        <td>
+Install Ruby and Jekyll using           <a href="https://jekyllrb.com/docs/installation/#guides">these OS-specific instructions</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://fshschool.org/docs/sushi/installation/">fshschool.org</a>
+        </td>
+        <td>
+Install SUSHI using           <a href="https://fshschool.org/docs/sushi/installation/">these directions</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://github.com/HL7/fhir-ig-publisher/releases">github.com</a>
+        </td>
+        <td>
+This will automatically download the latest           <code class="language-plaintext highlighter-rouge">publisher.jar</code>
+ release from           <a href="https://github.com/HL7/fhir-ig-publisher/releases">https://github.com/HL7/fhir-ig-publisher/releases</a>
+ and put it in the           <code class="language-plaintext highlighter-rouge">input-cache/</code>
+ folder inside the IG folder.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://blog.scottlowe.org/2013/11/08/a-non-programmers-introduction-to-json/">blog.scottlowe.org</a>
+        </td>
+        <td>
+          <a href="https://blog.scottlowe.org/2013/11/08/a-non-programmers-introduction-to-json/">A Non-Programmer's Introduction to JSON</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="en/setup.html">web</a>
+        </td>
+        <td>
+          <a href="https://www.elated.com/json-basics/">www.elated.com</a>
+        </td>
+        <td>
+          <a href="https://www.elated.com/json-basics/">JSON Basics: What You Need to Know</a>
+        </td>
+      </tr>
+    </table>
+    <h2>Internal Images</h2>
+    <table class="grid">
+      <tr>
+        <td>
+fsh_logo.png          <br/>
+          <img src="fsh_logo.png" alt="fsh_logo.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+ig_venn.svg          <br/>
+          <img src="ig_venn.svg" alt="ig_venn.svg" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+ig_workflow.svg          <br/>
+          <img src="ig_workflow.svg" alt="ig_workflow.svg" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+osa_patient.png          <br/>
+          <img src="osa_patient.png" alt="osa_patient.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+patient_1.png          <br/>
+          <img src="patient_1.png" alt="patient_1.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+patient_ex.png          <br/>
+          <img src="patient_ex.png" alt="patient_ex.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+pie.svg          <br/>
+          <img src="pie.svg" alt="pie.svg" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+profile_anatomy.png          <br/>
+          <img src="profile_anatomy.png" alt="profile_anatomy.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+profile_diff.png          <br/>
+          <img src="profile_diff.png" alt="profile_diff.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+profile_snapshot_annotated.png          <br/>
+          <img src="profile_snapshot_annotated.png" alt="profile_snapshot_annotated.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+sushi_init.gif          <br/>
+          <img src="sushi_init.gif" alt="sushi_init.gif" width="600px" height="auto"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+tree-filter.png          <br/>
+          <img src="tree-filter.png" alt="tree-filter.png" width="600px" height="auto"/>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

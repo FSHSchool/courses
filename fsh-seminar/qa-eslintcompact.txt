@@ -1,0 +1,14 @@
+FSHSeminar
+=========================================
+
+Generic: line 0, col 0, Warning - Unable to find ImplementationGuide.definition.resource.description for the resource StructureDefinition/MyPatient.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list. (INVARIANT)
+Generic: line 0, col 0, Error - The link '#TBD' for "here" cannot be resolved (valid targets: 55 targets) (NOTFOUND)
+Generic: line 0, col 0, Warning - The HTML fragment 'ip-statements.xhtml' is not included anywhere in the produced implementation guide (NOTFOUND)
+Generic: line 0, col 0, Warning - An HTML fragment from the set [cross-version-analysis.xhtml, cross-version-analysis-inline.xhtml] is not included anywhere in the produced implementation guide (NOTFOUND)
+Generic: line 0, col 0, Warning - An HTML fragment from the set [dependency-table.xhtml, dependency-table-short.xhtml, dependency-table-nontech.xhtml] is not included anywhere in the produced implementation guide (NOTFOUND)
+Generic: line 0, col 0, Warning - The HTML fragment 'globals-table.xhtml' is not included anywhere in the produced implementation guide (NOTFOUND)
+/home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/StructureDefinition-MyPatient.json: line 1, col 16949, Info - The extension http://hl7.org/fhir/StructureDefinition/elementdefinition-maxValueSet|5.2.0 is deprecated (BUSINESSRULE)
+/home/runner/work/courses/courses/fsh-seminar/fsh-generated/resources/StructureDefinition-MyPatient.json: line 0, col 0, Warning - The Implementation Guide contains no examples for this profile (BUSINESSRULE)
+
+err = 0, warn = 6, info = 1
+IG Publisher Version: 2.2.2

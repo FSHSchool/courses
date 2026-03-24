@@ -1,0 +1,305 @@
+{
+  "date" : "Tue, 24 Mar, 2026 13:03:31 +0000",
+  "doco" : "For each file: start is seconds after start activity occurred. Length = milliseconds activity took",
+  "files" : [{
+    "name" : "/fsh-generated/resources/ImplementationGuide-org.fshschool.courses.fsh-seminar.json",
+    "size" : 2127,
+    "processes" : [{
+      "activity" : "load",
+      "start" : 33,
+      "length" : 20
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 33,
+      "length" : 12
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 33,
+      "length" : 60
+    },
+    {
+      "activity" : "validate",
+      "start" : 34,
+      "length" : 2612
+    },
+    {
+      "activity" : "scanForUsageStats",
+      "start" : 37,
+      "length" : 1
+    },
+    {
+      "activity" : "generate1",
+      "start" : 37,
+      "length" : 107
+    },
+    {
+      "activity" : "generate2",
+      "start" : 40,
+      "length" : 97
+    },
+    {
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 47,
+      "length" : 4
+    },
+    {
+      "activity" : "scanExamplesForR5",
+      "start" : 50,
+      "length" : 2
+    }]
+  },
+  {
+    "name" : "fsh-generated/resources/StructureDefinition-MyPatient.json",
+    "size" : 556,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 33,
+      "length" : 4
+    },
+    {
+      "activity" : "load",
+      "start" : 33,
+      "length" : 6
+    },
+    {
+      "activity" : "generateSnapshots",
+      "start" : 33,
+      "length" : 53
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 33,
+      "length" : 1
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 33,
+      "length" : 94
+    },
+    {
+      "activity" : "validate",
+      "start" : 33,
+      "length" : 692
+    },
+    {
+      "activity" : "checkConformanceResources",
+      "start" : 37,
+      "length" : 1
+    },
+    {
+      "activity" : "scanForUsageStats",
+      "start" : 37,
+      "length" : 1
+    },
+    {
+      "activity" : "generate1",
+      "start" : 37,
+      "length" : 186
+    },
+    {
+      "activity" : "generate2",
+      "start" : 40,
+      "length" : 1190
+    },
+    {
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1049
+    },
+    {
+      "activity" : "makeDependencies",
+      "start" : 44,
+      "length" : 1
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 47,
+      "length" : 9
+    },
+    {
+      "activity" : "scanExamplesForR5",
+      "start" : 50,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/fsh-generated/includes/menu.xml",
+    "size" : 1722,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/fsh-generated/includes/fsh-link-references.md",
+    "size" : 47
+  },
+  {
+    "name" : "/input/pagecontent/03-exercise.md",
+    "size" : 7976,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/fhir-resources.md",
+    "size" : 907
+  },
+  {
+    "name" : "/input/pagecontent/04-deep-dive-with-fsh.md",
+    "size" : 49
+  },
+  {
+    "name" : "/input/pagecontent/index.md",
+    "size" : 4981,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/02-creating-an-ig.md",
+    "size" : 44678,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 5
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/setup.md",
+    "size" : 2058,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/01-reading-an-ig.md",
+    "size" : 25406,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 2
+    }]
+  },
+  {
+    "name" : "/template/config",
+    "size" : 0
+  },
+  {
+    "name" : "/template/config/_config.yml",
+    "size" : 140
+  },
+  {
+    "name" : "/input/images",
+    "size" : 0
+  },
+  {
+    "name" : "/input/images/sushi_init.gif",
+    "size" : 958599,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 2
+    }]
+  },
+  {
+    "name" : "/input/images/osa_patient.png",
+    "size" : 118309,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/images/profile_diff.png",
+    "size" : 135655
+  },
+  {
+    "name" : "/input/images/patient_ex.png",
+    "size" : 306565,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/images/fsh_logo.png",
+    "size" : 76246
+  },
+  {
+    "name" : "/input/images/ig_workflow.svg",
+    "size" : 19859
+  },
+  {
+    "name" : "/input/images/_plugins",
+    "size" : 0,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/images/_plugins/jekyll-git-branch",
+    "size" : 0
+  },
+  {
+    "name" : "/input/images/_plugins/jekyll-git-branch/jekyll-git-branch.rb",
+    "size" : 160
+  },
+  {
+    "name" : "/input/images/ig_venn.svg",
+    "size" : 5449
+  },
+  {
+    "name" : "/input/images/profile_anatomy.png",
+    "size" : 2654562,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 6
+    }]
+  },
+  {
+    "name" : "/input/images/pie.svg",
+    "size" : 7038
+  },
+  {
+    "name" : "/input/images/profile_snapshot_annotated.png",
+    "size" : 1068123,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 2
+    }]
+  },
+  {
+    "name" : "/input/images/patient_1.png",
+    "size" : 112519,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 42,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/temp/pages/_includes/artifacts.xml",
+    "size" : 1479
+  }]
+}
