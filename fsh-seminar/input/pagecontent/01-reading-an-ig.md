@@ -1,6 +1,6 @@
 The goal of this module is to describe why you might want to create a FHIR IG, what a FHIR IG is, and how to read one. To do this, we will cover some foundational concepts in the abstract, and then see how these concepts are implemented in a completed IG.
 
-<h3>Why author a FHIR IG? {% include video_embed.html video="1.1" %}</h3>
+<h3>Why author a FHIR IG?</h3>
 
 The base FHIR specification is purposefully incomplete. While it defines the critical, generalizable elements needed for a FHIR implementation, such as the syntax and the base FHIR resources, it leaves the use case-specific implementation details undefined.
 
@@ -42,7 +42,7 @@ The content in this course is to some degree focused around the reading and writ
 
 [^community-of-implementation]: We do not spend much time on the portion of FHIR IGs related to [APIs](https://en.wikipedia.org/wiki/API), which are typically targeted at software engineers.
 
-<h3>What is a FHIR IG? {% include video_embed.html video="1.2" %}</h3>
+<h3>What is a FHIR IG?</h3>
 
 Now that we have established the broad purpose for creating a FHIR IG, we will more formally define the contents of an IG.
 
@@ -94,7 +94,7 @@ Narrative conformance criteria typically use [RFC 2119](https://datatracker.ietf
 
 The next few sections will provide an overview of common types of computable artifacts.
 
-<h3>Common Computable Artifacts: Profiles {% include video_embed.html video="1.3" %}</h3>
+<h3>Common Computable Artifacts: Profiles</h3>
 
 The goal of a [FHIR profile](https://www.hl7.org/fhir/profiling.html) is to take one of the [base FHIR resources](https://www.hl7.org/fhir/resourcelist.html) and add computable rules on top of it. These rules come in two flavors:
 
@@ -230,7 +230,7 @@ The table tabs have a high amount of information density:
 
 The [next part of the course](02-creating-an-ig.html) will cover the constrains in the table tabs in more detail. In the meantime, you can click on the headings in the example profile to go to the relevant parts of the FHIR spec.
 
-<h3>Common Computable Artifacts: Terminology {% include video_embed.html video="1.4" %}</h3>
+<h3>Common Computable Artifacts: Terminology</h3>
 
 FHIR IGs can define two terminology-related artifacts:
 
@@ -243,7 +243,7 @@ FHIR IGs can define two terminology-related artifacts:
 
 There are _many_ more artifacts that can be defined by IGs. These will be enumerated in [Part 4](04-deep-dive-with-fsh.html).
 
-<h3>Reviewing an Example IG {% include video_embed.html video="1.6" %}</h3>
+<h3>Reviewing an Example IG</h3>
 
 To see a practical application of the concepts discussed above, we will review portions of the [minimal Common Oncology Data Elements (mCODE) Implementation Guide](http://hl7.org/fhir/us/mcode/STU2/) (specifically the STU2 version), which is primarily a Domain of Knowledge IG but also has some Community of Implementation content:[^mcode-versions]
 

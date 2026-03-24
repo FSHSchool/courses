@@ -55,11 +55,6 @@ Disable until these issues are resolved.
     color: #453d83;
 }
 
-.video-js {
-    border: 1px solid #453d83;
-    background-color: white !important;
-}
-
 img.figure {
     float: inherit;
     margin: 0 auto;
