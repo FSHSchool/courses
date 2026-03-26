@@ -47,7 +47,7 @@ We recommend completing the course materials over two days as described below.
                 <li>Complete the <a href="setup.html">setup instructions</a></li>
             </ol>
         </td>
-        <td>~1 hour; help available on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a></td>
+        <td>~1 hour; help available on <a href="https://chat.fhir.org/#narrow/channel/215610-shorthand">chat.fhir.org</a></td>
     </tr>
 
     <tr style="background-color: #453d83; color: white;">
@@ -121,7 +121,7 @@ We recommend completing the course materials over two days as described below.
 - Chris Moesel (MITRE)
 - May Terry (MITRE)
 
-If you have questions or comments, please contact us on <a href="https://chat.fhir.org/#narrow/stream/322131-fsh-courses">chat.fhir.org</a>.
+If you have questions or comments, please contact us on <a href="https://chat.fhir.org/#narrow/channel/215610-shorthand">chat.fhir.org</a>.
 
 MITRE: Approved for Public Release. Distribution Unlimited. Case Number 19-3439.
 
