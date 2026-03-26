@@ -6,12 +6,12 @@ This course is a comprehensive overview of IG authoring for those interested in 
 
 ### Learning objectives
 
-1. Become familiar with the FHIR specification, and commonly used FHIR resources and element types.
+1. Become familiar with the FHIR specification, and commonly used FHIR resources and element types
 2. Learn the recommended process for successfully planning a new IG
 3. Gain proficiency with the FHIR Shorthand ecosystem of tools (FSH, GoFSH, SUSHI)
 4. Learn how to create the common components of an IG, including FHIR profiles, code systems, and value sets
 5. Learn about key FHIR profiling concepts including value set binding, cardinality, MustSupport, slicing, and extensions
-6. Awareness of common clinical code systems including LOINC, SNOMED, ICD10, and code systems in the HL7 terminology list
+6. Understand the purpose of common clinical code systems including LOINC, SNOMED, ICD10, and code systems in the HL7 terminology list
 
 
 ### Prerequisites
@@ -62,7 +62,7 @@ We recommend completing the course materials over two days as described below.
                 <li>What's the purpose of an IG?</li>
                 <li>What are the common components of an IG?</li>
                 <li>How to approach reading an unfamiliar IG</li>
-                <li>Review of the <a href="http://hl7.org/fhir/uv/shc-vaccination/2021Sep/">SMART Health Cards: Vaccination &amp; Testing</a> IG</li>
+                <li>Review of the <a href="http://hl7.org/fhir/us/mcode/STU2/">minimal Common Oncology Data Elements (mCODE)</a> IG</li>
             </ol>
         </td>
         <td>~1 hour</td>
@@ -106,7 +106,17 @@ We recommend completing the course materials over two days as described below.
         <td><a href="04-deep-dive-with-fsh.html">Deep Dive With FSH</a></td>
         <td>
             <ol>
-                <li>TBD, but likely: slicing, extensions, invariants, CapabilityStatements and SearchParams</li>
+                <li>IG Overview: review purposes and processes for creating FHIR IGs</li>
+                <li>FSH Profiles: cardinality, flags, types, patterns, bindings, extensions, metadata</li>
+                <li>Slicing: defining slicing logic, creating slices, referencing slices</li>
+                <li>FHIRPath: path navigation, common expressions, testing and debugging</li>
+                <li>Invariants: defining and using invariants (a.k.a. constraints)</li>
+                <li>FSH Extensions: simple and complex extensions</li>
+                <li>FSH Terminology: value sets and code systems </li>
+                <li>FSH Instances: example and definition instances, rule sets, search parameters, operations, capability statements</li>
+                <li>Narrative: creating pages in your IG and inserting content into formal definition pages</li>
+                <li>Configuration: sushi-config.yaml and the ImplementationGuide resource</li>
+                <li>GoFSH: converting an existing project to FSH</li>
             </ol>
         </td>
         <td>2-3 hours</td>
