@@ -24,13 +24,13 @@ FHIR Implementation Guides (IGs) fill in these gaps in different ways depending 
 
     Describes how to represent a clinical or business concept, without defining an API for exchanging these data.
 
-    Example: [International Patient Summary](https://hl7.org/fhir/uv/ips/), [mCODE](https://github.com/HL7/fhir-mCODE-ig)
+    Example: [International Patient Summary](https://hl7.org/fhir/uv/ips/), [mCODE](https://hl7.org/fhir/us/mcode/)
 
 3. **Community of Implementation**
 
     An agreement on how data are exchanged by a group of actors (i.e., contains an API).
 
-    Example: [mCODE](https://github.com/HL7/fhir-mCODE-ig), [US Core](https://www.hl7.org/fhir/us/core/)
+    Example: [DaVinci Clinical Data Exchange (CDex)](https://hl7.org/fhir/us/davinci-cdex/), [US Core](https://www.hl7.org/fhir/us/core/)
 
 4. **Product IGs**
 
@@ -90,7 +90,7 @@ Narrative conformance criteria typically use [RFC 2119](https://datatracker.ietf
 
     For example, if you are interested in gaining a general understanding of an IG, you may want to review all the computable content superficially (which can be done by clicking each link on the `artifacts.html` page of the IG).
 
-    Alternatively, you may be interested in an implementation for a specific actor or use case. In this case, the IG will hopefully provide some guidance on which resources are most important. If not, for content-related use cases, `Profiles` are likely the best entry point to the computable content. For API-driven use cases, `CapabilityStatements` are a logical starting point.
+    Alternatively, you may be interested in an implementation for a specific actor or use case. In this case, the IG will hopefully provide some guidance on which resources are most important. If not, for content-related use cases, `Profiles` are likely the best entry point to the computable content. For API-driven use cases, [CapabilityStatements](https://hl7.org/fhir/capabilitystatement.html) and [OperationDefinitions](https://hl7.org/fhir/operationdefinition.html) are logical starting points.
 
 The next few sections will provide an overview of common types of computable artifacts.
 
@@ -187,10 +187,10 @@ Additionally, if a resource instance follows the rules defined by a FHIR profile
 
 [^meta-profile]: Resource instances can actually specify which profiles they intend to conform to using the `meta.profile` metadata element. But instances may also unintentionally conform to _many_ profiles -- this is actually beneficial to interoperability as in some cases, a FHIR server's default response may already conform to a given profile if that profile is relatively unconstrained.
 
-**A note on FHIR jargon.** The FHIR spec defines a number of [resources](https://www.hl7.org/fhir/resourcelist.html), which are information models that are the building blocks of FHIR implementations. FHIR servers create an *instance* of a given resource (i.e., an instance of the Patient resource representing a specific patient). It is this _instance_ that may conform to a given FHIR profile, not the resource itself. But in casual conversation, you may hear that "resource X conforms to profile Y" -- this really means "*resource instance* X conforms to profile Y", but saying "resource instance" is cumbersome.<br><br>You may also here "resource" used to refer to the FHIR specification's definition of a resource: e.g., "`name` is an element of the Patient resource" refers to the `name` element in [the FHIR spec's definition of the Patient resource](https://www.hl7.org/fhir/patient.html).
+**A note on FHIR jargon.** The FHIR spec defines a number of [resources](https://www.hl7.org/fhir/resourcelist.html), which are information models that are the building blocks of FHIR implementations. FHIR servers create an *instance* of a given resource (i.e., an instance of the Patient resource representing a specific patient). It is this _instance_ that may conform to a given FHIR profile, not the resource itself. But in casual conversation, you may hear that "resource X conforms to profile Y" -- this really means "*resource instance* X conforms to profile Y", but saying "resource instance" is cumbersome.<br><br>You may also hear "resource" used to refer to the FHIR specification's definition of a resource: e.g., "`name` is an element of the Patient resource" refers to the `name` element in [the FHIR spec's definition of the Patient resource](https://www.hl7.org/fhir/patient.html).
 {: .alert.alert-info }
 
-Each profile has its own page in an IG build, and this is where you can find the conformance rules specified by that profile. [Here's an example of a profile page in an IG](https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html). The next part of the course will talk about how these pages are generated.
+Each profile has its own page in an IG build, and this is where you can find the conformance rules specified by that profile. [Here's an example of a profile page in an IG](https://hl7.org/fhir/us/mcode/STU2/StructureDefinition-mcode-cancer-patient.html). The next part of the course will talk about how these pages are generated.
 
 ----
 
@@ -216,13 +216,13 @@ Below is an annotated screenshot showing some of the key components of profiles 
 1. **Snapshot Table** shows _all_ the rules contained in the profile, including rules inherited from its parents.
 1. **Snapshot Table (Must Support)** is the subset of the elements on the previous tab with a `MustSupport` flag. This is described later.
 
-Typically the **differential** ("diff") table tab is the best place to start when trying to understand what a rules a profile is setting. Here's the diff table from [the example of profile](https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html#tabs-diff) linked above:
+Typically the **differential** ("diff") table tab is the best place to start when trying to understand what rules a profile is setting. Here's the diff table from [the example of a profile](https://hl7.org/fhir/us/mcode/STU2/StructureDefinition-mcode-cancer-patient.html#tabs-diff) linked above:
 
 ![Screenshot of diff table from the example profile](profile_diff.png){: .img-responsive }
 
 This shows that this profile adds two constrains: the addition of `MustSupport` flags for the root `Patient` element (indicating that the entire profile is `MustSupport` to implementers ), and `Patient.deceased[x]`. The meaning of `MustSupport` and the full set of possible element-level constraints are discussed in the [next part of the course](02-creating-an-ig.html).
 
-The **snapshot** table tab is typically the best way to see all elements that may/should/must be populated for an instance of a resource to conform. This table is too long in the example profile to reproduce as a screenshot, but you can [see it here](https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html#tabs-snap).
+The **snapshot** table tab is typically the best way to see all elements that may/should/must be populated for an instance of a resource to conform. This table is too long in the example profile to reproduce as a screenshot, but you can [see it here](https://hl7.org/fhir/us/mcode/STU2/StructureDefinition-mcode-cancer-patient.html#tabs-snap).
 
 The table tabs have a high amount of information density:
 
@@ -257,7 +257,7 @@ To see a practical application of the concepts discussed above, we will review p
 
     mCODE's home page also links to some other key concepts and resources specific to this IG, including the Data Dictionary, development history, credits, and author contact information.
 
-- **"Content by Group" pages**: [Section 1.2 of the home page](https://hl7.org/fhir/us/mcode/STU2/index.html#overview) links to the different groups of profiles and other artifacts in the IG. Not all IGs have this structure (and many IGs don't have as many artifacts as the mCODE IG, making this kind of structure is unnecessary).
+- **"Content by Group" pages**: [Section 1.2 of the home page](https://hl7.org/fhir/us/mcode/STU2/index.html#overview) links to the different groups of profiles and other artifacts in the IG. Not all IGs have this structure (and many IGs don't have as many artifacts as the mCODE IG, making this kind of structure unnecessary).
 
     Following the pattern described above of reading prominently linked narrative content before diving into the individual IG artifacts, consider reviewing these pages next after finishing the content on the home page.
 
@@ -265,16 +265,16 @@ To see a practical application of the concepts discussed above, we will review p
 
 - **Conformance pages**: These appear third in the navigation bar, and are custom-written narrative pages specifically for the mCODE IG, broken into four sections by topic.
 
-    Reviewing the details of these is beyond the scope of this course, and not all IGs include this much information on conformance. However, one common item that you should be looking for is how the IG [defines MustSupport](https://hl7.org/fhir/us/mcode/stu2/conformance-profiles.html#must-implement-versus-must-support), as this is a key conformance concept and is [not defined in the base FHIR specification, but is instead left to profile authors to define](https://www.hl7.org/fhir/profiling.html#mustsupport)
+    Reviewing the details of these is beyond the scope of this course, and not all IGs include this much information on conformance. However, one common item that you should be looking for is how the IG [defines MustSupport](https://hl7.org/fhir/us/mcode/stu2/conformance-profiles.html#must-implement-versus-must-support), as this is a key conformance concept and is [not defined in the base FHIR specification, but is instead left to profile authors to define](https://www.hl7.org/fhir/profiling.html#obligations)
 
 - **FHIR Artifacts**: The fourth item in the navigation bar lists the various types of FHIR artifacts. These are custom pages made specifically for mCODE (except for "Complete Listing"; this is described below).
 
     Note that you likely have come across all the key artifacts as these are _also_ listed at the bottom of each "Content by Group" page.
 
 - **Standard navigation pages**
-    Every IG has an `artifacts.html` page, so if you find the IG's approach to organizing artifacts in the narrative confusing, you can always open that page to see a comprehensive list of all artifacts. [Here's that page for mCODE (found at `FHIR Artifacts > Complete Listing` in the nav bar)](https://hl7.org/fhir/us/mcode/STU2/artifacts.html).
+    Every IG has an `artifacts.html` page, so if you find the IG's approach to organizing artifacts in the narrative confusing, you can always open that page to see a comprehensive list of all artifacts. Here's the [artifacts.html page for mCODE](https://hl7.org/fhir/us/mcode/STU2/artifacts.html) (found at `FHIR Artifacts > Complete Listing` in the nav bar).
 
-    IGs also have a table of contents page (`toc.html`) that you can use to see a full list of all the web pages in the IG. [Here's that page for mCODE](https://hl7.org/fhir/us/mcode/STU2/toc.html).
+    IGs also have a table of contents page (`toc.html`) that you can use to see a full list of all the web pages in the IG. Here's the [table of contents page for mCODE](https://hl7.org/fhir/us/mcode/STU2/toc.html).
 
 Now that we (hopefully) understand the overall purpose of the IG and the general conformance criteria, let's look in detail at one of the key profiles in the IG: [Primary Cancer Condition](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html).
 
@@ -289,7 +289,7 @@ Now that we (hopefully) understand the overall purpose of the IG and the general
     6. A required binding of `Condition.stage.type` to [Staging Type for Stage Group Value Set](https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-observation-codes-stage-group-vs.html).
 - The [Snapshot Table](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#tabs-snap) lists all the elements that may appear in a conforming instance of Condition.
 
-This information tells me as an implementer what sort of data and terminology I'll need to have available to create conforming instances of Condition.
+This information tells implementers what sort of data and terminology they'll need to have available to create conforming instances of Condition.
 
 This is the first pass of the process needed to understand each profile in the IG. Depending on the use case, other resources may also need to be reviewed in detail.
 
