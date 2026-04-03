@@ -5,6 +5,7 @@
     - [Architecture overview](http://hl7.org/fhir/overview-arch.html)
     - [IG best practices](https://build.fhir.org/ig/FHIR/ig-guidance/branches/master/best-practice.html) (note that this has not officially been published yet, but [the authors are some of the FHIR-I leaders](https://github.com/FHIR/ig-guidance/))
 - Intro to FHIR videos
-    - [45 minutes, from 2023](https://www.youtube.com/watch?v=6PkDXAEmkbE)
-    - [90 minutes, from 2020](https://www.youtube.com/watch?v=YbQcJj1GqH0)
+    - [45 minutes, from 2025](https://youtu.be/Dz3HOaf6e-0)
+    - [90 minutes, from 2020](https://youtu.be/YbQcJj1GqH0)
 - The FHIR Confluence site, e.g., [Guide to Designing Resources](https://confluence.hl7.org/display/FHIR/Guide+to+Designing+Resources), but there are many other pages that may be of interest
+- Search the archives or ask for help at [chat.fhir.org (a.k.a. Zulip)](https://chat.fhir.org/)

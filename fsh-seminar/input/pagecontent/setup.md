@@ -1,6 +1,6 @@
 ### FHIR Background
 
-- [35 minute FHIR introduction video](https://youtu.be/Dz3HOaf6e-0?si=939LncJI5OKdPS_J) -- please consider viewing before the course begins
+- [35 minute FHIR introduction video](https://youtu.be/Dz3HOaf6e-0) -- please consider viewing before the course begins
 
 ### Local environment
 
