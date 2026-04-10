@@ -20,4 +20,4 @@ Course authors include:
 - Max Masnick
 - May Terry
 
-Questions/comments: [chat.fhir.org](https://chat.fhir.org/#narrow/stream/322131-fsh-courses)
+Questions/comments: [chat.fhir.org](https://chat.fhir.org/#narrow/channel/215610-shorthand)

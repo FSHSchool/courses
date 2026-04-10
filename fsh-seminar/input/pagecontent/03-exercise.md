@@ -4,12 +4,12 @@ The goal of this hands-on exercise is to provide experience working with the con
 
 ### Premise
 
-As a FHIR implementation modeler, author a FHIR Implementation Guide (IG) based on [FHIR 4.0.1](http://hl7.org/fhir) for the fictitious use case scenario [described in Part 2](http://localhost:4321/fshschool-ig-authoring/02-creating-an-ig.html#how-do-you-create-an-ig%E2%8F%AF-video-versionto-view-this-v), and reproduced below for convenience:
+As a FHIR implementation modeler, author a FHIR Implementation Guide (IG) based on [FHIR 4.0.1](https://hl7.org/fhir/R4/index.html) for the fictitious use case scenario [described in Part 2](02-creating-an-ig.html#how-do-you-create-an-ig), and reproduced below for convenience:
 
 <div class="alert alert-success" role="alert" markdown="1">
 **Hypothetical problem:**
 
-> The Obstructive Sleep Apnea Association (OSAA - a fictitious clinical organization based in the U.S.) is looking to evaluate the impact of obesity as a risk > for Obstructive Sleep Apnea (OSA). OSAA needs a way to ensure the relevant clinical data are collected in a standard, interoperable format from participating member sites.
+> The Obstructive Sleep Apnea Association (OSAA - a fictitious clinical organization based in the U.S.) is looking to evaluate the impact of obesity as a risk for Obstructive Sleep Apnea (OSA). OSAA needs a way to ensure the relevant clinical data are collected in a standard, interoperable format from participating member sites.
 
 **Participants:**
 
@@ -45,7 +45,7 @@ The use case for this work is as follows:
 
 ### Tasks
 
-1. Add remaining FHIR profiles based on the [Resources Model from Part 2](02-creating-an-ig.html#mapping-high-level-information-model-to-fhir-resources), aligning with with [FHIR U.S. Core 3.2](http://hl7.org/fhir/us/core/2021Jan/) profiles where possible:
+1. Add remaining FHIR profiles based on the [Resources Model from Part 2](02-creating-an-ig.html#mapping-high-level-information-model-to-fhir-resources), aligning with with [FHIR US Core 6.1](https://hl7.org/fhir/us/core/STU6.1/) profiles where possible:
     1. Practitioner profile (`OSAPractitioner`) ([solution](02-creating-an-ig.html#profile-practitioner))
     2. OSA Condition profile (`OSACondition`) ([solution](02-creating-an-ig.html#profile-condition))
 2. Create an example of `OSAPractitioner` (solution at bottom of [this section of Part 2](02-creating-an-ig.html#creating-examples))
@@ -53,7 +53,7 @@ The use case for this work is as follows:
 
     > Were there any FHIR limitations in what is needed to create a representative model that addresses this use case? If yes, what were they and what changes or workarounds would you propose?
 
-4. Successfully build your IG locally with `_genonce` and attempt to resolve any errors on the `output/qa.html` page.
+4. Successfully build your IG locally with `_build` and attempt to resolve any errors on the `output/qa.html` page. _NOTE: You may also see some warning, but just focus on resolving the errors for now._
 
 
 ### Additional notes
@@ -64,11 +64,12 @@ The use case for this work is as follows:
 
 ### Helpful tips, tools, and references
 
-- Check the QA report (`output/qa.html`) as you build the IG with `_genonce` to identify any FHIR validation issues that aren't caught by SUSHI.
-- If you just want to quickly test how to represent and validate a contained construct in FSH without having to run the IG publisher, try it using [FSHOnline](https://fshschool.org/FSHOnline/#/)
+- Check the QA report (`output/qa.html`) as you build the IG with `_build` to identify any FHIR validation issues that aren't caught by SUSHI.
+- If you just want to quickly test how to represent and validate a contained construct in FSH without having to run the IG publisher, try it using [FSHOnline](https://fshschool.org/FSHOnline/#/).
+    - If your FSH references US Core profiles or extensions, you'll need to add `hl7.fhir.us.core#6.1.0` as a dependency in the FSH Online configuration.
 - Want to see more FSH examples? Go to [FSHOnline](https://fshschool.org/FSHOnline/#/) and click on the "FSH Examples".
 - Want to see how another IG's StructureDefinitions in JSON could be represented in FSH? Also try it using [FSHOnline](https://fshschool.org/FSHOnline/#/). Cut and paste your JSON into the right column and click on _Convert to FSH_ to see the syntax.
-- Try using some of the nice perks in the [vscode-language-fsh](https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh) extension to help navigate references between your authored FHIR constructs (profiles, value sets, extensions, etc.)
+- Try using some of the nice perks in the [vscode-fsh](https://marketplace.visualstudio.com/items?itemName=FHIR-Shorthand.vscode-fsh) extension to help navigate references between your authored FHIR constructs (profiles, value sets, extensions, etc.)
 - Other neat VSCode extensions to help create a more authoring-friendly VSCode environment:
     - [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) - provides a basic dynamic rendering of your markdown page while you type (but note that embedded images won't be rendered in the preview due to the directory structure).
     - [Draw.io integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) - integrates Draw.io/diagrams.net into VSCode so that you can create nice diagrams directly inside your IG authoring environment
@@ -94,7 +95,7 @@ In addition to the elements of the solution embedded in Part 2, the full solutio
 | `OSAPractitioner`  | `Practitioner.identifier.type`           | Practitioner NPI                    | Fix identifier type = NPI                                   |
 | `OSACondition`     | `Condition.code`                         | OSA diagnosis code                  | Fix to `OSADiagnosisVS` containing provided ICD-10-CM codes |
 | `OSACondition`     | `Condition.extension[AgeAtOSADiagnosis]` | OSA onset date                      |                                                             |
-| `OSACondition`     | `Condition.asserter`                     | managing provider who diagnosed OSA |                                                             |
+| `OSACondition`     | `Condition.asserter`                     | Managing provider who diagnosed OSA |                                                             |
 | `OSABodyMassIndex` | `Observation.code`                       | Body Mass Index (BMI)               | Fix code to `39156-5 "Body mass index (BMI)"`               |
 | `OSABodyMassIndex` | `Observation.effectiveDateTime`          | Body Mass Index (BMI)               |                                                             |
 | `OSABodyMassIndex` | `Observation.valueQuantity`              | BMI measurement                     | BMI Measurement                                             |

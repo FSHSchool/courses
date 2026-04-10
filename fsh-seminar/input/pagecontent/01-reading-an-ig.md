@@ -24,13 +24,13 @@ FHIR Implementation Guides (IGs) fill in these gaps in different ways depending 
 
     Describes how to represent a clinical or business concept, without defining an API for exchanging these data.
 
-    Example: [International Patient Summary](https://hl7.org/fhir/uv/ips/), [mCODE](https://github.com/HL7/fhir-mCODE-ig)
+    Example: [International Patient Summary](https://hl7.org/fhir/uv/ips/), [mCODE](https://hl7.org/fhir/us/mcode/)
 
 3. **Community of Implementation**
 
     An agreement on how data are exchanged by a group of actors (i.e., contains an API).
 
-    Example: [mCODE](https://github.com/HL7/fhir-mCODE-ig), [US Core](https://www.hl7.org/fhir/us/core/)
+    Example: [DaVinci Clinical Data Exchange (CDex)](https://hl7.org/fhir/us/davinci-cdex/), [US Core](https://www.hl7.org/fhir/us/core/)
 
 4. **Product IGs**
 
@@ -90,7 +90,7 @@ Narrative conformance criteria typically use [RFC 2119](https://datatracker.ietf
 
     For example, if you are interested in gaining a general understanding of an IG, you may want to review all the computable content superficially (which can be done by clicking each link on the `artifacts.html` page of the IG).
 
-    Alternatively, you may be interested in an implementation for a specific actor or use case. In this case, the IG will hopefully provide some guidance on which resources are most important. If not, for content-related use cases, `Profiles` are likely the best entry point to the computable content. For API-driven use cases, `CapabilityStatements` are a logical starting point.
+    Alternatively, you may be interested in an implementation for a specific actor or use case. In this case, the IG will hopefully provide some guidance on which resources are most important. If not, for content-related use cases, `Profiles` are likely the best entry point to the computable content. For API-driven use cases, [CapabilityStatements](https://hl7.org/fhir/capabilitystatement.html) and [OperationDefinitions](https://hl7.org/fhir/operationdefinition.html) are logical starting points.
 
 The next few sections will provide an overview of common types of computable artifacts.
 
@@ -187,10 +187,10 @@ Additionally, if a resource instance follows the rules defined by a FHIR profile
 
 [^meta-profile]: Resource instances can actually specify which profiles they intend to conform to using the `meta.profile` metadata element. But instances may also unintentionally conform to _many_ profiles -- this is actually beneficial to interoperability as in some cases, a FHIR server's default response may already conform to a given profile if that profile is relatively unconstrained.
 
-**A note on FHIR jargon.** The FHIR spec defines a number of [resources](https://www.hl7.org/fhir/resourcelist.html), which are information models that are the building blocks of FHIR implementations. FHIR servers create an *instance* of a given resource (i.e., an instance of the Patient resource representing a specific patient). It is this _instance_ that may conform to a given FHIR profile, not the resource itself. But in casual conversation, you may hear that "resource X conforms to profile Y" -- this really means "*resource instance* X conforms to profile Y", but saying "resource instance" is cumbersome.<br><br>You may also here "resource" used to refer to the FHIR specification's definition of a resource: e.g., "`name` is an element of the Patient resource" refers to the `name` element in [the FHIR spec's definition of the Patient resource](https://www.hl7.org/fhir/patient.html).
+**A note on FHIR jargon.** The FHIR spec defines a number of [resources](https://www.hl7.org/fhir/resourcelist.html), which are information models that are the building blocks of FHIR implementations. FHIR servers create an *instance* of a given resource (i.e., an instance of the Patient resource representing a specific patient). It is this _instance_ that may conform to a given FHIR profile, not the resource itself. But in casual conversation, you may hear that "resource X conforms to profile Y" -- this really means "*resource instance* X conforms to profile Y", but saying "resource instance" is cumbersome.<br><br>You may also hear "resource" used to refer to the FHIR specification's definition of a resource: e.g., "`name` is an element of the Patient resource" refers to the `name` element in [the FHIR spec's definition of the Patient resource](https://www.hl7.org/fhir/patient.html).
 {: .alert.alert-info }
 
-Each profile has its own page in an IG build, and this is where you can find the conformance rules specified by that profile. [Here's an example of a profile page in an IG](https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html). The next part of the course will talk about how these pages are generated.
+Each profile has its own page in an IG build, and this is where you can find the conformance rules specified by that profile. [Here's an example of a profile page in an IG](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-cancer-patient.html). The next part of the course will talk about how these pages are generated.
 
 ----
 
@@ -200,29 +200,34 @@ Below is an annotated screenshot showing some of the key components of profiles 
 
 1. The **Content** tab is the entry point to the profile, and contains the majority of the key information you'll need to understand the profile.
 2. The **Detailed Descriptions** tab lists all the information for each element in the resource being profiled.
-3. The **Examples** tab lists example instances provided by the authors that conform to the profile.
-4. The **XML**, **JSON**, and (optionally) **TTL** tabs show the computable version of the profile in the respective format. (TTL stands for [Turtle format](https://www.w3.org/TR/turtle/), which is not widely used.)
-5. The **yellow box** at the top of the page indicates which version of the IG you are viewing. This is important so you can tell if you are on the most up-to-date published version of an IG -- sometimes Google searches or other links will land you on an old version.
-6. This section contains **profile metadata** including the defining URL, computable `Name`, human-readable `Title`, and the narrative `Definition`.
-7. Under the profile metadata is the **narrative** portion of the profile.
-8. Finally, the **formal views of profile content** appears at the bottom of the page. This is the human-readable version of the computable version of the profile. We will discuss this in detail below.
+3. The **Mappings** tab shows how elements of the profile map to other domain models and patterns.
+4. The **Examples** tab lists example instances provided by the authors that conform to the profile.
+5. The **XML**, **JSON**, and (optionally) **TTL** tabs show the computable version of the profile in the respective format. (TTL stands for [Turtle format](https://www.w3.org/TR/turtle/), which is not widely used.)
+6. The **yellow box** at the top of the page indicates which version of the IG you are viewing. This is important so you can tell if you are on the most up-to-date published version of an IG -- sometimes Google searches or other links will land you on an old version.
+7. This section contains **profile metadata** including the human-readable title, official URL, version, status, maturity level, computable name, other identifiers, and the narrative description.
+8. Under the profile metadata is the **narrative** portion of the profile.
+9. Beneath the narrative is generated information about the profile and its use throughout the IG.
+10. Finally, the **formal views of profile content** appears at the bottom of the page. This is the human-readable version of the computable version of the profile. We will discuss this in detail below.
 
 ----
 
-#### Formal View of Profile Content Tabs
+#### Formal Views of Profile Content Tabs
 
-1. **Text Summary** provides a brief auto-generated narrative description of the profile.
+The formal views of profile content table contains tabs corresponding to the following :
+
+1. **Key Elements Table** shows the _subset_ of rules that must be considered by anyone implementing the profile. The [model 'views'](https://build.fhir.org/ig/FHIR/ig-guidance/readingIgs.html#model-views) documentation describes the approach for identifying the "key elements" of a profile.
 1. **Differential Table** shows _only_ the rules added by this specific profile. In other words, it compares the Profile you are viewing to its parent (either a base FHIR resource or another profile).
 1. **Snapshot Table** shows _all_ the rules contained in the profile, including rules inherited from its parents.
-1. **Snapshot Table (Must Support)** is the subset of the elements on the previous tab with a `MustSupport` flag. This is described later.
+1. **Statistics/Reference** provides a summary of generated profile statistics, such as the number of must-support elements.
+1. **All** lists the content of the other four views in a single tab.
 
-Typically the **differential** ("diff") table tab is the best place to start when trying to understand what a rules a profile is setting. Here's the diff table from [the example of profile](https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html#tabs-diff) linked above:
+Typically the **differential** ("diff") table tab is the best place to start when trying to understand what rules a profile is setting. Here's the diff table from [the example of a profile](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-cancer-patient.html#tabs-diff) linked above:
 
 ![Screenshot of diff table from the example profile](profile_diff.png){: .img-responsive }
 
-This shows that this profile adds two constrains: the addition of `MustSupport` flags for the root `Patient` element (indicating that the entire profile is `MustSupport` to implementers ), and `Patient.deceased[x]`. The meaning of `MustSupport` and the full set of possible element-level constraints are discussed in the [next part of the course](02-creating-an-ig.html).
+This shows that this profile adds two constrains: the addition of `MustSupport` flags for the root `Patient` element (indicating that the entire profile is `MustSupport` to implementers ), `Patient.extension:birthsex`, and `Patient.deceased[x]`. The meaning of `MustSupport` and the full set of possible element-level constraints are discussed in the [next part of the course](02-creating-an-ig.html).
 
-The **snapshot** table tab is typically the best way to see all elements that may/should/must be populated for an instance of a resource to conform. This table is too long in the example profile to reproduce as a screenshot, but you can [see it here](https://hl7.org/fhir/us/mcode/StructureDefinition-mcode-cancer-patient.html#tabs-snap).
+The **snapshot** table tab is typically the best way to see all elements that may/should/must be populated for an instance of a resource to conform. This table is too long in the example profile to reproduce as a screenshot, but you can [see it here](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-cancer-patient.html#tabs-snap).
 
 The table tabs have a high amount of information density:
 
@@ -245,51 +250,53 @@ There are _many_ more artifacts that can be defined by IGs. These will be enumer
 
 <h3>Reviewing an Example IG</h3>
 
-To see a practical application of the concepts discussed above, we will review portions of the [minimal Common Oncology Data Elements (mCODE) Implementation Guide](http://hl7.org/fhir/us/mcode/STU2/) (specifically the STU2 version), which is primarily a Domain of Knowledge IG but also has some Community of Implementation content:[^mcode-versions]
+To see a practical application of the concepts discussed above, we will review portions of the [minimal Common Oncology Data Elements (mCODE) Implementation Guide](https://hl7.org/fhir/us/mcode/STU4/) (specifically the STU4 version), which is primarily a Domain of Knowledge IG but also has some Community of Implementation content:[^mcode-versions]
 
 [^mcode-versions]: STU refers to Standard for Trial Use, which is a [HL7 ballot level](https://confluence.hl7.org/display/HL7/HL7+Balloting) indicating the maturity of the implementation guide. This is the most recent balloted version of mCODE as of writing. More information about the HL7 ballot process [can be found here](https://confluence.hl7.org/display/HL7/Jira+Ballot+Process).
 
-- **[Home page](http://hl7.org/fhir/us/mcode/STU2/index.html)**: This is the entry point to the IG, and typically describes the background, scope, and general structure of the IG. Ideally the home page of an IG should be the single point of entry for all key content: by following links in the navigation bar or in the narrative of the home page, all the key IG content should be easily accessible.
+- **[Home page](https://hl7.org/fhir/us/mcode/STU4/index.html)**: This is the entry point to the IG, and typically describes the background, scope, and general structure of the IG. Ideally the home page of an IG should be the single point of entry for all key content: by following links in the navigation bar or in the narrative of the home page, all the key IG content should be easily accessible.
 
     The IG home page should also help guide the reader through the key content within the IG. Some IGs do a better job of this than others, and if the authors' intent is not clear for a given IG you can fall back onto some standard navigation pages (discussed below).
 
-    The key information on the mCODE home page is related to the Content by Group pages (see next bullet point), and the diagram showing the structure of mCODE STU2.
+    The key information on the mCODE home page is related to the Content by Group pages (see next bullet point), and the diagram showing the structure of mCODE STU4.
 
     mCODE's home page also links to some other key concepts and resources specific to this IG, including the Data Dictionary, development history, credits, and author contact information.
 
-- **"Content by Group" pages**: [Section 1.2 of the home page](https://hl7.org/fhir/us/mcode/STU2/index.html#overview) links to the different groups of profiles and other artifacts in the IG. Not all IGs have this structure (and many IGs don't have as many artifacts as the mCODE IG, making this kind of structure is unnecessary).
+- **"Content by Group" pages**: [Section 1.2 of the home page](https://hl7.org/fhir/us/mcode/STU4/index.html#overview) links to the different groups of profiles and other artifacts in the IG. Not all IGs have this structure (and many IGs don't have as many artifacts as the mCODE IG, making this kind of structure unnecessary).
 
     Following the pattern described above of reading prominently linked narrative content before diving into the individual IG artifacts, consider reviewing these pages next after finishing the content on the home page.
 
     Note that the Content by Group Pages are also linked second in the navigation bar, another indication of their level of importance.
 
-- **Conformance pages**: These appear third in the navigation bar, and are custom-written narrative pages specifically for the mCODE IG, broken into four sections by topic.
+- **Conformance pages**: These appear third in the navigation bar, and are custom-written narrative pages specifically for the mCODE IG, broken into five sections by topic.
 
-    Reviewing the details of these is beyond the scope of this course, and not all IGs include this much information on conformance. However, one common item that you should be looking for is how the IG [defines MustSupport](https://hl7.org/fhir/us/mcode/stu2/conformance-profiles.html#must-implement-versus-must-support), as this is a key conformance concept and is [not defined in the base FHIR specification, but is instead left to profile authors to define](https://www.hl7.org/fhir/profiling.html#mustsupport)
+    Reviewing the details of these is beyond the scope of this course, and not all IGs include this much information on conformance. However, one common item that you should be looking for is how the IG [defines MustSupport](https://hl7.org/fhir/us/mcode/STU4/conformance-profiles.html#must-implement-versus-must-support), as this is a key conformance concept and is [not defined in the base FHIR specification, but is instead left to profile authors to define](https://www.hl7.org/fhir/profiling.html#obligations)
 
 - **FHIR Artifacts**: The fourth item in the navigation bar lists the various types of FHIR artifacts. These are custom pages made specifically for mCODE (except for "Complete Listing"; this is described below).
 
     Note that you likely have come across all the key artifacts as these are _also_ listed at the bottom of each "Content by Group" page.
 
 - **Standard navigation pages**
-    Every IG has an `artifacts.html` page, so if you find the IG's approach to organizing artifacts in the narrative confusing, you can always open that page to see a comprehensive list of all artifacts. [Here's that page for mCODE (found at `FHIR Artifacts > Complete Listing` in the nav bar)](https://hl7.org/fhir/us/mcode/STU2/artifacts.html).
+    Every IG has an `artifacts.html` page, so if you find the IG's approach to organizing artifacts in the narrative confusing, you can always open that page to see a comprehensive list of all artifacts. Here's the [artifacts.html page for mCODE](https://hl7.org/fhir/us/mcode/STU4/artifacts.html) (found at `FHIR Artifacts > Complete Listing` in the nav bar).
 
-    IGs also have a table of contents page (`toc.html`) that you can use to see a full list of all the web pages in the IG. [Here's that page for mCODE](https://hl7.org/fhir/us/mcode/STU2/toc.html).
+    IGs also have a table of contents page (`toc.html`) that you can use to see a full list of all the web pages in the IG. Here's the [table of contents page for mCODE](https://hl7.org/fhir/us/mcode/STU4/toc.html).
 
-Now that we (hopefully) understand the overall purpose of the IG and the general conformance criteria, let's look in detail at one of the key profiles in the IG: [Primary Cancer Condition](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html).
+Now that we (hopefully) understand the overall purpose of the IG and the general conformance criteria, let's look in detail at one of the key profiles in the IG: [Primary Cancer Condition](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition.html).
 
-- The [**Usage** and **Conformance** sections](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#usage) are additional narrative specific for this profile.
-- We see in the Text Summary tab that the profile is based on [USCoreCondition](http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-condition.html).
-- The [Differential Table](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#tabs-diff) shows the addition of a number of constraints:
-    1. MustSupport extensions: `Condition.extension:assertedDate` and `Condition.extension:histologyMorphologyBehavior`. Clicking the names in the diff table brings you to the [detailed definitions](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition-definitions.html#Condition.extension:assertedDate), which provide additional information on these extensions. You may notice these are [slices](https://www.hl7.org/fhir/profiling.html#slicing) of `Condition.extension`, which is a topic we'll cover later in the course.
-    2. An extensible value set binding of `Condition.code` to the [Primary Cancer Disorder Value Set](https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-primary-cancer-disorder-vs.html). Clicking on [`extensible`](http://hl7.org/fhir/R4/terminologies.html#extensible) in the diff table gives you more information about what this binding strength means.
-    3. A required binding of `Condition.bodySite` to [Body Location Qualifier Value Set](https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-body-location-qualifier-vs.html), and a MustSupport flag for this element.
-    4. Two MustSupport extensions to `Condition.bodySite`: [`Condition.bodySite.extension:locationQualifier`](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition-definitions.html#Condition.bodySite.extension:locationQualifier) and [`Condition.bodySite.extension:lateralityQualifier`](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition-definitions.html#Condition.bodySite.extension:lateralityQualifier).
-    5. Constrained `Condition.stage.assessment` to refer to an Observation conforming to [Cancer Stage Group Profile](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-cancer-stage-group.html), and added MustSupport flags to this element and its parent.
-    6. A required binding of `Condition.stage.type` to [Staging Type for Stage Group Value Set](https://hl7.org/fhir/us/mcode/stu2/ValueSet-mcode-observation-codes-stage-group-vs.html).
-- The [Snapshot Table](https://hl7.org/fhir/us/mcode/stu2/StructureDefinition-mcode-primary-cancer-condition.html#tabs-snap) lists all the elements that may appear in a conforming instance of Condition.
+- The [**Usage** and **Conformance** sections](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition.html#usage) are additional narrative specific for this profile.
+- We see in the [Statistics/References](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition.html#tabs-summ) tab that the profile is derived from [USCoreConditionProblemsHealthConcernsProfile](http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-condition-problems-health-concerns.html).
+- The [Differential Table](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition.html#tabs-diff) shows the addition of a number of constraints:
+    1. MustSupport extension: `Condition.extension:histologyMorphologyBehavior`. Clicking the name in the diff table brings you to the [detailed definition](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition-definitions.html#key_Condition.extension:histologyMorphologyBehavior), which provides additional information on this extension. You may notice that this is a [slice](https://www.hl7.org/fhir/profiling.html#slicing) of `Condition.extension`, which is a topic we'll cover later in the course.
+    2. An extensible value set binding of `Condition.code` to the [Primary Cancer Disorder Value Set](https://hl7.org/fhir/us/mcode/STU4/ValueSet-mcode-primary-cancer-disorder-vs.html). Clicking on [`extensible`](http://hl7.org/fhir/R4/terminologies.html#extensible) in the diff table gives you more information about what this binding strength means.
+    3. A required binding of `Condition.bodySite` to [Cancer Body Location Value Set](https://hl7.org/fhir/us/mcode/STU4/ValueSet-mcode-cancer-body-location-vs.html), and a MustSupport flag for this element.
+    4. Two MustSupport extensions to `Condition.bodySite`: [`Condition.bodySite.extension:locationQualifier`](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition-definitions.html#key_Condition.bodySite.extension:locationQualifier) and [`Condition.bodySite.extension:lateralityQualifier`](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition-definitions.html#key_Condition.bodySite.extension:lateralityQualifier).
+    5. New short and detailed descriptions for [Condition.stage.summary](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition-definitions.html#key_Condition.stage.summary) to provide specific guidance regarding cancer staging.
+    6. Constrained `Condition.stage.assessment` to refer to an Observation conforming to [Cancer Stage Profile](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-cancer-stage.html), and added MustSupport flags to this element and its parent.
+    7. A required binding of `Condition.stage.type` to [Cancer Staging Method Value Set](https://hl7.org/fhir/us/mcode/STU4/ValueSet-mcode-cancer-staging-method-vs.html).
+    8. A required binding of `Condition.evidence.code` to [Cancer Disease Status Evidence Type Value Set](https://hl7.org/fhir/us/mcode/STU4/ValueSet-mcode-cancer-disease-status-evidence-type-vs.html).
+- The [Snapshot Table](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-primary-cancer-condition.html#tabs-snap) lists all the elements that may appear in a conforming instance of Condition.
 
-This information tells me as an implementer what sort of data and terminology I'll need to have available to create conforming instances of Condition.
+This information tells implementers what sort of data and terminology they'll need to have available to create conforming instances of Condition.
 
 This is the first pass of the process needed to understand each profile in the IG. Depending on the use case, other resources may also need to be reviewed in detail.
 
