@@ -62,7 +62,7 @@ We recommend completing the course materials over two days as described below.
                 <li>What's the purpose of an IG?</li>
                 <li>What are the common components of an IG?</li>
                 <li>How to approach reading an unfamiliar IG</li>
-                <li>Review of the <a href="http://hl7.org/fhir/us/mcode/STU2/">minimal Common Oncology Data Elements (mCODE)</a> IG</li>
+                <li>Review of the <a href="https://hl7.org/fhir/us/mcode/STU4/">minimal Common Oncology Data Elements (mCODE)</a> IG</li>
             </ol>
         </td>
         <td>~1 hour</td>

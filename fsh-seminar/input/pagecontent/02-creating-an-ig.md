@@ -59,14 +59,14 @@ This very website is built using the FHIR IG workflow and tools, including `publ
 
 Under the hood, computable rules in FHIR are defined by a set of [conformance-specific FHIR resources](https://www.hl7.org/fhir/resourcelist.html). The FHIR spec not only defines resources for representing health data (like the [Patient](http://hl7.org/fhir/patient.html) resource from [Part 1](01-reading-an-ig.html)), but also defines resources for many other uses including conformance.
 
-[StructureDefinition](https://www.hl7.org/fhir/structuredefinition.html) is one of FHIR's conformance resources, which is how FHIR profiles are defined. An [example of a `StructureDefinition` from the mCODE IG](https://hl7.org/fhir/us/mcode/STU2/StructureDefinition-mcode-cancer-patient.html) is abbreviated below:
+[StructureDefinition](https://www.hl7.org/fhir/structuredefinition.html) is one of FHIR's conformance resources, which is how FHIR profiles are defined. An [example of a `StructureDefinition` from the mCODE IG](https://hl7.org/fhir/us/mcode/STU4/StructureDefinition-mcode-cancer-patient.html) is abbreviated below:
 
 ```json
 {
   "resourceType": "StructureDefinition",
   "id": "mcode-cancer-patient",
   "url": "http://hl7.org/fhir/us/mcode/StructureDefinition/mcode-cancer-patient",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "name": "CancerPatient",
   "title": "Cancer Patient Profile",
   "status": "active",
@@ -82,6 +82,12 @@ Under the hood, computable rules in FHIR are defined by a set of [conformance-sp
       {
         "id": "Patient",
         "path": "Patient",
+        "mustSupport": true
+      },
+      {
+        "id": "Patient.extension:birthsex",
+        "path": "Patient.extension",
+        "sliceName": "birthsex",
         "mustSupport": true
       },
       {
@@ -105,6 +111,7 @@ Id: mcode-cancer-patient
 Title: "Cancer Patient Profile"
 Description: "A patient who has..."
 * . MS
+* extension[birthsex] MS
 * deceased[x] MS
 ```
 
